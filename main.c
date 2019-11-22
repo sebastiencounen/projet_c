@@ -9,7 +9,7 @@ typedef struct Patient Patient;
 
 struct Medecin
 {
-    int numInami;
+    long numInami;
     char nom[NAME_SIZE], prenom[NAME_SIZE], dateN[9];
     Medecin *next;
 };
@@ -38,7 +38,7 @@ int main()
     firstM = malloc(sizeof(Medecin));
     currentM = firstM;
 
-    fscanf(fdatMed, "%11d", &currentM->numInami);
+    fscanf(fdatMed, "%ld", &currentM->numInami);
     while(!feof(fdatMed))
     {
         fscanf(fdatMed, "%30s %30s %8s",
@@ -52,7 +52,7 @@ int main()
 
         cpM++;
 
-        fscanf(fdatMed, "%11d", &currentM->numInami);
+        fscanf(fdatMed, "%ld", &currentM->numInami);
     }
 
     lastM->next = NULL;
@@ -66,7 +66,7 @@ int main()
     fscanf(fdatPat, "%15s", &currentP->regNat);
     while(!feof(fdatPat))
     {
-        fscanf("%30s %30s %8s %13s",
+        fscanf(fdatPat, "%30s %30s %14s %8s",
                &currentP->nom, &currentP->nom, &currentP->numTel, &currentP->dateN);
         lastP = currentP;
 
@@ -91,14 +91,14 @@ int main()
     currentM = firstM;
     while(currentM != NULL)
     {
-        printf("Médecin %d --> %11d %-30s %-30s %-8s\n",
+        printf("Médecin %d --> %ld %-30s %-30s %-8s\n",
                n, currentM->numInami, currentM->nom, currentM->prenom, currentM->dateN);
         n++;
         currentM = currentM->next;
     }
 
     // Affichage liste de patients
-    printf("\nListe des médecins\n"
+    printf("\nListe des patients\n"
            "******************\n");
     n = 1;
     currentP= firstP;
