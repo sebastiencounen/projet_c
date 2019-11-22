@@ -32,6 +32,7 @@ int main()
     Patient *firstP, *currentP, *nextP, *lastP;
 
     int cpM = 0, cpP = 0;
+    int n = 1;
 
     // Lecture Medecins
     firstM = malloc(sizeof(Medecin));
@@ -83,9 +84,31 @@ int main()
     cpP--;
     free(nextP);
 
-    // MENU
-    printf("GESTION CABINET\n"
-           "***************\n"
-           "1. ");
+    // Affichage de la liste médecins
+    printf("Liste des médecins\n"
+           "******************\n");
+    n = 1;
+    currentM = firstM;
+    while(currentM != NULL)
+    {
+        printf("Médecin %d --> %11d %-30s %-30s %-8s\n",
+               n, currentM->numInami, currentM->nom, currentM->prenom, currentM->dateN);
+        n++;
+        currentM = currentM->next;
+    }
+
+    // Affichage liste de patients
+    printf("\nListe des médecins\n"
+           "******************\n");
+    n = 1;
+    currentP= firstP;
+    while(currentP != NULL)
+    {
+        printf("Patient %d --> %-15s %-30s %-30s %-14s %-8s\n",
+               n, currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN);
+        n++;
+        currentP = currentP->next;
+    }
+
     return 0;
 }
