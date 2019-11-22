@@ -58,6 +58,31 @@ int main()
     cpM--;
     free(nextM);
 
+    // Lecture patients
+    firstP = malloc(sizeof(Patient));
+    currentP = firstP;
+
+    fscanf(fdatPat, "%15s", &currentP->regNat);
+    while(!feof(fdatPat))
+    {
+        fscanf("%30s %30s %8s %13s",
+               &currentP->nom, &currentP->nom, &currentP->numTel, &currentP->dateN);
+        lastP = currentP;
+
+        nextP = malloc(sizeof(Patient));
+        currentP->next = nextP;
+
+        currentP = nextP;
+
+        cpP++;
+
+        fscanf(fdatPat, "%15s", &currentP->regNat);
+    }
+
+    lastP->next = NULL;
+    cpP--;
+    free(nextP);
+
     // MENU
     printf("GESTION CABINET\n"
            "***************\n"
