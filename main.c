@@ -96,5 +96,39 @@ int main()
         currentP = currentP->next;
     }
 
+    // Menu interactif
+    while(1)
+    {
+        switch(menu())
+        {
+        case 1:
+            afficherListeMed(firstM);
+            break;
+
+        case 2:
+            afficherListePat(firstP);
+            break;
+
+        case 3:
+            ajouterMed(lastM);
+            break;
+        
+        case 4:
+            ajouterPat(lastP);
+            break;
+
+        case 5:
+            supprimerMed(firstM);
+            break;
+
+        case 6:
+            supprimerPat(firstP);
+            break;
+
+        case 7:
+            return;
+        }
+    }
+
     return 0;
 }

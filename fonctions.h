@@ -31,4 +31,7 @@ void supprimerPat(Patient *);
 void rechercherMed(Medecin *);
 void rechercherPat(Patient *);
 
+int menu();
+void majuscule(char *);
+
 #endif
