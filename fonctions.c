@@ -23,7 +23,18 @@ void afficherListeMed(Medecin *first)
 
 void afficherListePat(Patient *first)
 {
-    // TODO
+    int n = 1;
+    Patient *current;
+
+    current = first;
+    while(current != NULL)
+    {
+        printf("Patient %d --> %-15s %-30s %-30s %-14s %-8s\n",
+               n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN);
+        
+        n++;
+        current = current->next;
+    }
 }
 
 void ajouterMed(Medecin *last)
