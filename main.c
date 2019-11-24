@@ -2,23 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "fonctions.h"
+
 #define NAME_SIZE 30
-
-typedef struct Medecin Medecin;
-typedef struct Patient Patient;
-
-struct Medecin
-{
-    long numInami;
-    char nom[NAME_SIZE], prenom[NAME_SIZE], dateN[9];
-    Medecin *next;
-};
-
-struct Patient
-{
-    char regNat[16], nom[NAME_SIZE], prenom[NAME_SIZE], numTel[14], dateN[9];
-    Patient *next;
-};
 
 int main()
 {
