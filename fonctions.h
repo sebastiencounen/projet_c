@@ -2,7 +2,6 @@
 #define FONCTIONS_H_INCLUDED
 
 // Structures
-
 typedef struct Medecin Medecin;
 typedef struct Patient Patient;
 

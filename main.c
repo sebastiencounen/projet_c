@@ -53,7 +53,7 @@ int main()
     while(!feof(fdatPat))
     {
         fscanf(fdatPat, "%30s %30s %14s %8s",
-               &currentP->nom, &currentP->nom, &currentP->numTel, &currentP->dateN);
+               &currentP->nom, &currentP->prenom, &currentP->numTel, &currentP->dateN);
         lastP = currentP;
 
         nextP = malloc(sizeof(Patient));
