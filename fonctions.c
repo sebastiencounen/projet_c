@@ -79,7 +79,40 @@ void ajouterMed(Medecin **last)
 
 void ajouterPat(Patient **last)
 {
-    // TODO
+    FILE *file;
+    file = fopen("patients.dat", "a");
+
+    Patient *new;
+    new = malloc(sizeof(Patient));
+
+    (*last)->next = new;
+    new->next = NULL;
+
+    printf("Numéro de registre national : ");
+    scanf("%15s", &new->regNat);
+
+    printf("\nNom : ");
+    scanf("%30s", &new->nom);
+    majuscule(&new->nom);
+
+    printf("\nPrenom : ");
+    scanf("%30s", &new->prenom);
+    majuscule(&new->prenom);
+
+    printf("\nNuméro de téléphone : ");
+    scanf("%13s", &new->numTel);
+
+    printf("\nDate de naissance (JJ/MM/AA) : ");
+    scanf("%8s", &new->dateN);
+
+    printf("\n");
+
+    *last = new;
+
+    fprintf(file, "%-15s %-30s %-30s %-13s  %-8s\n",
+            new->regNat, new->nom, new->prenom, new->numTel, new->dateN);
+
+    fclose(file);
 }
 
 void supprimerMed(Medecin *first)

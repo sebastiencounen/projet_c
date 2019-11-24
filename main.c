@@ -70,32 +70,6 @@ int main()
     cpP--;
     free(nextP);
 
-    // // Affichage de la liste médecins
-    // printf("Liste des médecins\n"
-    //        "******************\n");
-    // n = 1;
-    // currentM = firstM;
-    // while(currentM != NULL)
-    // {
-    //     printf("Médecin %d --> %ld %-30s %-30s %-8s\n",
-    //            n, currentM->numInami, currentM->nom, currentM->prenom, currentM->dateN);
-    //     n++;
-    //     currentM = currentM->next;
-    // }
-
-    // // Affichage liste de patients
-    // printf("\nListe des patients\n"
-    //        "******************\n");
-    // n = 1;
-    // currentP= firstP;
-    // while(currentP != NULL)
-    // {
-    //     printf("Patient %d --> %-15s %-30s %-30s %-14s %-8s\n",
-    //            n, currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN);
-    //     n++;
-    //     currentP = currentP->next;
-    // }
-
     // Menu interactif
     while(1)
     {
@@ -116,7 +90,7 @@ int main()
             break;
         
         case 4:
-            ajouterPat(lastP);
+            ajouterPat(&lastP);
             break;
 
         case 5:
