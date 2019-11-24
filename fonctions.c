@@ -141,15 +141,10 @@ void rechercherMed(Medecin *first)
     
     printf("\n");
 
-    //
-    printf("%-30s %-30s\n", nom, prenom);
-
     // On recherche dans la liste
     current = first;
     while(current != NULL)
     {
-        printf("%x     %x\n", current, current->next);
-        // if(strcmp(nom, current->nom) == 0 && strcmp(prenom, current->prenom == 0))
         if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
         {
             printf("%11ld %-30s %-30s %-8s\n",
@@ -165,7 +160,35 @@ void rechercherMed(Medecin *first)
 
 void rechercherPat(Patient *first)
 {
-    // TODO
+    Patient *current;
+    char nom[30], prenom[30];
+
+    // On demande le nom et le prénom du médecin recherché
+    printf("Entrez le nom du patient : ");
+    scanf("%30s", &nom);
+    majuscule(&nom);
+
+    printf("\nEntrez le prénom du patient : ");
+    scanf("%30s", &prenom);
+    majuscule(&prenom);
+    
+    printf("\n");
+
+    // On recherche dans la liste
+    current = first;
+    while(current != NULL)
+    {
+        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+        {
+            printf("%15s %-30s %-30s %-13s  %-8s\n",
+                   current->regNat, current->nom, current->prenom, current->numTel, current->dateN);
+            return;
+        }
+
+        current = current->next;
+    }
+
+    printf("Erreur : Personne non trouvée\n");
 }
 
 int menu()
