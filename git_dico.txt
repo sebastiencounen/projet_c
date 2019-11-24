@@ -1,0 +1,15 @@
+git init : initialiser un dossier avec git (.git)
+git config –global user.name “name”
+git status : savoir si modifications depuis dernier commit
+git log : historique de tous les commit
+git add (-A ou file) : ajouter fichiers au prochain commit
+git commit -m « message » : équivalent de sauvegarde git 
+git remote : voir les repositories (dossiers github) github associés au projet
+git push -u origin (nom repo) master (nom branche) : envoyer sur le repo
+git pull origin (nom repo) master (branche du repo qui veut prendre) : met a jour notre dossier projet avec celui du repo (dans la branche dans laquelle on tape la commande)
+git branch : voir les branches (* pour la branche courante)
+git checkout -b newbranch : création d’une branche et on bouge dedans
+git checkout master : changement de branche (ici on revient à la branche master qui est la branche de base)
+git merge mergeBranch : fusionne la branche mentionnée avec la branche courante
+git branch -d branch : supprime la branche mentionnée (ne fonctionne que si elle a été fusionnée)
+git branch -D branch : force la suppression de la branche mentionnée

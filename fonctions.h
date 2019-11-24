@@ -19,5 +19,16 @@ struct Patient
 };
 
 // Prototype des fonctions
+void afficherListeMed(Medecin *);
+void afficherListePat(Patient *);
+
+void ajouterMed(Medecin *);
+void ajouterPat(Patient *);
+
+void supprimerMed(Medecin *);
+void supprimerPat(Patient *);
+
+void rechercherMed(Medecin *);
+void rechercherPat(Patient *);
 
 #endif
