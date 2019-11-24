@@ -126,7 +126,10 @@ int main()
             break;
 
         case 7:
-            return;
+            return 0;
+
+        default:
+            printf("Mauvais numéro sélectionné !\n");
         }
     }
 

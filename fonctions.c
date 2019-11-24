@@ -7,7 +7,18 @@
 // Fonctions
 void afficherListeMed(Medecin *first)
 {
-    // TODO
+    int n = 1;
+    Medecin *current;
+
+    current = first;
+    while(current != NULL)
+    {
+        printf("Médecin %d --> %ld %-30s %-30s %-8s\n",
+               n, current->numInami, current->nom, current->prenom, current->dateN);
+
+        n++;
+        current = current->next;
+    }
 }
 
 void afficherListePat(Patient *first)
@@ -65,8 +76,13 @@ int menu()
     return choix;
 }
 
-void majuscule(char *)
+void majuscule(char *chaine)
 {
-    // TODO
+    int i;
+
+    for(i = 0; chaine[i] != '\0'; i++)
+    {
+        chaine[i] = toupper(chaine[i]);
+    }
 }
 
