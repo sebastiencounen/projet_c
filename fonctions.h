@@ -19,6 +19,10 @@ struct Patient
 };
 
 // Prototype des fonctions
+
+// Fonctions Menu
+int menu();
+
 void afficherListeMed(Medecin *);
 void afficherListePat(Patient *);
 
@@ -31,7 +35,7 @@ void supprimerPat(Patient *);
 void rechercherMed(Medecin *);
 void rechercherPat(Patient *);
 
-int menu();
+// Autres fonctions utilitaires
 void majuscule(char *);
 
 #endif

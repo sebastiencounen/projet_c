@@ -127,7 +127,40 @@ void supprimerPat(Patient *first)
 
 void rechercherMed(Medecin *first)
 {
-    // TODO
+    Medecin *current;
+    char nom[30], prenom[30];
+
+    // On demande le nom et le prénom du médecin recherché
+    printf("Entrez le nom du médecin : ");
+    scanf("%30s", &nom);
+    majuscule(&nom);
+
+    printf("\nEntrez le prénom du médecin : ");
+    scanf("%30s", &prenom);
+    majuscule(&prenom);
+    
+    printf("\n");
+
+    //
+    printf("%-30s %-30s\n", nom, prenom);
+
+    // On recherche dans la liste
+    current = first;
+    while(current != NULL)
+    {
+        printf("%x     %x\n", current, current->next);
+        // if(strcmp(nom, current->nom) == 0 && strcmp(prenom, current->prenom == 0))
+        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+        {
+            printf("%11ld %-30s %-30s %-8s\n",
+                   current->numInami, current->nom, current->prenom, current->dateN);
+            return;
+        }
+
+        current = current->next;
+    }
+
+    printf("Erreur : Personne non trouvée\n");
 }
 
 void rechercherPat(Patient *first)
@@ -147,7 +180,9 @@ int menu()
            "4. Ajouter un patient\n"
            "5. Supprimer un médecin\n"
            "6. Supprimer un patient\n"
-           "7. Quitter\n: ");
+           "7. Rechercher un médecin\n"
+           "8. Rechercher un patient\n"
+           "9. Quitter\n: ");
 
     scanf("%d", &choix);
     printf("\n");

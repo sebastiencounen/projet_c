@@ -100,8 +100,16 @@ int main()
         case 6:
             supprimerPat(firstP);
             break;
-
+        
         case 7:
+            rechercherMed(firstM);
+            break;
+        
+        case 8:
+            rechercherPat(firstP);
+            break;
+
+        case 9:
             return 0;
 
         default:
