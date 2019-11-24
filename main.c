@@ -42,8 +42,10 @@ int main()
     }
 
     lastM->next = NULL;
-    cpM--;
     free(nextM);
+
+    //
+    printf("Nombre de médecins à l'initialisation : %d\n", cpM);
 
     // Lecture patients
     firstP = malloc(sizeof(Patient));
@@ -67,8 +69,10 @@ int main()
     }
 
     lastP->next = NULL;
-    cpP--;
     free(nextP);
+
+    //
+    printf("Nombre de patients à l'initialisation : %d\n", cpP);
 
     // Menu interactif
     while(1)
@@ -85,20 +89,20 @@ int main()
 
         case 3:
             printf("\nAdresse du dernier avant : %x\n", lastM);
-            ajouterMed(&lastM);
+            ajouterMed(&lastM, &cpM);
             printf("Adresse du dernier après : %x\n", lastM);
             break;
         
         case 4:
-            ajouterPat(&lastP);
+            ajouterPat(&lastP, &cpP);
             break;
 
         case 5:
-            supprimerMed(firstM);
+            supprimerMed(firstM, cpM);
             break;
 
         case 6:
-            supprimerPat(firstP);
+            supprimerPat(firstP, cpP);
             break;
         
         case 7:

@@ -37,7 +37,7 @@ void afficherListePat(Patient *first)
     }
 }
 
-void ajouterMed(Medecin **last)
+void ajouterMed(Medecin **last, int *nb)
 {
     FILE *file;
     file = fopen("medecins.dat", "a"); // append --> ajouter à la fin
@@ -69,6 +69,7 @@ void ajouterMed(Medecin **last)
 
     // Pour que le dernier soit mis à jour au nouveau créé
     *last = new;
+    *nb++;
 
     // Ajout du médecin dans le fichier
     fprintf(file, "%11ld %-30s %-30s %-8s\n", 
@@ -77,7 +78,7 @@ void ajouterMed(Medecin **last)
     fclose(file);
 }
 
-void ajouterPat(Patient **last)
+void ajouterPat(Patient **last, int *nb)
 {
     FILE *file;
     file = fopen("patients.dat", "a");
@@ -108,6 +109,7 @@ void ajouterPat(Patient **last)
     printf("\n");
 
     *last = new;
+    *nb++;
 
     fprintf(file, "%-15s %-30s %-30s %-13s  %-8s\n",
             new->regNat, new->nom, new->prenom, new->numTel, new->dateN);
@@ -115,12 +117,70 @@ void ajouterPat(Patient **last)
     fclose(file);
 }
 
-void supprimerMed(Medecin *first)
+void supprimerMed(Medecin **first, int *nbTot)
 {
-    // TODO
+    Medecin *current, *tmp;
+    int n = 1, i;
+    char nom[30], prenom[30];
+
+    // On demande le nom et le prénom du médecin recherché
+    printf("Entrez le nom du médecin : ");
+    scanf("%30s", &nom);
+    majuscule(&nom);
+
+    printf("\nEntrez le prénom du médecin : ");
+    scanf("%30s", &prenom);
+    majuscule(&prenom);
+    
+    printf("\n");
+
+    // On recherche dans la liste
+    current = *first;
+    while(current != NULL)
+    {
+        n++;
+        printf("\n%-30s  %-30s      %x  %x\n", current->nom, current->prenom, current, current->next);
+        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+            break;
+
+        current = current->next;
+    }
+
+    n--;
+    printf("%d / %d\n", n, nbTot);
+
+    // Suppression
+    if(n == 1)
+    {
+        tmp = *first;
+        *first = (*first)->next;
+        free(tmp);
+    }
+    else
+    {
+        current = *first;
+
+        // On se déplace jusqu'à l'élément précédent celui qu'on veut supprimer
+        for(i = 1; i < n; i++)
+            current = current->next;
+        
+        if(n != *nbTot)
+        {
+            tmp = current->next;
+            current->next = tmp->next;
+            free(tmp);
+        }
+        else
+        {
+            tmp = current->next;
+            current->next = NULL;
+            free(tmp);
+        }
+        
+    }
 }
 
-void supprimerPat(Patient *first)
+void supprimerPat(Patient **first, int *nbTot)
 {
     // TODO
 }

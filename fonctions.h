@@ -26,11 +26,11 @@ int menu();
 void afficherListeMed(Medecin *);
 void afficherListePat(Patient *);
 
-void ajouterMed(Medecin **);
-void ajouterPat(Patient **);
+void ajouterMed(Medecin **, int*);
+void ajouterPat(Patient **, int*);
 
-void supprimerMed(Medecin *);
-void supprimerPat(Patient *);
+void supprimerMed(Medecin **, int*);
+void supprimerPat(Patient **, int*);
 
 void rechercherMed(Medecin *);
 void rechercherPat(Patient *);
