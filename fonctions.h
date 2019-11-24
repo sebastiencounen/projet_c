@@ -22,8 +22,8 @@ struct Patient
 void afficherListeMed(Medecin *);
 void afficherListePat(Patient *);
 
-void ajouterMed(Medecin *);
-void ajouterPat(Patient *);
+void ajouterMed(Medecin **);
+void ajouterPat(Patient **);
 
 void supprimerMed(Medecin *);
 void supprimerPat(Patient *);

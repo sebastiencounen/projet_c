@@ -37,12 +37,47 @@ void afficherListePat(Patient *first)
     }
 }
 
-void ajouterMed(Medecin *last)
+void ajouterMed(Medecin **last)
 {
-    // TODO
+    FILE *file;
+    file = fopen("medecins.dat", "a"); // append --> ajouter à la fin
+
+    Medecin *new;
+    // char regNat[16], nom[30], prenom[30], numTel[14];
+
+    new = malloc(sizeof(Medecin));
+
+    // last->next = new;
+    (*last)->next = new;
+    new->next = NULL;
+
+    printf("Numéro inami : ");
+    scanf("%11lds", &new->numInami);
+
+    printf("\nNom : ");
+    scanf("%30s", &new->nom);
+    majuscule(&new->nom);
+
+    printf("\nPrénom : ");
+    scanf("%30s", &new->prenom);
+    majuscule(&new->prenom);
+    
+    printf("\nDate de naissance (JJ/MM/AA) : ");
+    scanf("%8s", &new->dateN);
+
+    printf("\n");
+
+    // Pour que le dernier soit mis à jour au nouveau créé
+    *last = new;
+
+    // Ajout du médecin dans le fichier
+    fprintf(file, "%11ld %-30s %-30s %-8s\n", 
+            new->numInami, new->nom, new->prenom, new->dateN);
+    
+    fclose(file);
 }
 
-void ajouterPat(Patient *last)
+void ajouterPat(Patient **last)
 {
     // TODO
 }
@@ -71,7 +106,7 @@ int menu()
 {
     int choix;
 
-    printf("Menu principal\n"
+    printf("\nMenu principal\n"
            "**************\n"
            "1. Afficher liste de médecin(s)\n"
            "2. Afficher liste de patient(s)\n"
@@ -87,7 +122,7 @@ int menu()
     return choix;
 }
 
-void majuscule(char *chaine)
+void majuscule(char chaine[])
 {
     int i;
 
