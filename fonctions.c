@@ -344,3 +344,31 @@ void majuscule(char chaine[])
     }
 }
 
+void clearBuffer()
+{
+    int c = 0;
+    while(c != '\n' && c != EOF) // Quand c = '\n' et EOF --> fin du buffer
+        c = getchar();
+}
+
+int lire(char *chaine, int longueur)
+{
+    char *posReturn = NULL;
+
+    if(fgets(chaine, longueur, stdin) != NULL)
+    {
+        posReturn = strchr(chaine, '\n');
+        if(posReturn != NULL)
+            *posReturn = '\0';
+        else
+            clearBuffer();
+        
+        return 1;
+    }
+    else
+    {
+        clearBuffer();
+        return 0;
+    }
+}
+

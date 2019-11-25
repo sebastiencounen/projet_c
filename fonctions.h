@@ -41,5 +41,7 @@ void modifierPat(Patient *);
 
 // Autres fonctions utilitaires
 void majuscule(char *);
+void clearBuffer();
+int lire(char *, int);
 
 #endif
