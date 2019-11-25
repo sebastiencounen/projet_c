@@ -14,7 +14,8 @@ struct Medecin
 
 struct Patient
 {
-    char regNat[16], nom[30], prenom[30], numTel[14], dateN[9];
+    int adNum, adCp;
+    char regNat[16], nom[30], prenom[30], numTel[14], dateN[9], adRue[40], adVille[20];
     Patient *next;
 };
 

@@ -56,6 +56,9 @@ int main()
     {
         fscanf(fdatPat, "%30s %30s %14s %8s",
                &currentP->nom, &currentP->prenom, &currentP->numTel, &currentP->dateN);
+        fgets(currentP->adRue, 40, fdatPat);
+        fscanf(fdatPat, "%3d %4d", &currentP->adNum, &currentP->adCp);
+        fgets(currentP->adVille, 20, fdatPat);
         lastP = currentP;
 
         nextP = malloc(sizeof(Patient));

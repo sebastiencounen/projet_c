@@ -29,8 +29,9 @@ void afficherListePat(Patient *first)
     current = first;
     while(current != NULL)
     {
-        printf("Patient %d --> %-15s %-30s %-30s %-14s %-8s\n",
-               n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN);
+        printf("Patient %d --> %-15s %-30s %-30s %-14s %-8s %-40s %3d %4d %-20s\n",
+               n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
+               current->adRue, current->adNum, current->adCp, current->adVille);
         
         n++;
         current = current->next;
@@ -288,8 +289,9 @@ void rechercherPat(Patient *first)
     {
         if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
         {
-            printf("%15s %-30s %-30s %-13s  %-8s\n",
-                   current->regNat, current->nom, current->prenom, current->numTel, current->dateN);
+            printf("Patient --> %-15s %-30s %-30s %-14s %-8s %-40s %3d %4d %-20s\n",
+               current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
+               current->adRue, current->adNum, current->adCp, current->adVille);
             return;
         }
 
