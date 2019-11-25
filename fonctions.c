@@ -161,7 +161,7 @@ void supprimerMed(Medecin **first, int *nbTot)
         current = *first;
 
         // On se déplace jusqu'à l'élément précédent celui qu'on veut supprimer
-        for(i = 1; i < n; i++)
+        for(i = 0; i < n - 1; i++)
             current = current->next;
         
         if(n != *nbTot)
