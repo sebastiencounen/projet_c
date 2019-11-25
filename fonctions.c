@@ -120,34 +120,28 @@ void ajouterPat(Patient **last, int *nb)
 void supprimerMed(Medecin **first, int *nbTot)
 {
     Medecin *current, *tmp;
-    int n = 1, i;
+    int n = 0, i;
     char nom[30], prenom[30];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
-    scanf("%30s", &nom);
-    majuscule(&nom);
+    scanf("%30s", nom);
+    majuscule(nom);
 
     printf("\nEntrez le prénom du médecin : ");
-    scanf("%30s", &prenom);
-    majuscule(&prenom);
-    
-    printf("\n");
+    scanf("%30s", prenom);
+    majuscule(prenom);
 
     // On recherche dans la liste
     current = *first;
     while(current != NULL)
     {
         n++;
-        printf("\n%-30s  %-30s      %x  %x\n", current->nom, current->prenom, current, current->next);
         if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
             break;
 
         current = current->next;
     }
-
-    n--;
-    printf("%d / %d\n", n, nbTot);
 
     // Suppression
     if(n == 1)
@@ -158,6 +152,7 @@ void supprimerMed(Medecin **first, int *nbTot)
     }
     else
     {
+        n--;
         current = *first;
 
         // On se déplace jusqu'à l'élément précédent celui qu'on veut supprimer

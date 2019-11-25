@@ -88,9 +88,7 @@ int main()
             break;
 
         case 3:
-            printf("\nAdresse du dernier avant : %x\n", lastM);
             ajouterMed(&lastM, &cpM);
-            printf("Adresse du dernier après : %x\n", lastM);
             break;
         
         case 4:
@@ -98,11 +96,11 @@ int main()
             break;
 
         case 5:
-            supprimerMed(firstM, cpM);
+            supprimerMed(&firstM, &cpM);
             break;
 
         case 6:
-            supprimerPat(firstP, cpP);
+            supprimerPat(&firstP, &cpP);
             break;
         
         case 7:
