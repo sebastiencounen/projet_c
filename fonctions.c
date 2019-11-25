@@ -56,11 +56,11 @@ void ajouterMed(Medecin **last, int *nb)
     scanf("%11lds", &new->numInami);
 
     printf("\nNom : ");
-    scanf("%20s", &new->nom);
+    fgets(new->nom, 20, stdin);
     majuscule(&new->nom);
 
     printf("\nPrénom : ");
-    scanf("%20s", &new->prenom);
+    fgets(new->prenom, 20, stdin);
     majuscule(&new->prenom);
     
     printf("\nDate de naissance (JJ/MM/AA) : ");
@@ -94,11 +94,11 @@ void ajouterPat(Patient **last, int *nb)
     scanf("%15s", &new->regNat);
 
     printf("\nNom : ");
-    scanf("%20s", &new->nom);
+    fgets(new->nom, 20, stdin);
     majuscule(&new->nom);
 
     printf("\nPrenom : ");
-    scanf("%20s", &new->prenom);
+    fgets(new->prenom, 20, stdin);
     majuscule(&new->prenom);
 
     printf("\nNuméro de téléphone : ");
@@ -126,11 +126,11 @@ void supprimerMed(Medecin **first, int *nbTot)
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
-    scanf("%20s", nom);
+    fgets(nom, 20, stdin);
     majuscule(nom);
 
     printf("\nEntrez le prénom du médecin : ");
-    scanf("%20s", prenom);
+    fgets(prenom, 20, stdin);
     majuscule(prenom);
 
     // On recherche dans la liste
@@ -184,11 +184,12 @@ void supprimerPat(Patient **first, int *nbTot)
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
-    scanf("%20s", nom);
+    fgets(nom, 20, stdin);
     majuscule(nom);
 
     printf("\nEntrez le prénom du patient : ");
-    scanf("%20s", prenom);
+    fgets(prenom, 20, stdin);
+    printf("\n");
     majuscule(prenom);
 
     // On recherche dans la liste
@@ -241,11 +242,12 @@ void rechercherMed(Medecin *first)
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
-    scanf("%20s", &nom);
+    fgets(nom, 20, stdin);
     majuscule(&nom);
 
     printf("\nEntrez le prénom du médecin : ");
-    scanf("%20s", &prenom);
+    fgets(prenom, 20, stdin);
+    printf("\n");
     majuscule(&prenom);
     
     printf("\n");
@@ -274,15 +276,14 @@ void rechercherPat(Patient *first)
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
-    scanf("%20s", &nom);
+    fgets(nom, 20, stdin);
     majuscule(&nom);
 
     printf("\nEntrez le prénom du patient : ");
-    scanf("%20s", &prenom);
+    fgets(prenom, 20, stdin);
+    printf("\n");
     majuscule(&prenom);
     
-    printf("\n");
-
     // On recherche dans la liste
     current = first;
     while(current != NULL)
