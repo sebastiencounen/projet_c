@@ -11,7 +11,7 @@ void afficherListeMed(Medecin *first)
     Medecin *current;
 
     current = first;
-    while(current != NULL)
+    while (current != NULL)
     {
         printf("Médecin %d --> %ld %-20s %-20s %-8s\n",
                n, current->numInami, current->nom, current->prenom, current->dateN);
@@ -27,12 +27,12 @@ void afficherListePat(Patient *first)
     Patient *current;
 
     current = first;
-    while(current != NULL)
+    while (current != NULL)
     {
         printf("Patient %d --> %-15s %-20s %-20s %-14s %-8s %-40s %3d %4d %-20s\n",
                n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
                current->adRue, current->adNum, current->adCp, current->adVille);
-        
+
         n++;
         current = current->next;
     }
@@ -62,7 +62,7 @@ void ajouterMed(Medecin **last, int *nb)
     printf("\nPrénom : ");
     fgets(new->prenom, 20, stdin);
     majuscule(&new->prenom);
-    
+
     printf("\nDate de naissance (JJ/MM/AA) : ");
     scanf("%8s", &new->dateN);
 
@@ -73,9 +73,9 @@ void ajouterMed(Medecin **last, int *nb)
     *nb++;
 
     // Ajout du médecin dans le fichier
-    fprintf(file, "%11ld %-20s %-20s %-8s\n", 
+    fprintf(file, "%11ld %-20s %-20s %-8s\n",
             new->numInami, new->nom, new->prenom, new->dateN);
-    
+
     fclose(file);
 }
 
@@ -135,17 +135,17 @@ void supprimerMed(Medecin **first, int *nbTot)
 
     // On recherche dans la liste
     current = *first;
-    while(current != NULL)
+    while (current != NULL)
     {
         n++;
-        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+        if ((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
             break;
 
         current = current->next;
     }
 
     // Suppression
-    if(n == 1)
+    if (n == 1)
     {
         tmp = *first;
         *first = (*first)->next;
@@ -157,10 +157,10 @@ void supprimerMed(Medecin **first, int *nbTot)
         current = *first;
 
         // On se déplace jusqu'à l'élément précédent celui qu'on veut supprimer
-        for(i = 0; i < n - 1; i++)
+        for (i = 0; i < n - 1; i++)
             current = current->next;
-        
-        if(n != *nbTot)
+
+        if (n != *nbTot)
         {
             tmp = current->next;
             current->next = tmp->next;
@@ -172,7 +172,6 @@ void supprimerMed(Medecin **first, int *nbTot)
             current->next = NULL;
             free(tmp);
         }
-        
     }
 }
 
@@ -194,17 +193,17 @@ void supprimerPat(Patient **first, int *nbTot)
 
     // On recherche dans la liste
     current = *first;
-    while(current != NULL)
+    while (current != NULL)
     {
         n++;
-        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+        if ((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
             break;
 
         current = current->next;
     }
 
     // Suppression
-    if(n == 1)
+    if (n == 1)
     {
         tmp = *first;
         *first = (*first)->next;
@@ -216,10 +215,10 @@ void supprimerPat(Patient **first, int *nbTot)
         current = *first;
 
         // On se déplace jusqu'à l'élément précédent celui qu'on veut supprimer
-        for(i = 0; i < n - 1; i++)
+        for (i = 0; i < n - 1; i++)
             current = current->next;
-        
-        if(n != *nbTot)
+
+        if (n != *nbTot)
         {
             tmp = current->next;
             current->next = tmp->next;
@@ -231,7 +230,6 @@ void supprimerPat(Patient **first, int *nbTot)
             current->next = NULL;
             free(tmp);
         }
-        
     }
 }
 
@@ -249,14 +247,14 @@ void rechercherMed(Medecin *first)
     fgets(prenom, 20, stdin);
     printf("\n");
     majuscule(&prenom);
-    
+
     printf("\n");
 
     // On recherche dans la liste
     current = first;
-    while(current != NULL)
+    while (current != NULL)
     {
-        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+        if ((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
         {
             printf("%11ld %-20s %-20s %-8s\n",
                    current->numInami, current->nom, current->prenom, current->dateN);
@@ -283,16 +281,16 @@ void rechercherPat(Patient *first)
     fgets(prenom, 20, stdin);
     printf("\n");
     majuscule(&prenom);
-    
+
     // On recherche dans la liste
     current = first;
-    while(current != NULL)
+    while (current != NULL)
     {
-        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+        if ((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
         {
             printf("Patient --> %-15s %-20s %-20s %-14s %-8s %-40s %3d %4d %-20s\n",
-               current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
-               current->adRue, current->adNum, current->adCp, current->adVille);
+                   current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
+                   current->adRue, current->adNum, current->adCp, current->adVille);
             return;
         }
 
@@ -338,9 +336,8 @@ void majuscule(char chaine[])
 {
     int i;
 
-    for(i = 0; chaine[i] != '\0'; i++)
+    for (i = 0; chaine[i] != '\0'; i++)
     {
         chaine[i] = toupper(chaine[i]);
     }
 }
-
