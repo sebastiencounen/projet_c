@@ -177,7 +177,60 @@ void supprimerMed(Medecin **first, int *nbTot)
 
 void supprimerPat(Patient **first, int *nbTot)
 {
-    // TODO
+    Patient *current, *tmp;
+    int n = 0, i;
+    char nom[30], prenom[30];
+
+    // On demande le nom et le prénom du médecin recherché
+    printf("Entrez le nom du patient : ");
+    scanf("%30s", nom);
+    majuscule(nom);
+
+    printf("\nEntrez le prénom du patient : ");
+    scanf("%30s", prenom);
+    majuscule(prenom);
+
+    // On recherche dans la liste
+    current = *first;
+    while(current != NULL)
+    {
+        n++;
+        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+            break;
+
+        current = current->next;
+    }
+
+    // Suppression
+    if(n == 1)
+    {
+        tmp = *first;
+        *first = (*first)->next;
+        free(tmp);
+    }
+    else
+    {
+        n--;
+        current = *first;
+
+        // On se déplace jusqu'à l'élément précédent celui qu'on veut supprimer
+        for(i = 0; i < n - 1; i++)
+            current = current->next;
+        
+        if(n != *nbTot)
+        {
+            tmp = current->next;
+            current->next = tmp->next;
+            free(tmp);
+        }
+        else
+        {
+            tmp = current->next;
+            current->next = NULL;
+            free(tmp);
+        }
+        
+    }
 }
 
 void rechercherMed(Medecin *first)
