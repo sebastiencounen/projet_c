@@ -299,6 +299,16 @@ void rechercherPat(Patient *first)
     printf("Erreur : Personne non trouvée\n");
 }
 
+void modifierMed(Medecin *first)
+{
+    // TODO
+}
+
+void modifierPat(Patient *first)
+{
+    // TODO
+}
+
 int menu()
 {
     int choix;

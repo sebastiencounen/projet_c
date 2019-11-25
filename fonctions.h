@@ -35,6 +35,9 @@ void supprimerPat(Patient **, int*);
 void rechercherMed(Medecin *);
 void rechercherPat(Patient *);
 
+void modifierMad(Medecin *);
+void modifierPat(Patient *);
+
 // Autres fonctions utilitaires
 void majuscule(char *);
 
