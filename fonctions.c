@@ -13,7 +13,7 @@ void afficherListeMed(Medecin *first)
     current = first;
     while(current != NULL)
     {
-        printf("Médecin %d --> %ld %-30s %-30s %-8s\n",
+        printf("Médecin %d --> %ld %-20s %-20s %-8s\n",
                n, current->numInami, current->nom, current->prenom, current->dateN);
 
         n++;
@@ -29,7 +29,7 @@ void afficherListePat(Patient *first)
     current = first;
     while(current != NULL)
     {
-        printf("Patient %d --> %-15s %-30s %-30s %-14s %-8s %-40s %3d %4d %-20s\n",
+        printf("Patient %d --> %-15s %-20s %-20s %-14s %-8s %-40s %3d %4d %-20s\n",
                n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
                current->adRue, current->adNum, current->adCp, current->adVille);
         
@@ -56,11 +56,11 @@ void ajouterMed(Medecin **last, int *nb)
     scanf("%11lds", &new->numInami);
 
     printf("\nNom : ");
-    scanf("%30s", &new->nom);
+    scanf("%20s", &new->nom);
     majuscule(&new->nom);
 
     printf("\nPrénom : ");
-    scanf("%30s", &new->prenom);
+    scanf("%20s", &new->prenom);
     majuscule(&new->prenom);
     
     printf("\nDate de naissance (JJ/MM/AA) : ");
@@ -73,7 +73,7 @@ void ajouterMed(Medecin **last, int *nb)
     *nb++;
 
     // Ajout du médecin dans le fichier
-    fprintf(file, "%11ld %-30s %-30s %-8s\n", 
+    fprintf(file, "%11ld %-20s %-20s %-8s\n", 
             new->numInami, new->nom, new->prenom, new->dateN);
     
     fclose(file);
@@ -94,11 +94,11 @@ void ajouterPat(Patient **last, int *nb)
     scanf("%15s", &new->regNat);
 
     printf("\nNom : ");
-    scanf("%30s", &new->nom);
+    scanf("%20s", &new->nom);
     majuscule(&new->nom);
 
     printf("\nPrenom : ");
-    scanf("%30s", &new->prenom);
+    scanf("%20s", &new->prenom);
     majuscule(&new->prenom);
 
     printf("\nNuméro de téléphone : ");
@@ -112,7 +112,7 @@ void ajouterPat(Patient **last, int *nb)
     *last = new;
     *nb++;
 
-    fprintf(file, "%-15s %-30s %-30s %-13s  %-8s\n",
+    fprintf(file, "%-15s %-20s %-20s %-13s  %-8s\n",
             new->regNat, new->nom, new->prenom, new->numTel, new->dateN);
 
     fclose(file);
@@ -122,15 +122,15 @@ void supprimerMed(Medecin **first, int *nbTot)
 {
     Medecin *current, *tmp;
     int n = 0, i;
-    char nom[30], prenom[30];
+    char nom[21], prenom[21];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
-    scanf("%30s", nom);
+    scanf("%20s", nom);
     majuscule(nom);
 
     printf("\nEntrez le prénom du médecin : ");
-    scanf("%30s", prenom);
+    scanf("%20s", prenom);
     majuscule(prenom);
 
     // On recherche dans la liste
@@ -180,15 +180,15 @@ void supprimerPat(Patient **first, int *nbTot)
 {
     Patient *current, *tmp;
     int n = 0, i;
-    char nom[30], prenom[30];
+    char nom[21], prenom[21];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
-    scanf("%30s", nom);
+    scanf("%20s", nom);
     majuscule(nom);
 
     printf("\nEntrez le prénom du patient : ");
-    scanf("%30s", prenom);
+    scanf("%20s", prenom);
     majuscule(prenom);
 
     // On recherche dans la liste
@@ -237,15 +237,15 @@ void supprimerPat(Patient **first, int *nbTot)
 void rechercherMed(Medecin *first)
 {
     Medecin *current;
-    char nom[30], prenom[30];
+    char nom[21], prenom[21];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
-    scanf("%30s", &nom);
+    scanf("%20s", &nom);
     majuscule(&nom);
 
     printf("\nEntrez le prénom du médecin : ");
-    scanf("%30s", &prenom);
+    scanf("%20s", &prenom);
     majuscule(&prenom);
     
     printf("\n");
@@ -256,7 +256,7 @@ void rechercherMed(Medecin *first)
     {
         if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
         {
-            printf("%11ld %-30s %-30s %-8s\n",
+            printf("%11ld %-20s %-20s %-8s\n",
                    current->numInami, current->nom, current->prenom, current->dateN);
             return;
         }
@@ -270,15 +270,15 @@ void rechercherMed(Medecin *first)
 void rechercherPat(Patient *first)
 {
     Patient *current;
-    char nom[30], prenom[30];
+    char nom[21], prenom[21];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
-    scanf("%30s", &nom);
+    scanf("%20s", &nom);
     majuscule(&nom);
 
     printf("\nEntrez le prénom du patient : ");
-    scanf("%30s", &prenom);
+    scanf("%20s", &prenom);
     majuscule(&prenom);
     
     printf("\n");
@@ -289,7 +289,7 @@ void rechercherPat(Patient *first)
     {
         if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
         {
-            printf("Patient --> %-15s %-30s %-30s %-14s %-8s %-40s %3d %4d %-20s\n",
+            printf("Patient --> %-15s %-20s %-20s %-14s %-8s %-40s %3d %4d %-20s\n",
                current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
                current->adRue, current->adNum, current->adCp, current->adVille);
             return;

@@ -8,14 +8,14 @@ typedef struct Patient Patient;
 struct Medecin
 {
     long numInami;
-    char nom[30], prenom[30], dateN[9];
+    char nom[21], prenom[21], dateN[9];
     Medecin *next;
 };
 
 struct Patient
 {
     int adNum, adCp;
-    char regNat[16], nom[30], prenom[30], numTel[14], dateN[9], adRue[40], adVille[20];
+    char regNat[16], nom[21], prenom[21], numTel[14], dateN[9], adRue[41], adVille[21];
     Patient *next;
 };
 

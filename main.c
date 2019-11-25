@@ -27,7 +27,7 @@ int main()
     fscanf(fdatMed, "%ld", &currentM->numInami);
     while(!feof(fdatMed))
     {
-        fscanf(fdatMed, "%30s %30s %8s",
+        fscanf(fdatMed, "%20s %20s %8s",
                &currentM->nom, &currentM->prenom, &currentM->dateN);
         lastM = currentM;
 
@@ -54,7 +54,7 @@ int main()
     fscanf(fdatPat, "%15s", &currentP->regNat);
     while(!feof(fdatPat))
     {
-        fscanf(fdatPat, "%30s %30s %14s %8s",
+        fscanf(fdatPat, "%20s %20s %14s %8s",
                &currentP->nom, &currentP->prenom, &currentP->numTel, &currentP->dateN);
         fgets(currentP->adRue, 40, fdatPat);
         fscanf(fdatPat, "%3d %4d", &currentP->adNum, &currentP->adCp);
