@@ -43,5 +43,8 @@ void modifierPat(Patient *);
 void majuscule(char *);
 void clearBuffer();
 int lire(char *, int);
+int lireInt(char *, int);
+// int lireFile(char *, int, FILE **);
+long lireLong(char *, int);
 
 #endif

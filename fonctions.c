@@ -13,7 +13,7 @@ void afficherListeMed(Medecin *first)
     current = first;
     while(current != NULL)
     {
-        printf("Médecin %d --> %ld %-20s %-20s %-8s\n",
+        printf("Médecin %d --> %11ld %-20s %-20s %-8s\n",
                n, current->numInami, current->nom, current->prenom, current->dateN);
 
         n++;
@@ -44,27 +44,26 @@ void ajouterMed(Medecin **last, int *nb)
     file = fopen("medecins.dat", "a"); // append --> ajouter à la fin
 
     Medecin *new;
-    // char regNat[16], nom[30], prenom[30], numTel[14];
 
     new = malloc(sizeof(Medecin));
 
-    // last->next = new;
     (*last)->next = new;
     new->next = NULL;
 
     printf("Numéro inami : ");
-    scanf("%11lds", &new->numInami);
+    new->numInami = lireLong(&new->numInami, 11);
 
     printf("\nNom : ");
-    fgets(new->nom, 20, stdin);
+    // fgets(new->nom, 20, stdin);
+    lire(new->nom, 20);
     majuscule(&new->nom);
 
     printf("\nPrénom : ");
-    fgets(new->prenom, 20, stdin);
+    lire(new->prenom, 20);
     majuscule(&new->prenom);
     
     printf("\nDate de naissance (JJ/MM/AA) : ");
-    scanf("%8s", &new->dateN);
+    lire(new->dateN, 20);
 
     printf("\n");
 
@@ -73,7 +72,7 @@ void ajouterMed(Medecin **last, int *nb)
     *nb++;
 
     // Ajout du médecin dans le fichier
-    fprintf(file, "%11ld %-20s %-20s %-8s\n", 
+    fprintf(file, "%11ld%-20s%-20s%-8s\n", 
             new->numInami, new->nom, new->prenom, new->dateN);
     
     fclose(file);
@@ -91,28 +90,28 @@ void ajouterPat(Patient **last, int *nb)
     new->next = NULL;
 
     printf("Numéro de registre national : ");
-    scanf("%15s", &new->regNat);
+    lire(new->regNat, 15);
 
     printf("\nNom : ");
-    fgets(new->nom, 20, stdin);
+    lire(new->nom, 20);
     majuscule(&new->nom);
 
     printf("\nPrenom : ");
-    fgets(new->prenom, 20, stdin);
+    lire(new->prenom, 20);
     majuscule(&new->prenom);
 
     printf("\nNuméro de téléphone : ");
-    scanf("%13s", &new->numTel);
+    lire(new->numTel, 13);
 
     printf("\nDate de naissance (JJ/MM/AA) : ");
-    scanf("%8s", &new->dateN);
+    lire(new->dateN, 8);
 
     printf("\n");
 
     *last = new;
     *nb++;
 
-    fprintf(file, "%-15s %-20s %-20s %-13s  %-8s\n",
+    fprintf(file, "%-15s%-20s%-20s%-13s%-8s\n",
             new->regNat, new->nom, new->prenom, new->numTel, new->dateN);
 
     fclose(file);
@@ -120,17 +119,22 @@ void ajouterPat(Patient **last, int *nb)
 
 void supprimerMed(Medecin **first, int *nbTot)
 {
+    //
+    FILE *fres;
+    fres = fopen("test.txt", "w");
+
     Medecin *current, *tmp;
     int n = 0, i;
     char nom[21], prenom[21];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
-    fgets(nom, 20, stdin);
+    lire(nom, 20);
+    fgets(nom, 21, stdin);
     majuscule(nom);
 
     printf("\nEntrez le prénom du médecin : ");
-    fgets(prenom, 20, stdin);
+    lire(prenom, 20);
     majuscule(prenom);
 
     // On recherche dans la liste
@@ -138,6 +142,10 @@ void supprimerMed(Medecin **first, int *nbTot)
     while(current != NULL)
     {
         n++;
+
+        printf("\n%-s%-s0\n%-s%-s0\n", nom, prenom, current->nom, current->prenom);
+        printf("%d et %d\n", strcmp(nom, current->nom), strcmp(prenom, current->prenom));
+
         if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
             break;
 
@@ -174,6 +182,8 @@ void supprimerMed(Medecin **first, int *nbTot)
         }
         
     }
+
+    *nbTot--;
 }
 
 void supprimerPat(Patient **first, int *nbTot)
@@ -184,11 +194,13 @@ void supprimerPat(Patient **first, int *nbTot)
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
-    fgets(nom, 20, stdin);
+    // fgets(nom, 20, stdin);
+    lire(nom, 20);
     majuscule(nom);
 
     printf("\nEntrez le prénom du patient : ");
-    fgets(prenom, 20, stdin);
+    // fgets(prenom, 20, stdin);
+    lire(prenom, 20);
     printf("\n");
     majuscule(prenom);
 
@@ -233,6 +245,8 @@ void supprimerPat(Patient **first, int *nbTot)
         }
         
     }
+
+    *nbTot--;
 }
 
 void rechercherMed(Medecin *first)
@@ -242,11 +256,13 @@ void rechercherMed(Medecin *first)
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
-    fgets(nom, 20, stdin);
+    // fgets(nom, 20, stdin);
+    lire(nom, 20);
     majuscule(&nom);
 
     printf("\nEntrez le prénom du médecin : ");
-    fgets(prenom, 20, stdin);
+    // fgets(prenom, 20, stdin);
+    lire(prenom, 20);
     printf("\n");
     majuscule(&prenom);
     
@@ -256,6 +272,10 @@ void rechercherMed(Medecin *first)
     current = first;
     while(current != NULL)
     {
+        //
+        printf("\n%-20s%-20s0\n%-20s%-20s0\n", nom, prenom, current->nom, current->prenom);
+        printf("%d et %d\n", strcmp(nom, current->nom), strcmp(prenom, current->prenom));
+
         if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
         {
             printf("%11ld %-20s %-20s %-8s\n",
@@ -276,11 +296,13 @@ void rechercherPat(Patient *first)
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
-    fgets(nom, 20, stdin);
+    // fgets(nom, 20, stdin);
+    lire(nom, 20);
     majuscule(&nom);
 
     printf("\nEntrez le prénom du patient : ");
-    fgets(prenom, 20, stdin);
+    // fgets(prenom, 20, stdin);
+    lire(prenom, 20);
     printf("\n");
     majuscule(&prenom);
     
@@ -328,7 +350,8 @@ int menu()
            "8. Rechercher un patient\n"
            "9. Quitter\n: ");
 
-    scanf("%d", &choix);
+    // scanf("%d", &choix);
+    choix = lireInt(&choix, 1);
     printf("\n");
 
     return choix;
@@ -354,12 +377,17 @@ void clearBuffer()
 int lire(char *chaine, int longueur)
 {
     char *posReturn = NULL;
+    longueur++; // Caractère de fin de chaîne
 
     if(fgets(chaine, longueur, stdin) != NULL)
     {
         posReturn = strchr(chaine, '\n');
         if(posReturn != NULL)
-            *posReturn = '\0';
+        {
+            // *posReturn = '\0';
+            *posReturn = ' ';
+            chaine[longueur] = '\0';
+        }
         else
             clearBuffer();
         
@@ -370,5 +398,43 @@ int lire(char *chaine, int longueur)
         clearBuffer();
         return 0;
     }
+}
+
+// int lireFile(char *chaine, int longueur, FILE **file)
+// {
+//     char *posReturn = NULL;
+//     longueur++; // Caractère de fin de chaîne
+
+//     if(fgets(chaine, longueur, *file) != NULL)
+//     {
+//         posReturn = strchr(chaine, '\n');
+//         if(posReturn != NULL)
+//             *posReturn = '\0';
+//         else
+//             clearBuffer();
+        
+//         return 1;
+//     }
+//     else
+//     {
+//         clearBuffer();
+//         return 0;
+//     }
+// }
+
+int lireInt(char *chaine, int longueur)
+{
+    if(lire(chaine, longueur))
+        return (int)(strtol(chaine, NULL, 10));
+    else
+        return 0;
+}
+
+long  lireLong(char *chaine, int longueur)
+{
+    if(lire(chaine, longueur))
+        return strtol(chaine, NULL, 10);
+    else
+        return 0;
 }
 

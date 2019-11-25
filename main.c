@@ -27,8 +27,10 @@ int main()
     fscanf(fdatMed, "%ld", &currentM->numInami);
     while(!feof(fdatMed))
     {
-        fgets(currentM->nom, 20, fdatMed);
-        fgets(currentM->prenom, 20, fdatMed);
+        fgets(currentM->nom, 21, fdatMed);
+        // lireFile(currentM->nom, 20, &fdatMed);
+        fgets(currentM->prenom, 21, fdatMed);
+        // lireFile(currentM->prenom, 20, &fdatMed);
         fscanf(fdatMed, "%8s", &currentM->dateN);
         lastM = currentM;
 
@@ -55,13 +57,13 @@ int main()
     fscanf(fdatPat, "%15s", &currentP->regNat);
     while(!feof(fdatPat))
     {
-        fgets(currentP->nom, 20, fdatPat);
-        fgets(currentP->prenom, 20, fdatPat);
-        fscanf(fdatPat, "%14s %8s",
+        fgets(currentP->nom, 21, fdatPat);
+        fgets(currentP->prenom, 21, fdatPat);
+        fscanf(fdatPat, "%13s %8s",
                &currentP->numTel, &currentP->dateN);
-        fgets(currentP->adRue, 40, fdatPat);
+        fgets(currentP->adRue, 41, fdatPat);
         fscanf(fdatPat, "%3d %4d", &currentP->adNum, &currentP->adCp);
-        fgets(currentP->adVille, 20, fdatPat);
+        fgets(currentP->adVille, 21, fdatPat);
         lastP = currentP;
 
         nextP = malloc(sizeof(Patient));
