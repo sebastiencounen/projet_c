@@ -194,12 +194,10 @@ void supprimerPat(Patient **first, int *nbTot)
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
-    // fgets(nom, 20, stdin);
     lire(nom, 20);
     majuscule(nom);
 
     printf("\nEntrez le prénom du patient : ");
-    // fgets(prenom, 20, stdin);
     lire(prenom, 20);
     printf("\n");
     majuscule(prenom);
