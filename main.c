@@ -28,9 +28,7 @@ int main()
     while(!feof(fdatMed))
     {
         fgets(currentM->nom, 21, fdatMed);
-        // lireFile(currentM->nom, 20, &fdatMed);
         fgets(currentM->prenom, 21, fdatMed);
-        // lireFile(currentM->prenom, 20, &fdatMed);
         fscanf(fdatMed, "%8s", &currentM->dateN);
         lastM = currentM;
 

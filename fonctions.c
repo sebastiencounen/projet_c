@@ -126,11 +126,11 @@ void supprimerMed(Medecin **first, int *nbTot)
     Medecin *current, *tmp;
     int n = 0, i;
     char nom[21], prenom[21];
+    char tmpNom[21], tmpPren[21];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
     lire(nom, 20);
-    fgets(nom, 21, stdin);
     majuscule(nom);
 
     printf("\nEntrez le prénom du médecin : ");
@@ -142,11 +142,10 @@ void supprimerMed(Medecin **first, int *nbTot)
     while(current != NULL)
     {
         n++;
+        strcpy(tmpNom, current->nom);
+        strcpy(tmpPren, current->prenom);
 
-        printf("\n%-s%-s0\n%-s%-s0\n", nom, prenom, current->nom, current->prenom);
-        printf("%d et %d\n", strcmp(nom, current->nom), strcmp(prenom, current->prenom));
-
-        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+        if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
             break;
 
         current = current->next;
@@ -191,6 +190,7 @@ void supprimerPat(Patient **first, int *nbTot)
     Patient *current, *tmp;
     int n = 0, i;
     char nom[21], prenom[21];
+    char tmpNom[21], tmpPren[21];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
@@ -209,7 +209,10 @@ void supprimerPat(Patient **first, int *nbTot)
     while(current != NULL)
     {
         n++;
-        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+        strcpy(tmpNom, current->nom);
+        strcpy(tmpPren, current->prenom);
+
+        if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
             break;
 
         current = current->next;
@@ -253,6 +256,7 @@ void rechercherMed(Medecin *first)
 {
     Medecin *current;
     char nom[21], prenom[21];
+    char tmpNom[21], tmpPren[21];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
@@ -272,11 +276,10 @@ void rechercherMed(Medecin *first)
     current = first;
     while(current != NULL)
     {
-        //
-        printf("\n%-20s%-20s0\n%-20s%-20s0\n", nom, prenom, current->nom, current->prenom);
-        printf("%d et %d\n", strcmp(nom, current->nom), strcmp(prenom, current->prenom));
+        strcpy(tmpNom, current->nom);
+        strcpy(tmpPren, current->prenom);
 
-        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+        if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
         {
             printf("%11ld %-20s %-20s %-8s\n",
                    current->numInami, current->nom, current->prenom, current->dateN);
@@ -293,6 +296,8 @@ void rechercherPat(Patient *first)
 {
     Patient *current;
     char nom[21], prenom[21];
+    char tmpNom[21], tmpPren[21];
+
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
@@ -310,7 +315,10 @@ void rechercherPat(Patient *first)
     current = first;
     while(current != NULL)
     {
-        if((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
+        strcpy(tmpNom, current->nom);
+        strcpy(tmpPren, current->prenom);
+
+        if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
         {
             printf("Patient --> %-15s %-20s %-20s %-14s %-8s %-40s %3d %4d %-20s\n",
                current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
@@ -400,28 +408,6 @@ int lire(char *chaine, int longueur)
     }
 }
 
-// int lireFile(char *chaine, int longueur, FILE **file)
-// {
-//     char *posReturn = NULL;
-//     longueur++; // Caractère de fin de chaîne
-
-//     if(fgets(chaine, longueur, *file) != NULL)
-//     {
-//         posReturn = strchr(chaine, '\n');
-//         if(posReturn != NULL)
-//             *posReturn = '\0';
-//         else
-//             clearBuffer();
-        
-//         return 1;
-//     }
-//     else
-//     {
-//         clearBuffer();
-//         return 0;
-//     }
-// }
-
 int lireInt(char *chaine, int longueur)
 {
     if(lire(chaine, longueur))
@@ -430,11 +416,22 @@ int lireInt(char *chaine, int longueur)
         return 0;
 }
 
-long  lireLong(char *chaine, int longueur)
+long lireLong(char *chaine, int longueur)
 {
     if(lire(chaine, longueur))
         return strtol(chaine, NULL, 10);
     else
         return 0;
+}
+
+int formatAndCompare(char *chaine1, char *chaine2)
+{
+    int i = 0;
+    while (chaine1[i] != '\0') 
+        i++;
+
+    chaine2[i] = '\0';
+
+    return strcmp(chaine1, chaine2);
 }
 
