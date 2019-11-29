@@ -118,6 +118,7 @@ int main()
             break;
 
         case 9:
+            sauvegarde(firstM, firstP);
             return 0;
 
         default:

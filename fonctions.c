@@ -108,15 +108,17 @@ void ajouterPat(Patient **last, int *nb)
 
     printf("\nAdresse (rue) : ");
     lire(new->adRue, 40);
+    majuscule(&new->adRue);
 
     printf("\nAdresse (numéro) : ");
     new->adNum = lireInt(&new->adNum, 3);
 
     printf("\nAdresse (code postal) : ");
-    new->adCp = (&new->adCp, 4);
+    new->adCp = lireInt(&new->adCp, 4);
 
     printf("\nAdresse (localité) : ");
     lire(new->adVille, 20);
+    majuscule(&new->adVille);
 
     printf("\n");
 
@@ -376,25 +378,33 @@ int menu()
     return choix;
 }
 
-void sauvegarde(Medecin *firstM, Patient *firstP);
+void sauvegarde(Medecin *firstM, Patient *firstP)
 {
+    Medecin *currentM;
+    Patient *currentP;
     FILE *fMed, *fPat;
     fMed = fopen("medecins.dat", "w");
     fPat = fopen("patients.dat", "w");
 
     // Save médecins
-    Medecin currentM = firstM;
+    currentM = firstM;
     while(currentM != NULL)
-        fprintf(file, "%11ld%-20s%-20s%-8s\n", 
+    {
+        fprintf(fMed, "%11ld%-20s%-20s%-8s\n", 
             currentM->numInami, currentM->nom, currentM->prenom, currentM->dateN);
+        currentM = currentM->next;
+    }
     fclose(fMed);
 
     // Save patients
-    Patient currentP = firstP;
+    currentP = firstP;
     while(currentP != NULL)
-        fprintf(file, "%-15s%-20s%-20s%-13s%-8s%-40s%3d%4d%-20s\n",
+    {
+        fprintf(fPat, "%-15s%-20s%-20s%-13s%-8s%-40s%3d%4d%-20s\n",
             currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN,
             currentP->adRue, currentP->adNum, currentP->adCp, currentP->adVille);
+        currentP = currentP->next;
+    }
     fclose(fPat);
 
     printf("Sauvegarde éffectuée\n");
