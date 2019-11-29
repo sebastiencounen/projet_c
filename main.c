@@ -50,7 +50,7 @@ int main()
     firstP = malloc(sizeof(Patient));
     currentP = firstP;
 
-    fscanf(fdatPat, "%15s", &currentP->regNat);
+    fgets(currentP->regNat, 16, fdatPat);
     while(!feof(fdatPat))
     {
         fgets(currentP->nom, 21, fdatPat);

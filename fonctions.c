@@ -79,6 +79,7 @@ void ajouterPat(Patient **last, int *nb)
 
     printf("Numéro de registre national : ");
     lire(new->regNat, 15);
+    printf("\tregnat : %-15s", new->regNat);
 
     printf("\nNom : ");
     lire(new->nom, 20);
@@ -116,10 +117,6 @@ void ajouterPat(Patient **last, int *nb)
 
 void supprimerMed(Medecin **first, int *nbTot)
 {
-    //
-    FILE *fres;
-    fres = fopen("test.txt", "w");
-
     Medecin *current, *tmp;
     int n = 0, i;
     char nom[21], prenom[21];
@@ -451,9 +448,7 @@ int lire(char *chaine, int longueur)
         posReturn = strchr(chaine, '\n');
         if(posReturn != NULL)
         {
-            // *posReturn = '\0';
-            *posReturn = ' ';
-            chaine[longueur] = '\0';
+            *posReturn = '\0';
         }
         else
             clearBuffer();
