@@ -78,58 +78,13 @@ int main()
     //
     printf("Nombre de patients à l'initialisation : %d\n", cpP);
 
-    // // Menu interactif
-    // while(1)
-    // {
-    //     switch(menuPrincipal())
-    //     {
-    //     case 1:
-    //         afficherListeMed(firstM);
-    //         break;
-
-    //     case 2:
-    //         afficherListePat(firstP);
-    //         break;
-
-    //     case 3:
-    //         ajouterMed(&lastM, &cpM);
-    //         break;
-        
-    //     case 4:
-    //         ajouterPat(&lastP, &cpP);
-    //         break;
-
-    //     case 5:
-    //         supprimerMed(&firstM, &cpM);
-    //         break;
-
-    //     case 6:
-    //         supprimerPat(&firstP, &cpP);
-    //         break;
-        
-    //     case 7:
-    //         rechercherMed(firstM);
-    //         break;
-        
-    //     case 8:
-    //         rechercherPat(firstP);
-    //         break;
-
-    //     case 9:
-    //         sauvegarde(firstM, firstP);
-    //         return 0;
-
-    //     default:
-    //         printf("Mauvais numéro sélectionné !\n");
-    //     }
-    // }
-
-    // Nouveau menu
+    // Menu interactif
     while(1)
     {
         switch(menuPrincipal())
         {
         case 1:
+            printf("\e[1;1H\e[2J");
             exitMenu = 0;
             while(exitMenu != 1)
             {
@@ -164,6 +119,7 @@ int main()
 
             break;
         case 2:
+            printf("\e[1;1H\e[2J");
             exitMenu = 0;
             while(exitMenu != 1)
             {
@@ -198,6 +154,7 @@ int main()
 
             break;
         case 3:
+            printf("\e[1;1H\e[2J");
             sauvegarde(firstM, firstP);
             break;
         case 4:
