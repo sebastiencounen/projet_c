@@ -29,7 +29,7 @@ void afficherListePat(Patient *first)
     current = first;
     while(current != NULL)
     {
-        printf("Patient %d --> %-15s %-20s %-20s %-14s %-8s %-40s %3d %4d %-20s\n",
+        printf("Patient %d --> %-15s %-20s %-20s %-14s %-8s %-40s %003d %4d %-20s\n",
                n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
                current->adRue, current->adNum, current->adCp, current->adVille);
         
@@ -40,9 +40,6 @@ void afficherListePat(Patient *first)
 
 void ajouterMed(Medecin **last, int *nb)
 {
-    FILE *file;
-    file = fopen("medecins.dat", "a"); // append --> ajouter à la fin
-
     Medecin *new;
 
     new = malloc(sizeof(Medecin));
@@ -70,19 +67,10 @@ void ajouterMed(Medecin **last, int *nb)
     // Pour que le dernier soit mis à jour au nouveau créé
     *last = new;
     *nb++;
-
-    // Ajout du médecin dans le fichier
-    fprintf(file, "%11ld%-20s%-20s%-8s\n", 
-            new->numInami, new->nom, new->prenom, new->dateN);
-    
-    fclose(file);
 }
 
 void ajouterPat(Patient **last, int *nb)
 {
-    FILE *file;
-    file = fopen("patients.dat", "a");
-
     Patient *new;
     new = malloc(sizeof(Patient));
 
@@ -124,12 +112,6 @@ void ajouterPat(Patient **last, int *nb)
 
     *last = new;
     *nb++;
-
-    fprintf(file, "%-15s%-20s%-20s%-13s%-8s%-40s%3d%4d%-20s\n",
-            new->regNat, new->nom, new->prenom, new->numTel, new->dateN,
-            new->adRue, new->adNum, new->adCp, new->adVille);
-
-    fclose(file);
 }
 
 void supprimerMed(Medecin **first, int *nbTot)
@@ -333,7 +315,7 @@ void rechercherPat(Patient *first)
 
         if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
         {
-            printf("Patient --> %-15s %-20s %-20s %-14s %-8s %-40s %3d %4d %-20s\n",
+            printf("Patient --> %-15s %-20s %-20s %-14s %-8s %-40s %003d %4d %-20s\n",
                current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
                current->adRue, current->adNum, current->adCp, current->adVille);
             return;
@@ -432,7 +414,7 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
     currentP = firstP;
     while(currentP != NULL)
     {
-        fprintf(fPat, "%-15s%-20s%-20s%-13s%-8s%-40s%3d%4d%-20s\n",
+        fprintf(fPat, "%-15s%-20s%-20s%-13s%-8s%-40s%003d%4d%-20s\n",
             currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN,
             currentP->adRue, currentP->adNum, currentP->adCp, currentP->adVille);
         currentP = currentP->next;
