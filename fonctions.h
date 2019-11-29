@@ -22,7 +22,9 @@ struct Patient
 // Prototype des fonctions
 
 // Fonctions Menu
-int menu();
+int menuPrincipal();
+int menuMed();
+int menuPat();
 
 void afficherListeMed(Medecin *);
 void afficherListePat(Patient *);
@@ -36,7 +38,7 @@ void supprimerPat(Patient **, int*);
 void rechercherMed(Medecin *);
 void rechercherPat(Patient *);
 
-void modifierMad(Medecin *);
+void modifierMed(Medecin *);
 void modifierPat(Patient *);
 
 void sauvegarde(Medecin *, Patient *);

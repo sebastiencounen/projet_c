@@ -355,23 +355,55 @@ void modifierPat(Patient *first)
     // TODO
 }
 
-int menu()
+int menuPrincipal()
 {
     int choix;
 
     printf("\nMenu principal\n"
            "**************\n"
-           "1. Afficher liste de médecin(s)\n"
-           "2. Afficher liste de patient(s)\n"
-           "3. Ajouter un médecin\n"
-           "4. Ajouter un patient\n"
-           "5. Supprimer un médecin\n"
-           "6. Supprimer un patient\n"
-           "7. Rechercher un médecin\n"
-           "8. Rechercher un patient\n"
-           "9. Quitter\n: ");
+           "1. Médecins\n"
+           "2. Patients\n"
+           "3. Sauvegarder\n"
+           "4. Quitter\n: ");
 
-    // scanf("%d", &choix);
+    choix = lireInt(&choix, 1);
+    printf("\n");
+
+    return choix;
+}
+
+int menuMed()
+{
+    int choix;
+
+    printf("\nMédecin(s)\n"
+           "**********\n"
+           "1. Afficher la liste\n"
+           "2. Ajouter\n"
+           "3. Supprimer\n"
+           "4. Rechercher\n"
+           "5. Modifier\n"
+           "6. Retour au menu principal\n: ");
+    
+    choix = lireInt(&choix, 1);
+    printf("\n");
+
+    return choix;
+}
+
+int menuPat()
+{
+    int choix;
+
+    printf("\nPatient(s)\n"
+           "**********\n"
+           "1. Afficher la liste\n"
+           "2. Ajouter\n"
+           "3. Supprimer\n"
+           "4. Rechercher\n"
+           "5. Modifier\n"
+           "6. Retour au menu principal\n: ");
+    
     choix = lireInt(&choix, 1);
     printf("\n");
 
