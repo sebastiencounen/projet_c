@@ -39,7 +39,14 @@ void rechercherPat(Patient *);
 void modifierMad(Medecin *);
 void modifierPat(Patient *);
 
+void sauvegarde(Medecin *, Patient *);
+
 // Autres fonctions utilitaires
 void majuscule(char *);
+void clearBuffer();
+int lire(char *, int);
+int lireInt(char *, int);
+long lireLong(char *, int);
+int formatAndCompare(char *, char *);
 
 #endif
