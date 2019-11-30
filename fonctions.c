@@ -13,8 +13,8 @@ void afficherListeMed(Medecin *first)
     current = first;
     while (current != NULL)
     {
-        printf("Médecin %d --> %11ld %-20s %-20s %-8s\n",
-               n, current->numInami, current->nom, current->prenom, current->dateN);
+        printf("Médecin %d --> %-14s %-20s %-20s\n",
+               n, current->numInami, current->nom, current->prenom);
 
         n++;
         current = current->next;
@@ -29,7 +29,7 @@ void afficherListePat(Patient *first)
     current = first;
     while (current != NULL)
     {
-        printf("Patient %d --> %-15s %-20s %-20s %-14s %-8s %-40s %3d %4d %-20s\n",
+        printf("Patient %d --> %-15s %-20s %-20s %-14s %-8s %-40s %003d %4d %-20s\n",
                n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
                current->adRue, current->adNum, current->adCp, current->adVille);
 
@@ -40,9 +40,6 @@ void afficherListePat(Patient *first)
 
 void ajouterMed(Medecin **last, int *nb)
 {
-    FILE *file;
-    file = fopen("medecins.dat", "a"); // append --> ajouter à la fin
-
     Medecin *new;
 
     new = malloc(sizeof(Medecin));
@@ -51,7 +48,7 @@ void ajouterMed(Medecin **last, int *nb)
     new->next = NULL;
 
     printf("Numéro inami : ");
-    new->numInami = lireLong(&new->numInami, 11);
+    lire(new->numInami, 14);
 
     printf("\nNom : ");
     // fgets(new->nom, 20, stdin);
@@ -62,27 +59,15 @@ void ajouterMed(Medecin **last, int *nb)
     lire(new->prenom, 20);
     majuscule(&new->prenom);
 
-    printf("\nDate de naissance (JJ/MM/AA) : ");
-    lire(new->dateN, 20);
-
     printf("\n");
 
     // Pour que le dernier soit mis à jour au nouveau créé
     *last = new;
     *nb++;
-
-    // Ajout du médecin dans le fichier
-    fprintf(file, "%11ld%-20s%-20s%-8s\n",
-            new->numInami, new->nom, new->prenom, new->dateN);
-
-    fclose(file);
 }
 
 void ajouterPat(Patient **last, int *nb)
 {
-    FILE *file;
-    file = fopen("patients.dat", "a");
-
     Patient *new;
     new = malloc(sizeof(Patient));
 
@@ -91,6 +76,7 @@ void ajouterPat(Patient **last, int *nb)
 
     printf("Numéro de registre national : ");
     lire(new->regNat, 15);
+    printf("\tregnat : %-15s", new->regNat);
 
     printf("\nNom : ");
     lire(new->nom, 20);
@@ -124,20 +110,10 @@ void ajouterPat(Patient **last, int *nb)
 
     *last = new;
     *nb++;
-
-    fprintf(file, "%-15s%-20s%-20s%-13s%-8s%-40s%3d%4d%-20s\n",
-            new->regNat, new->nom, new->prenom, new->numTel, new->dateN,
-            new->adRue, new->adNum, new->adCp, new->adVille);
-
-    fclose(file);
 }
 
 void supprimerMed(Medecin **first, int *nbTot)
 {
-    //
-    FILE *fres;
-    fres = fopen("test.txt", "w");
-
     Medecin *current, *tmp;
     int n = 0, i;
     char nom[21], prenom[21];
@@ -292,8 +268,8 @@ void rechercherMed(Medecin *first)
 
         if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
         {
-            printf("%11ld %-20s %-20s %-8s\n",
-                   current->numInami, current->nom, current->prenom, current->dateN);
+            printf("%-14s %-20s %-20s\n",
+                   current->numInami, current->nom, current->prenom);
             return;
         }
 
@@ -330,7 +306,7 @@ void rechercherPat(Patient *first)
 
         if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
         {
-            printf("Patient --> %-15s %-20s %-20s %-14s %-8s %-40s %3d %4d %-20s\n",
+            printf("Patient --> %-15s %-20s %-20s %-14s %-8s %-40s %003d %4d %-20s\n",
                    current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
                    current->adRue, current->adNum, current->adCp, current->adVille);
             return;
@@ -352,23 +328,55 @@ void modifierPat(Patient *first)
     // TODO
 }
 
-int menu()
+int menuPrincipal()
 {
     int choix;
 
     printf("\nMenu principal\n"
            "**************\n"
-           "1. Afficher liste de médecin(s)\n"
-           "2. Afficher liste de patient(s)\n"
-           "3. Ajouter un médecin\n"
-           "4. Ajouter un patient\n"
-           "5. Supprimer un médecin\n"
-           "6. Supprimer un patient\n"
-           "7. Rechercher un médecin\n"
-           "8. Rechercher un patient\n"
-           "9. Quitter\n: ");
+           "1. Médecins\n"
+           "2. Patients\n"
+           "3. Sauvegarder\n"
+           "4. Quitter\n: ");
 
-    // scanf("%d", &choix);
+    choix = lireInt(&choix, 1);
+    printf("\n");
+
+    return choix;
+}
+
+int menuMed()
+{
+    int choix;
+
+    printf("\nMédecin(s)\n"
+           "**********\n"
+           "1. Afficher la liste\n"
+           "2. Ajouter\n"
+           "3. Supprimer\n"
+           "4. Rechercher\n"
+           "5. Modifier\n"
+           "6. Retour au menu principal\n: ");
+
+    choix = lireInt(&choix, 1);
+    printf("\n");
+
+    return choix;
+}
+
+int menuPat()
+{
+    int choix;
+
+    printf("\nPatient(s)\n"
+           "**********\n"
+           "1. Afficher la liste\n"
+           "2. Ajouter\n"
+           "3. Supprimer\n"
+           "4. Rechercher\n"
+           "5. Modifier\n"
+           "6. Retour au menu principal\n: ");
+
     choix = lireInt(&choix, 1);
     printf("\n");
 
@@ -387,8 +395,8 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
     currentM = firstM;
     while (currentM != NULL)
     {
-        fprintf(fMed, "%11ld%-20s%-20s%-8s\n",
-                currentM->numInami, currentM->nom, currentM->prenom, currentM->dateN);
+        fprintf(fMed, "%-14s%-20s%-20s\n",
+                currentM->numInami, currentM->nom, currentM->prenom);
         currentM = currentM->next;
     }
     fclose(fMed);
@@ -397,7 +405,7 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
     currentP = firstP;
     while (currentP != NULL)
     {
-        fprintf(fPat, "%-15s%-20s%-20s%-13s%-8s%-40s%3d%4d%-20s\n",
+        fprintf(fPat, "%-15s%-20s%-20s%-13s%-8s%-40s%003d%4d%-20s\n",
                 currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN,
                 currentP->adRue, currentP->adNum, currentP->adCp, currentP->adVille);
         currentP = currentP->next;
@@ -434,9 +442,7 @@ int lire(char *chaine, int longueur)
         posReturn = strchr(chaine, '\n');
         if (posReturn != NULL)
         {
-            // *posReturn = '\0';
-            *posReturn = ' ';
-            chaine[longueur] = '\0';
+            *posReturn = '\0';
         }
         else
             clearBuffer();
