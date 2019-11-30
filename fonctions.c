@@ -72,11 +72,7 @@ void ajouterMed(Medecin **last, int *nb)
     *nb++;
 
     // Ajout du médecin dans le fichier
-<<<<<<< HEAD
-    fprintf(file, "%11ld %-20s %-20s %-8s\n",
-=======
-    fprintf(file, "%11ld%-20s%-20s%-8s\n", 
->>>>>>> 2e5c600af74a7f0e3c8aac2e9f760196c2b0df4d
+    fprintf(file, "%11ld%-20s%-20s%-8s\n",
             new->numInami, new->nom, new->prenom, new->dateN);
 
     fclose(file);
@@ -161,14 +157,10 @@ void supprimerMed(Medecin **first, int *nbTot)
     while (current != NULL)
     {
         n++;
-<<<<<<< HEAD
-        if ((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
-=======
         strcpy(tmpNom, current->nom);
         strcpy(tmpPren, current->prenom);
 
         if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
->>>>>>> 2e5c600af74a7f0e3c8aac2e9f760196c2b0df4d
             break;
 
         current = current->next;
@@ -229,14 +221,10 @@ void supprimerPat(Patient **first, int *nbTot)
     while (current != NULL)
     {
         n++;
-<<<<<<< HEAD
-        if ((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
-=======
         strcpy(tmpNom, current->nom);
         strcpy(tmpPren, current->prenom);
 
         if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
->>>>>>> 2e5c600af74a7f0e3c8aac2e9f760196c2b0df4d
             break;
 
         current = current->next;
@@ -299,14 +287,10 @@ void rechercherMed(Medecin *first)
     current = first;
     while (current != NULL)
     {
-<<<<<<< HEAD
-        if ((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
-=======
         strcpy(tmpNom, current->nom);
         strcpy(tmpPren, current->prenom);
 
         if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
->>>>>>> 2e5c600af74a7f0e3c8aac2e9f760196c2b0df4d
         {
             printf("%11ld %-20s %-20s %-8s\n",
                    current->numInami, current->nom, current->prenom, current->dateN);
@@ -325,7 +309,6 @@ void rechercherPat(Patient *first)
     char nom[21], prenom[21];
     char tmpNom[21], tmpPren[21];
 
-
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
     // fgets(nom, 20, stdin);
@@ -342,14 +325,10 @@ void rechercherPat(Patient *first)
     current = first;
     while (current != NULL)
     {
-<<<<<<< HEAD
-        if ((strcmp(nom, current->nom) == 0) && strcmp(prenom, current->prenom) == 0)
-=======
         strcpy(tmpNom, current->nom);
         strcpy(tmpPren, current->prenom);
 
         if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
->>>>>>> 2e5c600af74a7f0e3c8aac2e9f760196c2b0df4d
         {
             printf("Patient --> %-15s %-20s %-20s %-14s %-8s %-40s %3d %4d %-20s\n",
                    current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
@@ -406,26 +385,26 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
 
     // Save médecins
     currentM = firstM;
-    while(currentM != NULL)
+    while (currentM != NULL)
     {
-        fprintf(fMed, "%11ld%-20s%-20s%-8s\n", 
-            currentM->numInami, currentM->nom, currentM->prenom, currentM->dateN);
+        fprintf(fMed, "%11ld%-20s%-20s%-8s\n",
+                currentM->numInami, currentM->nom, currentM->prenom, currentM->dateN);
         currentM = currentM->next;
     }
     fclose(fMed);
 
     // Save patients
     currentP = firstP;
-    while(currentP != NULL)
+    while (currentP != NULL)
     {
         fprintf(fPat, "%-15s%-20s%-20s%-13s%-8s%-40s%3d%4d%-20s\n",
-            currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN,
-            currentP->adRue, currentP->adNum, currentP->adCp, currentP->adVille);
+                currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN,
+                currentP->adRue, currentP->adNum, currentP->adCp, currentP->adVille);
         currentP = currentP->next;
     }
     fclose(fPat);
 
-    printf("Sauvegarde éffectuée\n");
+    printf("Sauvegarde effectuée\n");
 }
 
 void majuscule(char chaine[])
@@ -437,13 +416,11 @@ void majuscule(char chaine[])
         chaine[i] = toupper(chaine[i]);
     }
 }
-<<<<<<< HEAD
-=======
 
 void clearBuffer()
 {
     int c = 0;
-    while(c != '\n' && c != EOF) // Quand c = '\n' et EOF --> fin du buffer
+    while (c != '\n' && c != EOF) // Quand c = '\n' et EOF --> fin du buffer
         c = getchar();
 }
 
@@ -452,10 +429,10 @@ int lire(char *chaine, int longueur)
     char *posReturn = NULL;
     longueur++; // Caractère de fin de chaîne
 
-    if(fgets(chaine, longueur, stdin) != NULL)
+    if (fgets(chaine, longueur, stdin) != NULL)
     {
         posReturn = strchr(chaine, '\n');
-        if(posReturn != NULL)
+        if (posReturn != NULL)
         {
             // *posReturn = '\0';
             *posReturn = ' ';
@@ -463,7 +440,7 @@ int lire(char *chaine, int longueur)
         }
         else
             clearBuffer();
-        
+
         return 1;
     }
     else
@@ -475,7 +452,7 @@ int lire(char *chaine, int longueur)
 
 int lireInt(char *chaine, int longueur)
 {
-    if(lire(chaine, longueur))
+    if (lire(chaine, longueur))
         return (int)(strtol(chaine, NULL, 10));
     else
         return 0;
@@ -483,7 +460,7 @@ int lireInt(char *chaine, int longueur)
 
 long lireLong(char *chaine, int longueur)
 {
-    if(lire(chaine, longueur))
+    if (lire(chaine, longueur))
         return strtol(chaine, NULL, 10);
     else
         return 0;
@@ -492,12 +469,10 @@ long lireLong(char *chaine, int longueur)
 int formatAndCompare(char *chaine1, char *chaine2)
 {
     int i = 0;
-    while (chaine1[i] != '\0') 
+    while (chaine1[i] != '\0')
         i++;
 
     chaine2[i] = '\0';
 
     return strcmp(chaine1, chaine2);
 }
-
->>>>>>> 2e5c600af74a7f0e3c8aac2e9f760196c2b0df4d
