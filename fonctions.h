@@ -20,6 +20,10 @@ struct Patient
 
 // Prototype des fonctions
 
+//Lectures fichiers
+void lectureMedecins(Medecin **, Medecin **, Medecin **, Medecin **, int *);
+void lecturePatients(Patient **, Patient **, Patient **, Patient **, int *);
+
 // Fonctions Menu
 int menuPrincipal();
 int menuMed();
