@@ -482,3 +482,122 @@ int formatAndCompare(char *chaine1, char *chaine2)
 
     return strcmp(chaine1, chaine2);
 }
+
+void lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Medecin **lastM, int *cpM)
+{
+    //Fichier
+    FILE *fdatMed;
+    fdatMed = fopen("medecins.dat", "r");
+    // Premier client
+    *firstM = malloc(sizeof(Medecin));
+
+    *currentM = *firstM;
+
+    // Lecture des clients présents dans le fichier
+    fscanf(fdatMed, "%14s", (*currentM)->numInami);
+    fgets((*currentM)->nom, 21, fdatMed);
+    fgets((*currentM)->prenom, 21, fdatMed);
+    while (!feof(fdatMed))
+    {
+        *interM = malloc(sizeof(Medecin));
+
+        fscanf(fdatMed, "%14s", (*interM)->numInami);
+        fgets((*interM)->nom, 21, fdatMed);
+        fgets((*interM)->prenom, 21, fdatMed);
+
+        for (*currentM = *firstM; *currentM != NULL; *currentM = (*currentM)->next)
+        {
+            if (strcmp((*interM)->nom, (*firstM)->nom) < 0)
+            {
+                (*interM)->next = *currentM;
+                *firstM = *interM;
+                break;
+            }
+            else if (strcmp((*interM)->nom, (*currentM)->nom) < 0)
+            {
+                (*lastM)->next = *interM;
+                (*interM)->next = *currentM;
+                break;
+            }
+            else if ((*currentM)->next == NULL && strcmp((*interM)->nom, (*currentM)->nom) > 0)
+            {
+                (*interM)->next = (*currentM)->next;
+                (*currentM)->next = *interM;
+                break;
+            }
+            *lastM = *currentM;
+        }
+        (*cpM)++;
+    }
+    *currentM = (*firstM)->next;
+    free(*firstM);
+    *firstM = *currentM;
+
+    //Adresse du dernier
+    for (*currentM = *firstM; *currentM != NULL; *currentM = (*currentM)->next)
+        *lastM = *currentM;
+}
+
+void lecturePatients(Patient **firstP, Patient **currentP, Patient **interP, Patient **lastP, int *cpP)
+{
+    //Fichier
+    FILE *fdatPat;
+    fdatPat = fopen("patients.dat", "r");
+    // Premier client
+    *firstP = malloc(sizeof(Patient));
+
+    *currentP = *firstP;
+
+    // Lecture des clients présents dans le fichier
+    fscanf(fdatPat, "%15s", (*currentP)->regNat);
+    fgets((*currentP)->nom, 21, fdatPat);
+    fgets((*currentP)->prenom, 21, fdatPat);
+    fscanf(fdatPat, "%13s %8s", (*currentP)->numTel, (*currentP)->dateN);
+    fgets((*currentP)->adRue, 41, fdatPat);
+    fscanf(fdatPat, "%3d %4d", &(*currentP)->adNum, &(*currentP)->adCp);
+    fgets((*currentP)->adVille, 21, fdatPat);
+    while (!feof(fdatPat))
+    {
+        *interP = malloc(sizeof(Patient));
+
+        fscanf(fdatPat, "%15s", (*interP)->regNat);
+        fgets((*interP)->nom, 21, fdatPat);
+        fgets((*interP)->prenom, 21, fdatPat);
+        fscanf(fdatPat, "%13s %8s",
+               (*interP)->numTel, (*interP)->dateN);
+        fgets((*interP)->adRue, 41, fdatPat);
+        fscanf(fdatPat, "%3d %4d", &(*interP)->adNum, &(*interP)->adCp);
+        fgets((*interP)->adVille, 21, fdatPat);
+
+        for (*currentP = *firstP; *currentP != NULL; *currentP = (*currentP)->next)
+        {
+            if (strcmp((*interP)->nom, (*firstP)->nom) < 0)
+            {
+                (*interP)->next = *currentP;
+                *firstP = *interP;
+                break;
+            }
+            else if (strcmp((*interP)->nom, (*currentP)->nom) < 0)
+            {
+                (*lastP)->next = *interP;
+                (*interP)->next = *currentP;
+                break;
+            }
+            else if ((*currentP)->next == NULL && strcmp((*interP)->nom, (*currentP)->nom) > 0)
+            {
+                (*interP)->next = (*currentP)->next;
+                (*currentP)->next = *interP;
+                break;
+            }
+            *lastP = *currentP;
+        }
+        (*cpP)++;
+    }
+    *currentP = (*firstP)->next;
+    free(*firstP);
+    *firstP = *currentP;
+
+    //Adresse du dernier
+    for (*currentP = *firstP; *currentP != NULL; *currentP = (*currentP)->next)
+        *lastP = *currentP;
+}

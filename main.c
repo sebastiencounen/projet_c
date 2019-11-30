@@ -12,68 +12,19 @@ int main()
     fdatPat = fopen("patients.dat", "r");
 
     // Variables
-    Medecin *firstM, *currentM, *nextM, *lastM;
-    Patient *firstP, *currentP, *nextP, *lastP;
+    Medecin *firstM, *currentM, *nextM, *lastM, *interM;
+    Patient *firstP, *currentP, *nextP, *lastP, *interP;
 
     int cpM = 0, cpP = 0, exitMenu = 0;
     int n = 1;
 
     // Lecture Medecins
-    firstM = malloc(sizeof(Medecin));
-    currentM = firstM;
-
-    fscanf(fdatMed, "%14s", currentM->numInami);
-    while (!feof(fdatMed))
-    {
-        fgets(currentM->nom, 21, fdatMed);
-        fgets(currentM->prenom, 21, fdatMed);
-        lastM = currentM;
-
-        nextM = malloc(sizeof(Medecin));
-        currentM->next = nextM;
-
-        currentM = nextM;
-
-        cpM++;
-
-        fscanf(fdatMed, "%14s", currentM->numInami);
-    }
-
-    lastM->next = NULL;
-    free(nextM);
-
+    lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
     //
     printf("Nombre de médecins à l'initialisation : %d\n", cpM);
 
     // Lecture patients
-    firstP = malloc(sizeof(Patient));
-    currentP = firstP;
-
-    fgets(currentP->regNat, 16, fdatPat);
-    while (!feof(fdatPat))
-    {
-        fgets(currentP->nom, 21, fdatPat);
-        fgets(currentP->prenom, 21, fdatPat);
-        fscanf(fdatPat, "%13s %8s",
-               &currentP->numTel, &currentP->dateN);
-        fgets(currentP->adRue, 41, fdatPat);
-        fscanf(fdatPat, "%3d %4d", &currentP->adNum, &currentP->adCp);
-        fgets(currentP->adVille, 21, fdatPat);
-        lastP = currentP;
-
-        nextP = malloc(sizeof(Patient));
-        currentP->next = nextP;
-
-        currentP = nextP;
-
-        cpP++;
-
-        fscanf(fdatPat, "%15s", &currentP->regNat);
-    }
-
-    lastP->next = NULL;
-    free(nextP);
-
+    lecturePatients(&firstP, &currentP, &interP, &lastP, &cpP);
     //
     printf("Nombre de patients à l'initialisation : %d\n", cpP);
 
