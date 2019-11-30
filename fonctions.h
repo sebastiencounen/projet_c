@@ -7,8 +7,7 @@ typedef struct Patient Patient;
 
 struct Medecin
 {
-    long numInami;
-    char nom[21], prenom[21], dateN[9];
+    char numInami[15], nom[21], prenom[21];
     Medecin *next;
 };
 
@@ -29,11 +28,11 @@ int menuPat();
 void afficherListeMed(Medecin *);
 void afficherListePat(Patient *);
 
-void ajouterMed(Medecin **, int*);
-void ajouterPat(Patient **, int*);
+void ajouterMed(Medecin **, int *);
+void ajouterPat(Patient **, int *);
 
-void supprimerMed(Medecin **, int*);
-void supprimerPat(Patient **, int*);
+void supprimerMed(Medecin **, int *);
+void supprimerPat(Patient **, int *);
 
 void rechercherMed(Medecin *);
 void rechercherPat(Patient *);

@@ -22,12 +22,11 @@ int main()
     firstM = malloc(sizeof(Medecin));
     currentM = firstM;
 
-    fscanf(fdatMed, "%ld", &currentM->numInami);
-    while(!feof(fdatMed))
+    fscanf(fdatMed, "%14s", currentM->numInami);
+    while (!feof(fdatMed))
     {
         fgets(currentM->nom, 21, fdatMed);
         fgets(currentM->prenom, 21, fdatMed);
-        fscanf(fdatMed, "%8s", &currentM->dateN);
         lastM = currentM;
 
         nextM = malloc(sizeof(Medecin));
@@ -37,7 +36,7 @@ int main()
 
         cpM++;
 
-        fscanf(fdatMed, "%ld", &currentM->numInami);
+        fscanf(fdatMed, "%14s", currentM->numInami);
     }
 
     lastM->next = NULL;
@@ -51,7 +50,7 @@ int main()
     currentP = firstP;
 
     fgets(currentP->regNat, 16, fdatPat);
-    while(!feof(fdatPat))
+    while (!feof(fdatPat))
     {
         fgets(currentP->nom, 21, fdatPat);
         fgets(currentP->prenom, 21, fdatPat);
@@ -79,16 +78,16 @@ int main()
     printf("Nombre de patients à l'initialisation : %d\n", cpP);
 
     // Menu interactif
-    while(1)
+    while (1)
     {
-        switch(menuPrincipal())
+        switch (menuPrincipal())
         {
         case 1:
             printf("\e[1;1H\e[2J");
             exitMenu = 0;
-            while(exitMenu != 1)
+            while (exitMenu != 1)
             {
-                switch(menuMed())
+                switch (menuMed())
                 {
                 case 1:
                     afficherListeMed(firstM);
@@ -121,9 +120,9 @@ int main()
         case 2:
             printf("\e[1;1H\e[2J");
             exitMenu = 0;
-            while(exitMenu != 1)
+            while (exitMenu != 1)
             {
-                switch(menuPat())
+                switch (menuPat())
                 {
                 case 1:
                     afficherListePat(firstP);
