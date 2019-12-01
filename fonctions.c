@@ -172,7 +172,7 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
 void supprimerMed(Medecin **first, int *nbTot)
 {
     Medecin *current, *tmp;
-    int n = 0, i;
+    int n = 0, i, found = 0;
     char nom[21], prenom[21];
     char tmpNom[21], tmpPren[21];
 
@@ -194,19 +194,23 @@ void supprimerMed(Medecin **first, int *nbTot)
         strcpy(tmpPren, current->prenom);
 
         if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
+        {
+            found = 1;
             break;
+        }
 
         current = current->next;
     }
 
     // Suppression
-    if (n == 1)
+    if (n == 1 && found)
     {
         tmp = *first;
         *first = (*first)->next;
         free(tmp);
+        *nbTot--;
     }
-    else
+    else if (found)
     {
         n--;
         current = *first;
@@ -227,15 +231,17 @@ void supprimerMed(Medecin **first, int *nbTot)
             current->next = NULL;
             free(tmp);
         }
-    }
 
-    *nbTot--;
+        *nbTot--;
+    }
+    else
+        printf("\nPersonne non trouvée\n");
 }
 
 void supprimerPat(Patient **first, int *nbTot)
 {
     Patient *current, *tmp;
-    int n = 0, i;
+    int n = 0, i, found = 0;
     char nom[21], prenom[21];
     char tmpNom[21], tmpPren[21];
 
@@ -258,19 +264,23 @@ void supprimerPat(Patient **first, int *nbTot)
         strcpy(tmpPren, current->prenom);
 
         if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
+        {
+            found = 1;
             break;
+        }
 
         current = current->next;
     }
 
     // Suppression
-    if (n == 1)
+    if (n == 1 && found)
     {
         tmp = *first;
         *first = (*first)->next;
         free(tmp);
+        *nbTot--;
     }
-    else
+    else if (found)
     {
         n--;
         current = *first;
@@ -291,9 +301,11 @@ void supprimerPat(Patient **first, int *nbTot)
             current->next = NULL;
             free(tmp);
         }
-    }
 
-    *nbTot--;
+        *nbTot--;
+    }
+    else
+        printf("Personne non trouvée\n");
 }
 
 void rechercherMed(Medecin *first)
