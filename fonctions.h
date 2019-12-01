@@ -33,7 +33,8 @@ void afficherListeMed(Medecin *);
 void afficherListePat(Patient *);
 
 void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb);
-void ajouterPat(Patient **, int *);
+void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb);
+// void ajouterPat(Patient **, int *);
 
 void supprimerMed(Medecin **, int *);
 void supprimerPat(Patient **, int *);

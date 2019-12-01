@@ -57,6 +57,7 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
     majuscule(&new->prenom);
 
     printf("\n");
+    *nb++;
 
     // Tri
     for (*current = *first; *current != NULL; *current = (*current)->next)
@@ -82,22 +83,18 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
         *last = *current;
     }
 
-    *current = (*first)->next;
-    free(*first);
-    *first = *current;
-
     //Adresse du dernier
     for (*current = *first; *current != NULL; *current = (*current)->next)
         *last = *current;
 }
 
-void ajouterPat(Patient **last, int *nb)
+void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
 {
     Patient *new;
     new = malloc(sizeof(Patient));
 
-    (*last)->next = new;
-    new->next = NULL;
+    // (*last)->next = new;
+    // new->next = NULL;
 
     printf("Numéro de registre national : ");
     lire(new->regNat, 15);
@@ -132,9 +129,41 @@ void ajouterPat(Patient **last, int *nb)
     majuscule(&new->adVille);
 
     printf("\n");
-
-    *last = new;
     *nb++;
+
+    // *last = new;
+    // *nb++;
+    // Tri
+    for (*current = *first; *current != NULL; *current = (*current)->next)
+    {
+        if (strcmp(new->nom, (*first)->nom) < 0)
+        {
+            new->next = *current;
+            *first = new;
+            break;
+        }
+        else if (strcmp(new->nom, (*current)->nom) < 0)
+        {
+            (*last)->next = new;
+            new->next = *current;
+            break;
+        }
+        else if ((*current)->next == NULL && strcmp(new->nom, (*current)->nom) > 0)
+        {
+            new->next = (*current)->next;
+            (*current)->next = new;
+            break;
+        }
+        *last = *current;
+    }
+
+    // *current = (*first)->next;
+    // free(*first);
+    // *first = *current;
+
+    //Adresse du dernier
+    for (*current = *first; *current != NULL; *current = (*current)->next)
+        *last = *current;
 }
 
 void supprimerMed(Medecin **first, int *nbTot)

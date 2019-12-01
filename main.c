@@ -79,7 +79,7 @@ int main()
                     afficherListePat(firstP);
                     break;
                 case 2:
-                    ajouterPat(&lastP, &cpP);
+                    ajouterPat(&currentP, &firstP, &lastP, &cpP);
                     break;
                 case 3:
                     supprimerPat(&firstP, &cpP);
