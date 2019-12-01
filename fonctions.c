@@ -93,9 +93,6 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     Patient *new;
     new = malloc(sizeof(Patient));
 
-    // (*last)->next = new;
-    // new->next = NULL;
-
     printf("Numéro de registre national : ");
     lire(new->regNat, 15);
     printf("\tregnat : %-15s", new->regNat);
@@ -131,8 +128,6 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     printf("\n");
     *nb++;
 
-    // *last = new;
-    // *nb++;
     // Tri
     for (*current = *first; *current != NULL; *current = (*current)->next)
     {
@@ -156,10 +151,6 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
         }
         *last = *current;
     }
-
-    // *current = (*first)->next;
-    // free(*first);
-    // *first = *current;
 
     //Adresse du dernier
     for (*current = *first; *current != NULL; *current = (*current)->next)
