@@ -32,7 +32,7 @@ int menuPat();
 void afficherListeMed(Medecin *);
 void afficherListePat(Patient *);
 
-void ajouterMed(Medecin **, int *);
+void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb);
 void ajouterPat(Patient **, int *);
 
 void supprimerMed(Medecin **, int *);

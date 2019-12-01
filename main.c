@@ -44,7 +44,7 @@ int main()
                     afficherListeMed(firstM);
                     break;
                 case 2:
-                    ajouterMed(&lastM, &cpM);
+                    ajouterMed(&currentM, &firstM, &lastM, &cpM);
                     break;
                 case 3:
                     supprimerMed(&firstM, &cpM);

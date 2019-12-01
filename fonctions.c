@@ -38,14 +38,11 @@ void afficherListePat(Patient *first)
     }
 }
 
-void ajouterMed(Medecin **last, int *nb)
+void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
 {
     Medecin *new;
 
     new = malloc(sizeof(Medecin));
-
-    (*last)->next = new;
-    new->next = NULL;
 
     printf("Numéro inami : ");
     lire(new->numInami, 14);
@@ -61,9 +58,37 @@ void ajouterMed(Medecin **last, int *nb)
 
     printf("\n");
 
-    // Pour que le dernier soit mis à jour au nouveau créé
-    *last = new;
-    *nb++;
+    // Tri
+    for (*current = *first; *current != NULL; *current = (*current)->next)
+    {
+        if (strcmp(new->nom, (*first)->nom) < 0)
+        {
+            new->next = *current;
+            *first = new;
+            break;
+        }
+        else if (strcmp(new->nom, (*current)->nom) < 0)
+        {
+            (*last)->next = new;
+            new->next = *current;
+            break;
+        }
+        else if ((*current)->next == NULL && strcmp(new->nom, (*current)->nom) > 0)
+        {
+            new->next = (*current)->next;
+            (*current)->next = new;
+            break;
+        }
+        *last = *current;
+    }
+
+    *current = (*first)->next;
+    free(*first);
+    *first = *current;
+
+    //Adresse du dernier
+    for (*current = *first; *current != NULL; *current = (*current)->next)
+        *last = *current;
 }
 
 void ajouterPat(Patient **last, int *nb)
