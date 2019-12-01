@@ -4,6 +4,20 @@
 // Structures
 typedef struct Medecin Medecin;
 typedef struct Patient Patient;
+typedef struct DateNaissance DateNaissance;
+typedef struct Adresse Adresse;
+
+
+struct DateNaissance
+{
+    int jour, mois, annee;
+};
+
+struct Adresse
+{
+    int num, cp;
+    char rue[41], ville[21];
+};
 
 struct Medecin
 {
@@ -13,10 +27,13 @@ struct Medecin
 
 struct Patient
 {
-    int adNum, adCp;
-    char regNat[16], nom[21], prenom[21], numTel[14], dateN[9], adRue[41], adVille[21];
+    char regNat[16], nom[21], prenom[21], numTel[14];
+    DateNaissance dateN;
+    Adresse adresse;
     Patient *next;
 };
+
+
 
 // Prototype des fonctions
 
