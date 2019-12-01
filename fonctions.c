@@ -121,7 +121,7 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     lire(new->adVille, 20);
     majuscule(&new->adVille);
 
-    printf("\numéro de registre national : ");
+    printf("\nNuméro de registre national : ");
     lire(new->regNat, 15);
 
     printf("\n");
