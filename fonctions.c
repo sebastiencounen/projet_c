@@ -33,7 +33,7 @@ void afficherListePat(Patient *first)
         //        n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
         //        current->adRue, current->adNum, current->adCp, current->adVille);
         
-        printf("Patient %d --> %-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %4d %-20s\n",
+        printf("Patient %d --> %-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
                n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
                current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
                current->adresse.cp, current->adresse.ville);
@@ -106,6 +106,9 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     lire(new->prenom, 20);
     majuscule(&new->prenom);
 
+    printf("\nNuméro de registre national : ");
+    lire(new->regNat, 15);
+
     printf("\nNuméro de téléphone : ");
     lire(new->numTel, 13);
 
@@ -123,38 +126,19 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     lire(new->adresse.rue, 40);
     majuscule(&new->adresse.rue);
 
-    //
-    printf("RUE %-40s\n", new->adresse.rue);
-
     printf("\tNuméro : ");
     new->adresse.num = lireInt(&new->adresse.num, 3);
 
-    //
-    printf("RUE %-40s\n", new->adresse.rue);
-
     printf("\tCode postal : ");
-    new->adresse.cp = lireInt(&new->adresse.cp, 4);
-
-    //
-    printf("RUE %-40s\n", new->adresse.rue);
+    // new->adresse.cp = lireInt(&new->adresse.cp, 4);
+    lire(new->adresse.cp, 4);
 
     printf("\tLocalité : ");
     lire(new->adresse.ville, 20);
     majuscule(&new->adresse.ville);
 
-    //
-    printf("RUE %-40s\n", new->adresse.rue);
-
-    printf("\nNuméro de registre national : ");
-    lire(new->regNat, 15);
-
-    //
-    printf("RUE %-40s\n", new->adresse.rue);
-
     printf("\n");
     *nb++;
-
-    printf("Date : %02d/%02d/%4d\n", new->dateN.jour, new->dateN.mois, new->dateN.annee);
 
     // Tri
     for (*current = *first; *current != NULL; *current = (*current)->next)
@@ -320,12 +304,10 @@ void rechercherMed(Medecin *first)
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
-    // fgets(nom, 20, stdin);
     lire(nom, 20);
     majuscule(&nom);
 
     printf("\nEntrez le prénom du médecin : ");
-    // fgets(prenom, 20, stdin);
     lire(prenom, 20);
     printf("\n");
     majuscule(&prenom);
@@ -360,12 +342,10 @@ void rechercherPat(Patient *first)
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
-    // fgets(nom, 20, stdin);
     lire(nom, 20);
     majuscule(&nom);
 
     printf("\nEntrez le prénom du patient : ");
-    // fgets(prenom, 20, stdin);
     lire(prenom, 20);
     printf("\n");
     majuscule(&prenom);
@@ -379,7 +359,7 @@ void rechercherPat(Patient *first)
 
         if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
         {
-            printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %4d %-20s\n",
+            printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
                current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
                current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
                current->adresse.cp, current->adresse.ville);
@@ -483,7 +463,7 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
         //         currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN,
         //         currentP->adRue, currentP->adNum, currentP->adCp, currentP->adVille);
 
-        fprintf(fPat, "%-15s%-20s%-20s%-13s%02d/%02d/%4d%-40s%003d%4d%-20s\n",
+        fprintf(fPat, "%-15s%-20s%-20s%-13s%02d/%02d/%4d%-40s%003d%-4s%-20s\n",
                 currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN.jour,
                 currentP->dateN.mois, currentP->dateN.annee, currentP->adresse.rue, currentP->adresse.num,
                 currentP->adresse.cp, currentP->adresse.ville);
@@ -635,7 +615,7 @@ void lecturePatients(Patient **firstP, Patient **currentP, Patient **interP, Pat
     // fgets((*currentP)->numTel, 14, fdatPat);
     fscanf(fdatPat, "%2d%*c%2d%*c%4d", &(*currentP)->dateN.jour, &(*currentP)->dateN.mois, &(*currentP)->dateN.annee);
     fgets((*currentP)->adresse.rue, 41, fdatPat);
-    fscanf(fdatPat, "%3d %4d", &(*currentP)->adresse.num, &(*currentP)->adresse.cp);
+    fscanf(fdatPat, "%3d %4s", &(*currentP)->adresse.num, &(*currentP)->adresse.cp);
     fgets((*currentP)->adresse.ville, 21, fdatPat);
     while (!feof(fdatPat))
     {
@@ -647,7 +627,7 @@ void lecturePatients(Patient **firstP, Patient **currentP, Patient **interP, Pat
         fscanf(fdatPat, "%13s", (*interP)->numTel);
         fscanf(fdatPat, "%2d%*c%2d%*c%4d", &(*interP)->dateN.jour, &(*interP)->dateN.mois, &(*interP)->dateN.annee);
         fgets((*interP)->adresse.rue, 41, fdatPat);
-        fscanf(fdatPat, "%3d %4d", &(*interP)->adresse.num, &(*interP)->adresse.cp);
+        fscanf(fdatPat, "%3d %4s", &(*interP)->adresse.num, &(*interP)->adresse.cp);
         fgets((*interP)->adresse.ville, 21, fdatPat);
 
         for (*currentP = *firstP; *currentP != NULL; *currentP = (*currentP)->next)

@@ -15,8 +15,8 @@ struct DateNaissance
 
 struct Adresse
 {
-    int num, cp;
-    char rue[41], ville[21];
+    int num;
+    char cp[5], rue[41], ville[21];
 };
 
 struct Medecin
