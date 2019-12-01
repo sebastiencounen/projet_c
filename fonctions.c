@@ -28,11 +28,7 @@ void afficherListePat(Patient *first)
 
     current = first;
     while (current != NULL)
-    {
-        // printf("Patient %d --> %-15s %-20s %-20s %-14s %-8s %-40s %003d %4d %-20s\n",
-        //        n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN,
-        //        current->adRue, current->adNum, current->adCp, current->adVille);
-        
+    {   
         printf("Patient %d --> %-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
                n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
                current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
@@ -471,10 +467,6 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
     currentP = firstP;
     while (currentP != NULL)
     {
-        // fprintf(fPat, "%-15s%-20s%-20s%-13s%-8s%-40s%003d%4d%-20s\n",
-        //         currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN,
-        //         currentP->adRue, currentP->adNum, currentP->adCp, currentP->adVille);
-
         fprintf(fPat, "%-15s%-20s%-20s%-13s%02d/%02d/%4d%-40s%003d%-4s%-20s\n",
                 currentP->regNat, currentP->nom, currentP->prenom, currentP->numTel, currentP->dateN.jour,
                 currentP->dateN.mois, currentP->dateN.annee, currentP->adresse.rue, currentP->adresse.num,
@@ -545,13 +537,34 @@ long lireLong(char *chaine, int longueur)
 
 int formatAndCompare(char *chaine1, char *chaine2)
 {
-    int i = 0;
-    while (chaine1[i] != '\0')
+    // chaine 1 = nom, prenom
+    // chaine 2 = current->nom, current->prenom
+
+    int lenChaine1, lenChaine2 = 20, i = 0;
+    lenChaine1 = strlen(chaine1);
+    
+    // printf("Longueur nom à vouloir supp : %d\n", lenChaine1);
+
+    while (chaine2[lenChaine2] == 0 || chaine2[lenChaine2] == ' ')
+        lenChaine2--;
+    lenChaine2++;
+    
+    // printf("Longeur nom de liste chaînée = %d\n", lenChaine2);
+
+    if (lenChaine1 == lenChaine2)
+    {
+        while (chaine1[i] != '\0')
         i++;
 
-    chaine2[i] = '\0';
+        chaine2[i] = '\0';
 
-    return strcmp(chaine1, chaine2);
+        return strcmp(chaine1, chaine2);
+    }
+    else
+    {
+        return 1;
+    }
+    
 }
 
 void lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Medecin **lastM, int *cpM)
