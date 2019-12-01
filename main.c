@@ -17,6 +17,7 @@ int main()
 
     int cpM = 0, cpP = 0, exitMenu = 0;
     int n = 1;
+    char choixSave = 'n';
 
     // Lecture Medecins
     lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
@@ -108,7 +109,13 @@ int main()
             sauvegarde(firstM, firstP);
             break;
         case 4:
-            sauvegarde(firstM, firstP);
+            printf("Voulez-vous sauvergdez les changements effectués ? [o/n] : ");
+            scanf("%c", &choixSave);
+            printf("\n");
+
+            if (choixSave == 'o' || choixSave == 'O')
+                sauvegarde(firstM, firstP);
+            
             return 0;
         default:
             printf("Mauvais numéro sélectionné !\n");

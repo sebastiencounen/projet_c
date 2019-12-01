@@ -114,7 +114,7 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     new->dateN.jour = lireInt(&new->dateN.jour, 2);
     printf("\tMois : ");
     new->dateN.mois = lireInt(&new->dateN.mois, 2);
-    printf("\tAnnée : ");
+    printf("\tAnnée (AAAA) : ");
     new->dateN.annee = lireInt(&new->dateN.annee, 4); 
 
     printf("\nAdresse :\n");
@@ -206,7 +206,7 @@ void supprimerMed(Medecin **first, int *nbTot)
         free(tmp);
         *nbTot--;
 
-        printf("Suppression effectuée avec succès\n");
+        printf("\nSuppression effectuée avec succès\n");
     }
     else if (found)
     {
@@ -232,7 +232,7 @@ void supprimerMed(Medecin **first, int *nbTot)
 
         *nbTot--;
 
-        printf("Suppression effectuée avec succès\n");
+        printf("\nSuppression effectuée avec succès\n");
     }
     else
         printf("\nPersonne non trouvée\n");
@@ -280,7 +280,7 @@ void supprimerPat(Patient **first, int *nbTot)
         free(tmp);
         *nbTot--;
 
-        printf("Suppression effectuée avec succès\n");
+        printf("\nSuppression effectuée avec succès\n");
     }
     else if (found)
     {
@@ -306,7 +306,7 @@ void supprimerPat(Patient **first, int *nbTot)
 
         *nbTot--;
 
-        printf("Suppression effectuée avec succès\n");
+        printf("\nSuppression effectuée avec succès\n");
     }
     else
         printf("Personne non trouvée\n");
@@ -339,7 +339,7 @@ void rechercherMed(Medecin *first)
 
         if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0)
         {
-            printf("%-14s %-20s %-20s\n",
+            printf("\n%-14s %-20s %-20s\n",
                    current->numInami, current->nom, current->prenom);
             return;
         }
@@ -375,7 +375,7 @@ void rechercherPat(Patient *first)
 
         if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0)
         {
-            printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
+            printf("\n%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
                current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
                current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
                current->adresse.cp, current->adresse.ville);
