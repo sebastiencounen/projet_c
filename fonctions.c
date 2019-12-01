@@ -189,7 +189,7 @@ void supprimerMed(Medecin **first, int *nbTot)
         strcpy(tmpNom, current->nom);
         strcpy(tmpPren, current->prenom);
 
-        if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
+        if (formatAndCompare(nom, tmpNom, 20) == 0 && formatAndCompare(prenom, tmpPren, 20) == 0)
         {
             found = 1;
             break;
@@ -259,7 +259,7 @@ void supprimerPat(Patient **first, int *nbTot)
         strcpy(tmpNom, current->nom);
         strcpy(tmpPren, current->prenom);
 
-        if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
+        if (formatAndCompare(nom, tmpNom, 20) == 0 && formatAndCompare(prenom, tmpPren, 20) == 0)
         {
             found = 1;
             break;
@@ -329,7 +329,7 @@ void rechercherMed(Medecin *first)
         strcpy(tmpNom, current->nom);
         strcpy(tmpPren, current->prenom);
 
-        if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
+        if (formatAndCompare(nom, tmpNom, 20) == 0 && formatAndCompare(prenom, tmpPren, 20) == 0)
         {
             printf("%-14s %-20s %-20s\n",
                    current->numInami, current->nom, current->prenom);
@@ -365,7 +365,7 @@ void rechercherPat(Patient *first)
         strcpy(tmpNom, current->nom);
         strcpy(tmpPren, current->prenom);
 
-        if (formatAndCompare(nom, tmpNom) == 0 && formatAndCompare(prenom, tmpPren) == 0)
+        if (formatAndCompare(nom, tmpNom, 20) == 0 && formatAndCompare(prenom, tmpPren, 20) == 0)
         {
             printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
                current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
@@ -535,12 +535,12 @@ long lireLong(char *chaine, int longueur)
         return 0;
 }
 
-int formatAndCompare(char *chaine1, char *chaine2)
+int formatAndCompare(char *chaine1, char *chaine2, int longueurChaineListe)
 {
     // chaine 1 = nom, prenom
     // chaine 2 = current->nom, current->prenom
 
-    int lenChaine1, lenChaine2 = 20, i = 0;
+    int lenChaine1, lenChaine2 = longueurChaineListe, i = 0;
     lenChaine1 = strlen(chaine1);
     
     // printf("Longueur nom à vouloir supp : %d\n", lenChaine1);

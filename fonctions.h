@@ -69,6 +69,6 @@ void clearBuffer();
 int lire(char *, int);
 int lireInt(char *, int);
 long lireLong(char *, int);
-int formatAndCompare(char *, char *);
+int formatAndCompare(char *, char *, int);
 
 #endif
