@@ -205,6 +205,8 @@ void supprimerMed(Medecin **first, int *nbTot)
         *first = (*first)->next;
         free(tmp);
         *nbTot--;
+
+        printf("Suppression effectuée avec succès\n");
     }
     else if (found)
     {
@@ -229,6 +231,8 @@ void supprimerMed(Medecin **first, int *nbTot)
         }
 
         *nbTot--;
+
+        printf("Suppression effectuée avec succès\n");
     }
     else
         printf("\nPersonne non trouvée\n");
@@ -275,6 +279,8 @@ void supprimerPat(Patient **first, int *nbTot)
         *first = (*first)->next;
         free(tmp);
         *nbTot--;
+
+        printf("Suppression effectuée avec succès\n");
     }
     else if (found)
     {
@@ -299,6 +305,8 @@ void supprimerPat(Patient **first, int *nbTot)
         }
 
         *nbTot--;
+
+        printf("Suppression effectuée avec succès\n");
     }
     else
         printf("Personne non trouvée\n");
