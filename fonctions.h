@@ -32,9 +32,8 @@ int menuPat();
 void afficherListeMed(Medecin *);
 void afficherListePat(Patient *);
 
-void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb);
-void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb);
-// void ajouterPat(Patient **, int *);
+void ajouterMed(Medecin **, Medecin **, Medecin **, int *);
+void ajouterPat(Patient **, Patient **, Patient **, int *);
 
 void supprimerMed(Medecin **, int *);
 void supprimerPat(Patient **, int *);

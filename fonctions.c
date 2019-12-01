@@ -93,15 +93,11 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     Patient *new;
     new = malloc(sizeof(Patient));
 
-    printf("Numéro de registre national : ");
-    lire(new->regNat, 15);
-    printf("\tregnat : %-15s", new->regNat);
-
-    printf("\nNom : ");
+    printf("Nom : ");
     lire(new->nom, 20);
     majuscule(&new->nom);
 
-    printf("\nPrenom : ");
+    printf("\nPrénom : ");
     lire(new->prenom, 20);
     majuscule(&new->prenom);
 
@@ -124,6 +120,9 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     printf("\nAdresse (localité) : ");
     lire(new->adVille, 20);
     majuscule(&new->adVille);
+
+    printf("\numéro de registre national : ");
+    lire(new->regNat, 15);
 
     printf("\n");
     *nb++;
