@@ -39,6 +39,11 @@ void afficherListePat(Patient *first)
     }
 }
 
+void afficherListeCons(Consultation *first)
+{
+    //
+}
+
 void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
 {
     Medecin *new;
@@ -164,6 +169,12 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     for (*current = *first; *current != NULL; *current = (*current)->next)
         *last = *current;
 }
+
+void ajouterCons(Consultation **current, Consultation **first, Consultation **last, int *nb)
+{
+    //
+}
+
 
 void supprimerMed(Medecin **first, int *nbTot)
 {
@@ -310,6 +321,11 @@ void supprimerPat(Patient **first, int *nbTot)
     }
     else
         printf("Personne non trouvée\n");
+}
+
+void supprimerCons(Consultation **first, int *nbTot)
+{
+    // 
 }
 
 void rechercherMed(Medecin *first)

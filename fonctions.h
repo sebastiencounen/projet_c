@@ -58,12 +58,15 @@ int menuPat();
 
 void afficherListeMed(Medecin *);
 void afficherListePat(Patient *);
+void afficherListeCons(Consultation *);
 
 void ajouterMed(Medecin **, Medecin **, Medecin **, int *);
 void ajouterPat(Patient **, Patient **, Patient **, int *);
+void ajouterCons(Consultation **, Consultation **, Consultation **, int *);
 
 void supprimerMed(Medecin **, int *);
 void supprimerPat(Patient **, int *);
+void supprimerCons(Consultation **, int *);
 
 void rechercherMed(Medecin *);
 void rechercherPat(Patient *);
