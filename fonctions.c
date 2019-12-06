@@ -376,40 +376,64 @@ void rechercherMed(Medecin *first)
 
 void rechercherPat(Patient *first)
 {
+    int n = 0, n2 = 0;
+    char nom[21], tmpNom[21];
+    Date dateNaiss;
     Patient *current;
-    char nom[21], prenom[21];
-    char tmpNom[21], tmpPren[21];
 
-    // On demande le nom et le prénom du médecin recherché
-    printf("Entrez le nom du patient : ");
-    lire(nom, 20);
-    majuscule(&nom);
+    printf("Entrez la date de naissance du patient : ");
+    printf("\n\tJour : ");
+    dateNaiss.jour = lireInt(&dateNaiss.jour, 2);
+    printf("\tMois : ");
+    dateNaiss.mois = lireInt(&dateNaiss.mois, 2);
+    printf("\tAnnée : ");
+    dateNaiss.annee = lireInt(&dateNaiss.annee, 4);
 
-    printf("\nEntrez le prénom du patient : ");
-    lire(prenom, 20);
-    printf("\n");
-    majuscule(&prenom);
+    
 
     // On recherche dans la liste
     current = first;
     while (current != NULL)
     {
-        strcpy(tmpNom, current->nom);
-        strcpy(tmpPren, current->prenom);
-
-        if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0)
+        if (current->dateN.jour == dateNaiss.jour && current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee)
         {
+            n++;
             printf("\n%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
                current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
                current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
                current->adresse.cp, current->adresse.ville);
-            return;
         }
+
 
         current = current->next;
     }
 
-    printf("Erreur : Personne non trouvée\n");
+    if (n == 0)
+        printf("\nAucune correspondance\n");
+    else if (n > 1)
+    {
+        printf("\nVeuillez entrer le nom du patient : ");
+        lire(nom, 20);
+        majuscule(&nom);
+        printf("\n");
+
+        current = first;
+
+        while(current != NULL)
+        {
+            strcpy(tmpNom, current->nom);
+
+            if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && (current->dateN.jour == dateNaiss.jour && current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee))
+            {
+                printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
+                        current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
+                        current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
+                        current->adresse.cp, current->adresse.ville);
+            }
+
+            current = current->next;
+        }
+    }
 }
 
 void modifierMed(Medecin *first)
