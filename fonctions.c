@@ -388,23 +388,21 @@ void rechercherPat(Patient *first)
     dateNaiss.mois = lireInt(&dateNaiss.mois, 2);
     printf("\tAnnée : ");
     dateNaiss.annee = lireInt(&dateNaiss.annee, 4);
-
+    printf("\n");
     
 
     // On recherche dans la liste
     current = first;
     while (current != NULL)
     {
+        n++;
         if (current->dateN.jour == dateNaiss.jour && current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee)
         {
-            n++;
-            printf("\n%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
+            printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
                current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
                current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
                current->adresse.cp, current->adresse.ville);
         }
-
-
         current = current->next;
     }
 
@@ -412,6 +410,7 @@ void rechercherPat(Patient *first)
         printf("\nAucune correspondance\n");
     else if (n > 1)
     {
+        n = 0;
         printf("\nVeuillez entrer le nom du patient : ");
         lire(nom, 20);
         majuscule(&nom);
@@ -423,7 +422,10 @@ void rechercherPat(Patient *first)
         {
             strcpy(tmpNom, current->nom);
 
-            if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && (current->dateN.jour == dateNaiss.jour && current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee))
+            if (
+                formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && 
+                (current->dateN.jour == dateNaiss.jour && current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee)
+               )
             {
                 printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
                         current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
