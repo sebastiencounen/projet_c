@@ -39,7 +39,7 @@ struct Consultation
     Medecin med;
     Patient pat;
     Date date;
-    int prix;
+    int heure, minute;
     Consultation *next;
 };
 

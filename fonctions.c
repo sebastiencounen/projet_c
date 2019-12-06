@@ -172,7 +172,15 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
 
 void ajouterCons(Consultation **current, Consultation **first, Consultation **last, int *nb)
 {
-    //
+    int jour, mois, annee;
+    printf("Entrez la date de naissance du patient : ");
+    printf("\tJour : ");
+    jour = lireInt(&jour, 2);
+    printf("\tMois : ");
+    mois = lireInt(&mois, 2);
+    printf("\tAnnée : ");
+    annee = lireInt(&annee, 4);
+    printf("\n");
 }
 
 
@@ -461,13 +469,24 @@ int menuPat()
            "3. Supprimer\n"
            "4. Rechercher\n"
            "5. Modifier\n"
-           "6. Retour au menu principal\n: ");
+           "6. Prendre un rendez-vous\n"
+           "7. Retour au menu principal\n: ");
 
     choix = lireInt(&choix, 1);
     printf("\n");
 
     return choix;
 }
+
+// int menuCons()
+// {
+//     int choix;
+
+//     printf("\nConsultation(s)\n"
+//            "***************\n"
+//            "1. Afficher consultation(s)\n"
+//            "2. Prendre un rendez-vous")
+// }
 
 void sauvegarde(Medecin *firstM, Patient *firstP)
 {

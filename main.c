@@ -14,6 +14,7 @@ int main()
     // Variables
     Medecin *firstM, *currentM, *nextM, *lastM, *interM;
     Patient *firstP, *currentP, *nextP, *lastP, *interP;
+    Consultation *firstC, *currentC, *nextC, *lastC, *interC;
 
     int cpM = 0, cpP = 0, exitMenu = 0;
     int n = 1;
@@ -93,6 +94,8 @@ int main()
                     // modifierPat(firstP);
                     break;
                 case 6:
+                    // ajouterCons()
+                case 7:
                     // Clear the console
                     printf("\e[1;1H\e[2J");
                     exitMenu = 1;
