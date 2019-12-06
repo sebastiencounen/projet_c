@@ -4,11 +4,12 @@
 // Structures
 typedef struct Medecin Medecin;
 typedef struct Patient Patient;
-typedef struct DateNaissance DateNaissance;
+typedef struct Consultation Consultation;
+typedef struct Date Date;
 typedef struct Adresse Adresse;
 
 
-struct DateNaissance
+struct Date
 {
     int jour, mois, annee;
 };
@@ -28,9 +29,18 @@ struct Medecin
 struct Patient
 {
     char regNat[16], nom[21], prenom[21], numTel[14];
-    DateNaissance dateN;
+    Date dateN;
     Adresse adresse;
     Patient *next;
+};
+
+struct Consultation
+{
+    Medecin med;
+    Patient pat;
+    Date date;
+    int prix;
+    Consultation *next;
 };
 
 
