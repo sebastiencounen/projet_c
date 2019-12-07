@@ -28,7 +28,7 @@ void afficherListePat(Patient *first)
 
     current = first;
     while (current != NULL)
-    {   
+    {
         printf("Patient %d --> %-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
                n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
                current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
@@ -120,7 +120,7 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     printf("\tMois : ");
     new->dateN.mois = lireInt(&new->dateN.mois, 2);
     printf("\tAnnée (AAAA) : ");
-    new->dateN.annee = lireInt(&new->dateN.annee, 4); 
+    new->dateN.annee = lireInt(&new->dateN.annee, 4);
 
     printf("\nAdresse :\n");
     printf("\tRue : ");
@@ -144,6 +144,7 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     // Tri
     for (*current = *first; *current != NULL; *current = (*current)->next)
     {
+
         if (strcmp(new->nom, (*first)->nom) < 0)
         {
             new->next = *current;
@@ -182,7 +183,6 @@ void ajouterCons(Consultation **current, Consultation **first, Consultation **la
     annee = lireInt(&annee, 4);
     printf("\n");
 }
-
 
 void supprimerMed(Medecin **first, int *nbTot)
 {
@@ -333,7 +333,7 @@ void supprimerPat(Patient **first, int *nbTot)
 
 void supprimerCons(Consultation **first, int *nbTot)
 {
-    // 
+    //
 }
 
 void rechercherMed(Medecin *first)
@@ -389,7 +389,6 @@ void rechercherPat(Patient *first)
     printf("\tAnnée : ");
     dateNaiss.annee = lireInt(&dateNaiss.annee, 4);
     printf("\n");
-    
 
     // On recherche dans la liste
     current = first;
@@ -399,9 +398,9 @@ void rechercherPat(Patient *first)
         if (current->dateN.jour == dateNaiss.jour && current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee)
         {
             printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
-               current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
-               current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
-               current->adresse.cp, current->adresse.ville);
+                   current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
+                   current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
+                   current->adresse.cp, current->adresse.ville);
         }
         current = current->next;
     }
@@ -418,19 +417,18 @@ void rechercherPat(Patient *first)
 
         current = first;
 
-        while(current != NULL)
+        while (current != NULL)
         {
             strcpy(tmpNom, current->nom);
 
             if (
-                formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && 
-                (current->dateN.jour == dateNaiss.jour && current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee)
-               )
+                formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 &&
+                (current->dateN.jour == dateNaiss.jour && current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee))
             {
                 printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
-                        current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
-                        current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
-                        current->adresse.cp, current->adresse.ville);
+                       current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
+                       current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
+                       current->adresse.cp, current->adresse.ville);
             }
 
             current = current->next;
@@ -611,19 +609,19 @@ int formatAndCompare(char *chaine1, char *chaine2, int longueurChaineListe)
 
     int lenChaine1, lenChaine2 = longueurChaineListe, i = 0;
     lenChaine1 = strlen(chaine1);
-    
+
     // printf("Longueur nom à vouloir supp : %d\n", lenChaine1);
 
     while (chaine2[lenChaine2] == 0 || chaine2[lenChaine2] == ' ')
         lenChaine2--;
     lenChaine2++;
-    
+
     // printf("Longeur nom de liste chaînée = %d\n", lenChaine2);
 
     if (lenChaine1 == lenChaine2)
     {
         while (chaine1[i] != '\0')
-        i++;
+            i++;
 
         chaine2[i] = '\0';
 
@@ -633,7 +631,6 @@ int formatAndCompare(char *chaine1, char *chaine2, int longueurChaineListe)
     {
         return 1;
     }
-    
 }
 
 void lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Medecin **lastM, int *cpM)
@@ -660,16 +657,32 @@ void lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Med
 
         for (*currentM = *firstM; *currentM != NULL; *currentM = (*currentM)->next)
         {
-            if (strcmp((*interM)->nom, (*firstM)->nom) < 0)
+            if (strcmp((*interM)->nom, (*firstM)->nom) <= 0)
             {
-                (*interM)->next = *currentM;
-                *firstM = *interM;
+                if (strcmp((*interM)->nom, (*currentM)->nom) == 0 && strcmp((*interM)->prenom, (*firstM)->prenom) > 0)
+                {
+                    (*interM)->next = (*currentM)->next;
+                    (*currentM)->next = *interM;
+                }
+                else
+                {
+                    (*interM)->next = *currentM;
+                    *firstM = *interM;
+                }
                 break;
             }
-            else if (strcmp((*interM)->nom, (*currentM)->nom) < 0)
+            else if (strcmp((*interM)->nom, (*currentM)->nom) <= 0)
             {
-                (*lastM)->next = *interM;
-                (*interM)->next = *currentM;
+                if (strcmp((*interM)->nom, (*currentM)->nom) == 0 && strcmp((*interM)->prenom, (*currentM)->prenom) > 0)
+                {
+                    (*interM)->next = (*currentM)->next;
+                    (*currentM)->next = *interM;
+                }
+                else
+                {
+                    (*lastM)->next = *interM;
+                    (*interM)->next = *currentM;
+                }
                 break;
             }
             else if ((*currentM)->next == NULL && strcmp((*interM)->nom, (*currentM)->nom) > 0)
@@ -693,6 +706,7 @@ void lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Med
 
 void lecturePatients(Patient **firstP, Patient **currentP, Patient **interP, Patient **lastP, int *cpP)
 {
+    int a = 0;
     //Fichier
     FILE *fdatPat;
     fdatPat = fopen("patients.dat", "r");
@@ -711,6 +725,7 @@ void lecturePatients(Patient **firstP, Patient **currentP, Patient **interP, Pat
     fgets((*currentP)->adresse.rue, 41, fdatPat);
     fscanf(fdatPat, "%3d %4s", &(*currentP)->adresse.num, &(*currentP)->adresse.cp);
     fgets((*currentP)->adresse.ville, 21, fdatPat);
+
     while (!feof(fdatPat))
     {
         *interP = malloc(sizeof(Patient));
@@ -726,16 +741,32 @@ void lecturePatients(Patient **firstP, Patient **currentP, Patient **interP, Pat
 
         for (*currentP = *firstP; *currentP != NULL; *currentP = (*currentP)->next)
         {
-            if (strcmp((*interP)->nom, (*firstP)->nom) < 0)
+            if (strcmp((*interP)->nom, (*firstP)->nom) <= 0)
             {
-                (*interP)->next = *currentP;
-                *firstP = *interP;
+                if (strcmp((*interP)->nom, (*currentP)->nom) == 0 && strcmp((*interP)->prenom, (*firstP)->prenom) > 0)
+                {
+                    (*interP)->next = (*currentP)->next;
+                    (*currentP)->next = *interP;
+                }
+                else
+                {
+                    (*interP)->next = *currentP;
+                    *firstP = *interP;
+                }
                 break;
             }
-            else if (strcmp((*interP)->nom, (*currentP)->nom) < 0)
+            else if (strcmp((*interP)->nom, (*currentP)->nom) <= 0)
             {
-                (*lastP)->next = *interP;
-                (*interP)->next = *currentP;
+                if (strcmp((*interP)->nom, (*currentP)->nom) == 0 && strcmp((*interP)->prenom, (*currentP)->prenom) > 0)
+                {
+                    (*interP)->next = (*currentP)->next;
+                    (*currentP)->next = *interP;
+                }
+                else
+                {
+                    (*lastP)->next = *interP;
+                    (*interP)->next = *currentP;
+                }
                 break;
             }
             else if ((*currentP)->next == NULL && strcmp((*interP)->nom, (*currentP)->nom) > 0)
