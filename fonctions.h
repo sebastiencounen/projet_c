@@ -21,7 +21,7 @@ struct Adresse
 
 struct Medecin
 {
-    char numInami[15], nom[21], prenom[21];
+    char numInami[15], nom[21], prenom[21], specialite[21];
     Medecin *next;
 };
 

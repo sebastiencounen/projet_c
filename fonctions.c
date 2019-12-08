@@ -13,8 +13,8 @@ void afficherListeMed(Medecin *first)
     current = first;
     while (current != NULL)
     {
-        printf("Médecin %d --> %-14s %-20s %-20s\n",
-               n, current->numInami, current->nom, current->prenom);
+        printf("Médecin %d --> %-14s %-20s %-20s %-20s\n",
+               n, current->numInami, current->nom, current->prenom, current->specialite);
 
         n++;
         current = current->next;
@@ -61,6 +61,10 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
     printf("\nPrénom : ");
     lire(new->prenom, 20);
     majuscule(&new->prenom);
+
+    printf("\nSpecialité : ");
+    lire(new->specialite, 20);
+    majuscule(&new->specialite);
 
     printf("\n");
     *nb++;
@@ -537,8 +541,8 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
     currentM = firstM;
     while (currentM != NULL)
     {
-        fprintf(fMed, "%-14s%-20s%-20s\n",
-                currentM->numInami, currentM->nom, currentM->prenom);
+        fprintf(fMed, "%-14s%-20s%-20s%-20s\n",
+                currentM->numInami, currentM->nom, currentM->prenom, currentM->specialite);
         currentM = currentM->next;
     }
     fclose(fMed);
@@ -660,6 +664,7 @@ void lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Med
     fscanf(fdatMed, "%14s", (*currentM)->numInami);
     fgets((*currentM)->nom, 21, fdatMed);
     fgets((*currentM)->prenom, 21, fdatMed);
+    fscanf(fdatMed, "%20s", (*currentM)->specialite);
     while (!feof(fdatMed))
     {
         *interM = malloc(sizeof(Medecin));
@@ -667,6 +672,7 @@ void lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Med
         fscanf(fdatMed, "%14s", (*interM)->numInami);
         fgets((*interM)->nom, 21, fdatMed);
         fgets((*interM)->prenom, 21, fdatMed);
+        fscanf(fdatMed, "%20s", (*interM)->specialite);
 
         for (*currentM = *firstM; *currentM != NULL; *currentM = (*currentM)->next)
         {
