@@ -87,14 +87,15 @@ int main()
                     supprimerPat(&firstP, &cpP);
                     break;
                 case 4:
-                    rechercherPat(firstP);
+                    // rechercherPat(firstP);
                     break;
                 case 5:
                     printf("Option not working yet\n");
                     // modifierPat(firstP);
                     break;
                 case 6:
-                    // ajouterCons()
+                    ajouterCons(&currentC, &firstC, &lastC, firstP, &currentP);
+                    break;
                 case 7:
                     // Clear the console
                     printf("\e[1;1H\e[2J");
@@ -118,7 +119,7 @@ int main()
 
             if (choixSave == 'o' || choixSave == 'O')
                 sauvegarde(firstM, firstP);
-            
+
             return 0;
         default:
             printf("Mauvais numéro sélectionné !\n");

@@ -59,14 +59,14 @@ void afficherListeCons(Consultation *);
 
 void ajouterMed(Medecin **, Medecin **, Medecin **, int *);
 void ajouterPat(Patient **, Patient **, Patient **, int *);
-void ajouterCons(Consultation **, Consultation **, Consultation **, int *);
+void ajouterCons(Consultation **, Consultation **, Consultation **, Patient *, Patient **);
 
 void supprimerMed(Medecin **, int *);
 void supprimerPat(Patient **, int *);
 void supprimerCons(Consultation **, int *);
 
 void rechercherMed(Medecin *);
-Patient rechercherPat(Patient *);
+void rechercherPat(Patient *, Patient **);
 
 void modifierMed(Medecin *);
 void modifierPat(Patient *);

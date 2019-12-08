@@ -171,17 +171,14 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
         *last = *current;
 }
 
-void ajouterCons(Consultation **current, Consultation **first, Consultation **last, int *nb)
+void ajouterCons(Consultation **current, Consultation **first, Consultation **last, Patient *firstP, Patient **currentPat)
 {
     int jour, mois, annee;
-    printf("Entrez la date de naissance du patient : ");
-    printf("\tJour : ");
-    jour = lireInt(&jour, 2);
-    printf("\tMois : ");
-    mois = lireInt(&mois, 2);
-    printf("\tAnnée : ");
-    annee = lireInt(&annee, 4);
-    printf("\n");
+    Patient *currentP = currentPat;
+
+    rechercherPat(firstP, &currentP);
+
+    printf("\n%s %s\n", currentP->nom, currentP->prenom);
 }
 
 void supprimerMed(Medecin **first, int *nbTot)
@@ -374,12 +371,11 @@ void rechercherMed(Medecin *first)
     printf("Erreur : Personne non trouvée\n");
 }
 
-Patient rechercherPat(Patient *first)
+void rechercherPat(Patient *first, Patient **current)
 {
     int n = 0, n2 = 0;
     char nom[21], tmpNom[21], regNat[16];
     Date dateNaiss;
-    Patient *current;
 
     printf("Entrez la date de naissance du patient : ");
     printf("\n\tJour : ");
@@ -391,18 +387,18 @@ Patient rechercherPat(Patient *first)
     printf("\n");
 
     // On recherche dans la liste
-    current = first;
-    while (current != NULL)
+    *current = first;
+    while (*current != NULL)
     {
         n++;
-        if (current->dateN.jour == dateNaiss.jour && current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee)
+        if ((*current)->dateN.jour == dateNaiss.jour && (*current)->dateN.mois == dateNaiss.mois && (*current)->dateN.annee == dateNaiss.annee)
         {
             printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
-                   current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
-                   current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
-                   current->adresse.cp, current->adresse.ville);
+                   (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->numTel, (*current)->dateN.jour,
+                   (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
+                   (*current)->adresse.cp, (*current)->adresse.ville);
         }
-        current = current->next;
+        *current = (*current)->next;
     }
 
     if (n == 0)
@@ -415,21 +411,22 @@ Patient rechercherPat(Patient *first)
         majuscule(&nom);
         printf("\n");
 
-        current = first;
+        *current = first;
 
-        while (current != NULL)
+        while (*current != NULL)
         {
-            strcpy(tmpNom, current->nom);
+            strcpy(tmpNom, (*current)->nom);
 
-            if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && (current->dateN.jour == dateNaiss.jour &&
-                                                                       current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee))
+            if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && ((*current)->dateN.jour == dateNaiss.jour &&
+                                                                       (*current)->dateN.mois == dateNaiss.mois && (*current)->dateN.annee == dateNaiss.annee))
             {
+                n++;
                 printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
-                       current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
-                       current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
-                       current->adresse.cp, current->adresse.ville);
+                       (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->numTel, (*current)->dateN.jour,
+                       (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
+                       (*current)->adresse.cp, (*current)->adresse.ville);
             }
-            current = current->next;
+            *current = (*current)->next;
         }
 
         if (n == 0)
@@ -438,19 +435,18 @@ Patient rechercherPat(Patient *first)
         printf("\nEntrez le numéro de registre national : ");
         lire(regNat, 15);
 
-        for (current = first; current != NULL; current = current->next)
+        for (*current = first; *current != NULL; *current = (*current)->next)
         {
-            if (strcmp(current->regNat, regNat) == 0)
+            if (strcmp((*current)->regNat, regNat) == 0)
             {
                 printf("\n%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
-                       current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
-                       current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
-                       current->adresse.cp, current->adresse.ville);
+                       (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->numTel, (*current)->dateN.jour,
+                       (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
+                       (*current)->adresse.cp, (*current)->adresse.ville);
                 break;
             }
         }
     }
-    return *current;
 }
 
 void modifierMed(Medecin *first)
