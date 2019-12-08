@@ -374,10 +374,10 @@ void rechercherMed(Medecin *first)
     printf("Erreur : Personne non trouvée\n");
 }
 
-void rechercherPat(Patient *first)
+Patient rechercherPat(Patient *first)
 {
     int n = 0, n2 = 0;
-    char nom[21], tmpNom[21];
+    char nom[21], tmpNom[21], regNat[16];
     Date dateNaiss;
     Patient *current;
 
@@ -421,19 +421,36 @@ void rechercherPat(Patient *first)
         {
             strcpy(tmpNom, current->nom);
 
-            if (
-                formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 &&
-                (current->dateN.jour == dateNaiss.jour && current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee))
+            if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && (current->dateN.jour == dateNaiss.jour &&
+                                                                       current->dateN.mois == dateNaiss.mois && current->dateN.annee == dateNaiss.annee))
             {
                 printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
                        current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
                        current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
                        current->adresse.cp, current->adresse.ville);
             }
-
             current = current->next;
         }
+
+        if (n == 0)
+            printf("\nAucune correspondance\n");
+
+        printf("\nEntrez le numéro de registre national : ");
+        lire(regNat, 15);
+
+        for (current = first; current != NULL; current = current->next)
+        {
+            if (strcmp(current->regNat, regNat) == 0)
+            {
+                printf("\n%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
+                       current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
+                       current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
+                       current->adresse.cp, current->adresse.ville);
+                break;
+            }
+        }
     }
+    return *current;
 }
 
 void modifierMed(Medecin *first)

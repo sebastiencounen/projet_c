@@ -8,7 +8,6 @@ typedef struct Consultation Consultation;
 typedef struct Date Date;
 typedef struct Adresse Adresse;
 
-
 struct Date
 {
     int jour, mois, annee;
@@ -43,8 +42,6 @@ struct Consultation
     Consultation *next;
 };
 
-
-
 // Prototype des fonctions
 
 //Lectures fichiers
@@ -69,7 +66,7 @@ void supprimerPat(Patient **, int *);
 void supprimerCons(Consultation **, int *);
 
 void rechercherMed(Medecin *);
-void rechercherPat(Patient *);
+Patient rechercherPat(Patient *);
 
 void modifierMed(Medecin *);
 void modifierPat(Patient *);
