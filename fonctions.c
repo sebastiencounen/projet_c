@@ -382,8 +382,8 @@ void rechercherMed(Medecin *first)
 
 void rechercherPat(Patient *first, Patient **current)
 {
-    int n = 0, cp = 0, pasUnique = 1, i;
-    char nom[21], tmpNom[21], regNat[16];
+    int n = 0, cp = 0, i;
+    char nom[21], tmpNom[21], regNat[16], tmpRegNat[16];
     Date dateNaiss;
 
     printf("Entrez la date de naissance du patient : ");
@@ -397,7 +397,10 @@ void rechercherPat(Patient *first, Patient **current)
 
     for(*current = first; *current != NULL; *current = (*current)->next)
     {
-        cp++;
+        if (n == 0)
+        {
+            cp++;
+        }
         if ((*current)->dateN.jour == dateNaiss.jour && (*current)->dateN.mois == dateNaiss.mois && (*current)->dateN.annee == dateNaiss.annee)
         {
             n++;
@@ -408,7 +411,7 @@ void rechercherPat(Patient *first, Patient **current)
         }
     }
 
-    if (n >= 2)
+    if (n > 1)
     {
         cp = 0;
         n = 0;
@@ -420,9 +423,12 @@ void rechercherPat(Patient *first, Patient **current)
 
         for(*current = first; *current != NULL; *current = (*current)->next)
         {
-            cp++;
+            if (n == 0)
+            {
+                cp++;
+            }
             strcpy(tmpNom, (*current)->nom);
-            if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0)
+            if ((formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0) && ((*current)->dateN.jour == dateNaiss.jour && (*current)->dateN.mois == dateNaiss.mois && (*current)->dateN.annee == dateNaiss.annee))
             {
                 n++;
                 printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
@@ -431,7 +437,8 @@ void rechercherPat(Patient *first, Patient **current)
                     (*current)->adresse.cp, (*current)->adresse.ville);
             }
         }
-        if (n >= 2)
+
+        if (n > 1)
         {
             n = 0;
             cp = 0;
@@ -442,14 +449,19 @@ void rechercherPat(Patient *first, Patient **current)
 
             for(*current = first; *current != NULL; *current = (*current)->next)
             {
-                cp++;
-                if (strcmp(regNat, (*current)->regNat) == 0)
+                if (n == 0)
+                {
+                    cp++;
+                }
+
+                strcpy(tmpNom, (*current)->nom);
+                if (strcmp(regNat, (*current)->regNat) == 0 && (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0) && ((*current)->dateN.jour == dateNaiss.jour && (*current)->dateN.mois == dateNaiss.mois && (*current)->dateN.annee == dateNaiss.annee))
                 {
                     n++;
                     printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
-                    (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->numTel, (*current)->dateN.jour,
-                    (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
-                    (*current)->adresse.cp, (*current)->adresse.ville);
+                        (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->numTel, (*current)->dateN.jour,
+                        (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
+                        (*current)->adresse.cp, (*current)->adresse.ville);
                 }
             }
                             
@@ -459,7 +471,7 @@ void rechercherPat(Patient *first, Patient **current)
     if (n != 0) 
     {
         *current = first;
-        for (i = 0; i < cp - 1; i++)
+        for (i = 1; i < cp; i++)
         {
             printf("%d/%d\n", i, cp);
             *current = (*current)->next;
