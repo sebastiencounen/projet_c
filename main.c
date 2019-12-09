@@ -87,7 +87,7 @@ int main()
                     supprimerPat(&firstP, &cpP);
                     break;
                 case 4:
-                    // rechercherPat(firstP);
+                    rechercherPat(firstP, &currentP);
                     break;
                 case 5:
                     printf("Option not working yet\n");
