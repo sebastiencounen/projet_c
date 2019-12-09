@@ -453,6 +453,99 @@ void rechercherPat(Patient *first, Patient **current)
     }
 }
 
+void rechercherPat(Patient *first, Patient **current)
+{
+    int n = 0, cp = 0, pasUnique = 1, i;
+    char nom[21], tmpNom[21], regNat[16];
+    Date dateNaiss;
+
+    printf("Entrez la date de naissance du patient : ");
+    printf("\n\tJour : ");
+    dateNaiss.jour = lireInt(&dateNaiss.jour, 2);
+    printf("\tMois : ");
+    dateNaiss.mois = lireInt(&dateNaiss.mois, 2);
+    printf("\tAnnée : ");
+    dateNaiss.annee = lireInt(&dateNaiss.annee, 4);
+    printf("\n");
+
+    while(pasUnique)
+    {
+        for(*current = first; *current != NULL; *current = (*current)->next)
+        {
+            cp++;
+            if ((*current)->dateN.jour == dateNaiss.jour && (*current)->dateN.mois == dateNaiss.mois && (*current)->dateN.annee == dateNaiss.annee)
+            {
+                n++;
+                printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
+                       (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->numTel, (*current)->dateN.jour,
+                       (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
+                       (*current)->adresse.cp, (*current)->adresse.ville);
+            }
+        }
+
+        if (n > 1)
+        {
+            cp = 0;
+            n = 0;
+
+            printf("\nVeuillez entrer le nom du patient : ");
+            lire(nom, 20);
+            majuscule(&nom);
+            printf("\n");
+
+            for(*current = first; *current != NULL; *current = (*current)->next)
+            {
+                cp++;
+                strcpy(tmpNom, (*current)->nom);
+                if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0)
+                {
+                    n++;
+                    printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
+                        (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->numTel, (*current)->dateN.jour,
+                        (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
+                        (*current)->adresse.cp, (*current)->adresse.ville);
+                }
+            }
+            if (n > 1)
+            {
+                n = 0;
+                cp = 0;
+
+                printf("\nEntrez le numéro de registre national : ");
+                lire(regNat, 15);
+                printf("\n");
+
+                for(*current = first; *current != NULL; *current = (*current)->next)
+                {
+                    cp++;
+                    if (strcmp(regNat, (*current)->regNat) == 0)
+                    {
+                        n++;
+                        printf("%-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
+                        (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->numTel, (*current)->dateN.jour,
+                        (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
+                        (*current)->adresse.cp, (*current)->adresse.ville);
+                    }
+                }
+                                
+            }
+            else
+            {
+                pasUnique = 0;
+            }
+            
+        }
+        else
+        {
+            pasUnique = 0;
+        }
+
+        *current = first;
+        for (i = 0; i < cp; i++)
+            *current = (*current)->next;
+    }
+}
+
 void modifierMed(Medecin *first)
 {
     // TODO
