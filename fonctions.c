@@ -183,8 +183,11 @@ void ajouterCons(Consultation **current, Consultation **first, Consultation **la
 
     rechercherPat(firstP, &currentP);
 
-    printf("\n%s %s\n", currentP->nom, currentP->prenom);
-    printf("%x", currentP);
+    if (currentP != NULL)
+    {
+        printf("\n%s %s\n", currentP->nom, currentP->prenom);
+        printf("%x", currentP);
+    }
 }
 
 void supprimerMed(Medecin **first, int *nbTot)
@@ -453,12 +456,20 @@ void rechercherPat(Patient *first, Patient **current)
         }
     }
 
-    *current = first;
-    for (i = 0; i < cp - 1; i++)
+    if (n != 0) 
     {
-        printf("%d/%d\n", i, cp);
-        *current = (*current)->next;
+        *current = first;
+        for (i = 0; i < cp - 1; i++)
+        {
+            printf("%d/%d\n", i, cp);
+            *current = (*current)->next;
+        }
     }
+    else
+    {
+        printf("Personne non trouvée\n");
+    }
+    
 }
 
 void modifierMed(Medecin *first)
