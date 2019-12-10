@@ -358,44 +358,6 @@ void supprimerCons(Consultation **first, int *nbTot)
     //
 }
 
-// void rechercherMed(Medecin *first)
-// {
-//     Medecin *current;
-//     char nom[21], prenom[21];
-//     char tmpNom[21], tmpPren[21];
-
-//     // On demande le nom et le prénom du médecin recherché
-//     printf("Entrez le nom du médecin : ");
-//     lire(nom, 20);
-//     majuscule(&nom);
-
-//     printf("\nEntrez le prénom du médecin : ");
-//     lire(prenom, 20);
-//     printf("\n");
-//     majuscule(&prenom);
-
-//     printf("\n");
-
-//     // On recherche dans la liste
-//     current = first;
-//     while (current != NULL)
-//     {
-//         strcpy(tmpNom, current->nom);
-//         strcpy(tmpPren, current->prenom);
-
-//         if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0)
-//         {
-//             printf("\n%-14s %-20s %-20s\n",
-//                    current->numInami, current->nom, current->prenom);
-//             return;
-//         }
-
-//         current = current->next;
-//     }
-
-//     printf("Erreur : Personne non trouvée\n");
-// }
-
 void rechercherMed(Medecin *first, Medecin **current)
 {
     int n = 0, cp = 0, i;
