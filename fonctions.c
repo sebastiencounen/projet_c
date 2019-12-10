@@ -5,11 +5,12 @@
 #include "fonctions.h"
 
 // Fonctions
-void afficherListeMed(Medecin *first)
+void afficherListeMed(Medecin *first, int cp)
 {
     int n = 1;
     Medecin *current;
 
+    printf("Nombre de médecins : %2d\n\n", cp);
     current = first;
     while (current != NULL)
     {
@@ -21,11 +22,12 @@ void afficherListeMed(Medecin *first)
     }
 }
 
-void afficherListePat(Patient *first)
+void afficherListePat(Patient *first, int cp)
 {
     int n = 1;
     Patient *current;
 
+    printf("Nombre de patients : %2d\n\n", cp);
     current = first;
     while (current != NULL)
     {

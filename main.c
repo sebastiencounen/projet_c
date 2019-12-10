@@ -22,7 +22,7 @@ int main()
 
     // Lecture Medecins
     lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
-    //
+
     // printf("Nombre de médecins à l'initialisation : %d\n", cpM);
 
     // Lecture patients
@@ -43,7 +43,7 @@ int main()
                 switch (menuMed())
                 {
                 case 1:
-                    afficherListeMed(firstM);
+                    afficherListeMed(firstM, cpM);
                     break;
                 case 2:
                     ajouterMed(&currentM, &firstM, &lastM, &cpM);
@@ -78,7 +78,7 @@ int main()
                 switch (menuPat())
                 {
                 case 1:
-                    afficherListePat(firstP);
+                    afficherListePat(firstP, cpP);
                     break;
                 case 2:
                     ajouterPat(&currentP, &firstP, &lastP, &cpP);

@@ -53,8 +53,8 @@ int menuPrincipal();
 int menuMed();
 int menuPat();
 
-void afficherListeMed(Medecin *);
-void afficherListePat(Patient *);
+void afficherListeMed(Medecin *, int);
+void afficherListePat(Patient *, int);
 void afficherListeCons(Consultation *);
 
 void ajouterMed(Medecin **, Medecin **, Medecin **, int *);
