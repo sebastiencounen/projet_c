@@ -33,13 +33,18 @@ struct Patient
     Patient *next;
 };
 
-struct Consultation
+// struct Consultation
+// {
+//     Medecin med;
+//     Patient pat;
+//     Date date;
+//     int heure, minute;
+//     Consultation *next;
+// };
+typedef struct Consultation
 {
-    Medecin med;
-    Patient pat;
-    Date date;
-    int heure, minute;
-    Consultation *next;
+    char nomMed[21];
+    char nomPat[21];
 };
 
 // Prototype des fonctions
@@ -55,15 +60,16 @@ int menuPat();
 
 void afficherListeMed(Medecin *, int);
 void afficherListePat(Patient *, int);
-void afficherListeCons(Consultation *);
+// void afficherListeCons(Consultation *);
 
 void ajouterMed(Medecin **, Medecin **, Medecin **, int *);
 void ajouterPat(Patient **, Patient **, Patient **, int *);
-void ajouterCons(Consultation **, Consultation **, Consultation **, Patient *, Patient **);
+// void ajouterCons(Consultation **, Consultation **, Consultation **, Patient *, Patient **);
+void ajouterCons(Patient *, Patient **);
 
 void supprimerMed(Medecin **, int *);
 void supprimerPat(Patient **, int *);
-void supprimerCons(Consultation **, int *);
+// void supprimerCons(Consultation **, int *);
 
 void rechercherMed(Medecin *, Medecin **);
 void rechercherPat(Patient *, Patient **);
