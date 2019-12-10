@@ -406,6 +406,8 @@ void rechercherMed(Medecin *first, Medecin **current)
     majuscule(&spec);
     printf("\n");
 
+    printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
+        "----------------------------------------------------------------------------------\n");
     for (*current = first; *current != NULL; *current = (*current)->next)
     {
         if (n == 0)
@@ -415,11 +417,11 @@ void rechercherMed(Medecin *first, Medecin **current)
         if (formatAndCompare(spec, tmpSpec, strlen(tmpSpec)) == 0)
         {
             n++;
-            printf("\n%-14s %-20s %-20s %-20s\n",
-                   (*current)->numInami, (*current)->nom, (*current)->prenom,
-                   (*current)->specialite);
+            printf("%-14s     %-20s  %-20s %-20s\n",
+               (*current)->numInami, (*current)->nom, (*current)->prenom, (*current)->specialite);
         }
     }
+    printf("----------------------------------------------------------------------------------\n");
 
     if (n > 1)
     {
@@ -431,6 +433,8 @@ void rechercherMed(Medecin *first, Medecin **current)
         majuscule(&nom);
         printf("\n");
 
+        printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
+        "----------------------------------------------------------------------------------\n");
         for (*current = first; *current != NULL; *current = (*current)->next)
         {
             if (n == 0)
@@ -441,11 +445,11 @@ void rechercherMed(Medecin *first, Medecin **current)
             if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(spec, tmpSpec, strlen(tmpSpec)) == 0)
             {
                 n++;
-                printf("\n%-14s %-20s %-20s %-20s\n",
-                       (*current)->numInami, (*current)->nom, (*current)->prenom,
-                       (*current)->specialite);
+                printf("%-14s     %-20s  %-20s %-20s\n",
+               (*current)->numInami, (*current)->nom, (*current)->prenom, (*current)->specialite);
             }
         }
+        printf("----------------------------------------------------------------------------------\n");
 
         if (n > 1)
         {
@@ -455,6 +459,9 @@ void rechercherMed(Medecin *first, Medecin **current)
             printf("\nEntrez le numéro inami du médecin (x/xxxxx/xx/xxx) : ");
             lire(inam, 14);
             printf("\n");
+
+            printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
+                "----------------------------------------------------------------------------------\n");
 
             for (*current = first; *current != NULL; *current = (*current)->next)
             {
@@ -466,11 +473,11 @@ void rechercherMed(Medecin *first, Medecin **current)
                 if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(spec, tmpSpec, strlen(tmpSpec)) == 0 && strcmp(inam, (*current)->numInami) == 0)
                 {
                     n++;
-                    printf("\n%-14s %-20s %-20s %-20s\n",
-                           (*current)->numInami, (*current)->nom, (*current)->prenom,
-                           (*current)->specialite);
+                    printf("%-14s     %-20s  %-20s %-20s\n",
+                        (*current)->numInami, (*current)->nom, (*current)->prenom, (*current)->specialite);
                 }
             }
+            printf("----------------------------------------------------------------------------------\n");
         }
     }
 
