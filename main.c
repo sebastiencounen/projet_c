@@ -23,12 +23,12 @@ int main()
     // Lecture Medecins
     lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
     //
-    printf("Nombre de médecins à l'initialisation : %d\n", cpM);
+    // printf("Nombre de médecins à l'initialisation : %d\n", cpM);
 
     // Lecture patients
     lecturePatients(&firstP, &currentP, &interP, &lastP, &cpP);
     //
-    printf("Nombre de patients à l'initialisation : %d\n", cpP);
+    // printf("Nombre de patients à l'initialisation : %d\n", cpP);
 
     // Menu interactif
     while (1)

@@ -421,6 +421,7 @@ void rechercherMed(Medecin *first, Medecin **current)
                 cp++;
             
             strcpy(tmpNom, (*current)->nom);
+            strcpy(tmpSpec, (*current)->specialite);
             if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(spec, tmpSpec, strlen(tmpSpec)) == 0)
             {
                 n++;
@@ -446,7 +447,7 @@ void rechercherMed(Medecin *first, Medecin **current)
                 
                 strcpy(tmpSpec, (*current)->specialite);
                 strcpy(tmpNom, (*current)->nom);
-                if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(spec, tmpSpec, strlen(tmpSpec)) == 0)
+                if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(spec, tmpSpec, strlen(tmpSpec)) == 0 && strcmp(inam, (*current)->numInami) == 0)
                 {
                     n++;
                     printf("\n%-14s %-20s %-20s %-20s\n",
