@@ -52,7 +52,7 @@ int main()
                     supprimerMed(&firstM, &cpM);
                     break;
                 case 4:
-                    rechercherMed(firstM);
+                    rechercherMed(firstM, &currentM);
                     break;
                 case 5:
                     printf("Option not working yet\n");

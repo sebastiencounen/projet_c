@@ -342,42 +342,129 @@ void supprimerCons(Consultation **first, int *nbTot)
     //
 }
 
-void rechercherMed(Medecin *first)
+// void rechercherMed(Medecin *first)
+// {
+//     Medecin *current;
+//     char nom[21], prenom[21];
+//     char tmpNom[21], tmpPren[21];
+
+//     // On demande le nom et le prénom du médecin recherché
+//     printf("Entrez le nom du médecin : ");
+//     lire(nom, 20);
+//     majuscule(&nom);
+
+//     printf("\nEntrez le prénom du médecin : ");
+//     lire(prenom, 20);
+//     printf("\n");
+//     majuscule(&prenom);
+
+//     printf("\n");
+
+//     // On recherche dans la liste
+//     current = first;
+//     while (current != NULL)
+//     {
+//         strcpy(tmpNom, current->nom);
+//         strcpy(tmpPren, current->prenom);
+
+//         if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0)
+//         {
+//             printf("\n%-14s %-20s %-20s\n",
+//                    current->numInami, current->nom, current->prenom);
+//             return;
+//         }
+
+//         current = current->next;
+//     }
+
+//     printf("Erreur : Personne non trouvée\n");
+// }
+
+void rechercherMed(Medecin *first, Medecin **current)
 {
-    Medecin *current;
-    char nom[21], prenom[21];
-    char tmpNom[21], tmpPren[21];
+    int n = 0, cp = 0, i;
+    char nom[21], tmpNom[21], spec[21], tmpSpec[21], inam[15];
 
-    // On demande le nom et le prénom du médecin recherché
-    printf("Entrez le nom du médecin : ");
-    lire(nom, 20);
-    majuscule(&nom);
-
-    printf("\nEntrez le prénom du médecin : ");
-    lire(prenom, 20);
-    printf("\n");
-    majuscule(&prenom);
-
+    printf("Entrez la spécialité du médecin : ");
+    lire(spec, 20);
+    majuscule(&spec);
     printf("\n");
 
-    // On recherche dans la liste
-    current = first;
-    while (current != NULL)
+    for(*current = first; *current != NULL; *current = (*current)->next)
     {
-        strcpy(tmpNom, current->nom);
-        strcpy(tmpPren, current->prenom);
+        if (n == 0)
+            cp++;
 
-        if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0)
+        strcpy(tmpSpec, (*current)->specialite);
+        if (formatAndCompare(spec, tmpSpec, strlen(tmpSpec)) == 0)
         {
-            printf("\n%-14s %-20s %-20s\n",
-                   current->numInami, current->nom, current->prenom);
-            return;
+            n++;
+            printf("\n%-14s %-20s %-20s %-20s\n",
+                (*current)->numInami, (*current)->nom, (*current)->prenom, 
+                (*current)->specialite);
         }
-
-        current = current->next;
     }
 
-    printf("Erreur : Personne non trouvée\n");
+    if (n > 1)
+    {
+        cp = 0;
+        n = 0;
+
+        printf("\nVeuillez entrer le nom du médecin : ");
+        lire(nom, 20);
+        majuscule(&nom);
+        printf("\n");
+
+        for (*current = first; *current != NULL; *current = (*current)->next)
+        {
+            if (n == 0)
+                cp++;
+            
+            strcpy(tmpNom, (*current)->nom);
+            if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(spec, tmpSpec, strlen(tmpSpec)) == 0)
+            {
+                n++;
+                printf("\n%-14s %-20s %-20s %-20s\n",
+                (*current)->numInami, (*current)->nom, (*current)->prenom, 
+                (*current)->specialite);
+            }
+        }
+
+        if (n > 1)
+        {
+            cp = 0;
+            n = 0;
+
+            printf("\nEntrez le numéro inami du médecin (x/xxxxx/xx/xxx) : ");
+            lire(inam, 14);
+            printf("\n");
+
+            for (*current = first; *current != NULL; *current = (*current)->next)
+            {
+                if (n == 0)
+                    cp++;
+                
+                strcpy(tmpSpec, (*current)->specialite);
+                strcpy(tmpNom, (*current)->nom);
+                if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(spec, tmpSpec, strlen(tmpSpec)) == 0)
+                {
+                    n++;
+                    printf("\n%-14s %-20s %-20s %-20s\n",
+                    (*current)->numInami, (*current)->nom, (*current)->prenom, 
+                    (*current)->specialite);
+                }
+            }
+        }
+    }
+
+    if (n != 0)
+    {
+        *current = first;
+        for (i = 1; i < cp; i++)
+            *current = (*current)->next;
+    }
+    else
+        printf("Personne non trouvée\n");
 }
 
 void rechercherPat(Patient *first, Patient **current)

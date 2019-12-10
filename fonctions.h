@@ -65,7 +65,7 @@ void supprimerMed(Medecin **, int *);
 void supprimerPat(Patient **, int *);
 void supprimerCons(Consultation **, int *);
 
-void rechercherMed(Medecin *);
+void rechercherMed(Medecin *, Medecin **);
 void rechercherPat(Patient *, Patient **);
 
 void modifierMed(Medecin *);
