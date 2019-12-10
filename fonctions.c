@@ -10,16 +10,22 @@ void afficherListeMed(Medecin *first, int cp)
     int n = 1;
     Medecin *current;
 
-    printf("Nombre de médecins : %2d\n\n", cp);
+    printf("Nombre de médecins : %2d\n"
+           "************************\n", cp);
+    printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
+           "----------------------------------------------------------------------------------\n");
+
     current = first;
     while (current != NULL)
     {
-        printf("Médecin %d --> %-14s %-20s %-20s %-20s\n",
-               n, current->numInami, current->nom, current->prenom, current->specialite);
+        printf("%-14s     %-20s  %-20s %-20s\n",
+               current->numInami, current->nom, current->prenom, current->specialite);
 
         n++;
         current = current->next;
     }
+
+    printf("----------------------------------------------------------------------------------\n");
 }
 
 void afficherListePat(Patient *first, int cp)
@@ -27,18 +33,26 @@ void afficherListePat(Patient *first, int cp)
     int n = 1;
     Patient *current;
 
-    printf("Nombre de patients : %2d\n\n", cp);
+    printf("Nombre de patients : %2d\n"
+           "************************\n", cp);
+
+    printf("\nRegistre national  Nom                   Prenom                N° Téléphone    Date naissance  "
+           "Rue                                       N°   Code postal  Ville               \n"
+           "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+
     current = first;
     while (current != NULL)
     {
-        printf("Patient %d --> %-15s %-20s %-20s %-14s %02d/%02d/%4d %-40s %003d %-4s %-20s\n",
-               n, current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
+        printf("%-15s    %-20s  %-20s  %-14s  %02d/%02d/%4d      %-40s  %003d  %-4s         %-20s\n",
+               current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
                current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
                current->adresse.cp, current->adresse.ville);
 
         n++;
         current = current->next;
     }
+
+    printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 }
 
 void afficherListeCons(Consultation *first)
