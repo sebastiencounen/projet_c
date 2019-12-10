@@ -590,10 +590,7 @@ void rechercherPat(Patient *first, Patient **current)
     {
         *current = first;
         for (i = 1; i < cp; i++)
-        {
-            printf("%d/%d\n", i, cp);
             *current = (*current)->next;
-        }
     }
     else
     {
