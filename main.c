@@ -94,7 +94,7 @@ int main()
                     // modifierPat(firstP);
                     break;
                 case 6:
-                    ajouterCons(firstP, &currentP);
+                    ajouterCons(firstP, &currentP, firstM, &currentM);
                     break;
                 case 7:
                     // Clear the console
