@@ -177,28 +177,28 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
         *last = *current;
 }
 
-void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin **currentMed)
+void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin **currentMed, char jours[][4], char heures[][12], Consultation horaire[][13])
 {
-    FILE *fdatC, *fres;
-    fdatC = fopen("consultations.dat", "r");
+    FILE *fres;
+    // fdatC = fopen("consultations.dat", "r");
     fres = fopen("consultations.dat", "w");
 
     //
     int i, j, jour, mois, annee, choix, choixPlage, reponse;
-    char jours[7][4], heures[13][12];
-    Consultation horaire[7][13];
+    // char jours[7][4], heures[13][12];
+    // Consultation horaire[7][13];
     Patient *currentP;
     Medecin *currentM;
 
-    for (i = 1; i <= 6; i++)
-    {
-        fscanf(fdatC, "%3s", &jours[i]);
-        for (j = 1; j <= 12; j++)
-        {
-            fscanf(fdatC, "%11s", &heures[j]);
-            fscanf(fdatC, "%25s %25s", &horaire[i][j].nomMed, &horaire[i][j].nomPat);
-        }
-    }
+    // for (i = 1; i <= 6; i++)
+    // {
+    //     fscanf(fdatC, "%3s", &jours[i]);
+    //     for (j = 1; j <= 12; j++)
+    //     {
+    //         fscanf(fdatC, "%11s", &heures[j]);
+    //         fscanf(fdatC, "%25s %25s", &horaire[i][j].nomMed, &horaire[i][j].nomPat);
+    //     }
+    // }
 
     currentP = *currentPat;
     currentM = *currentMed;
@@ -209,7 +209,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
     if (currentP != NULL)
     {
         // printf("\n%s %s %x\n", currentP->nom, currentP->prenom, currentP);
-        for (i = 1; i <= 6; i++) //afficher de LUN � SAM
+        for (i = 1; i <= 6; i++) //afficher de LUN à SAM
         {
             printf("%2d - %3s\n", i, jours[i]);
         }
@@ -227,13 +227,13 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
         printf(" 13 - Annuler\n");
         printf("\nQuelle plage horaire (01-12) ? ");
         scanf("%d", &choixPlage);
-        if (choixPlage != 13) //une case horaire a �t� choisie
+        if (choixPlage != 13) //une case horaire a été choisie
         {
             // Afficher le patient choisi :
             printf("\n -> %s %s\n", currentP->prenom, currentP->nom);
 
             // Gestion des rendez-vous :
-            if (strcmp(horaire[choix][choixPlage].nomMed, "-") != 0) //si case horaire d�j� occup�e
+            if (strcmp(horaire[choix][choixPlage].nomMed, "-") != 0) //si case horaire déjà occupée
             {
                 // Demande de remplacement :
                 printf("\nATTENTION : Un rendez-vous est deja prevu. Voulez-vous le remplacer par celui en cours ?\n");
@@ -640,7 +640,6 @@ void rechercherPat(Patient *first, Patient **current)
         *current = first;
         for (i = 1; i < cp; i++)
         {
-            printf("%d/%d\n", i, cp);
             *current = (*current)->next;
         }
     }

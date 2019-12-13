@@ -7,18 +7,33 @@
 int main()
 {
     // Fichiers
-    FILE *fdatMed, *fdatPat;
+    FILE *fdatMed, *fdatPat, *fdatC;
     fdatMed = fopen("medecins.dat", "r");
     fdatPat = fopen("patients.dat", "r");
+    fdatC = fopen("consultations.dat", "r");
 
     // Variables
     Medecin *firstM, *currentM, *nextM, *lastM, *interM;
     Patient *firstP, *currentP, *nextP, *lastP, *interP;
     Consultation *firstC, *currentC, *nextC, *lastC, *interC;
+    //
+    char jours[7][4], heures[13][12];
+    Consultation horaire[7][13];
 
-    int cpM = 0, cpP = 0, exitMenu = 0;
+    int cpM = 0, cpP = 0, exitMenu = 0, i, j;
     int n = 1;
     char choixSave = 'n';
+
+    //
+    for (i = 1; i <= 6; i++)
+    {
+        fscanf(fdatC, "%3s", jours[i]);
+        for (j = 1; j <= 12; j++)
+        {
+            fscanf(fdatC, "%11s", heures[j]);
+            fscanf(fdatC, "%25s %25s", horaire[i][j].nomMed, horaire[i][j].nomPat);
+        }
+    }
 
     // Lecture Medecins
     lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
@@ -94,7 +109,8 @@ int main()
                     // modifierPat(firstP);
                     break;
                 case 6:
-                    ajouterCons(firstP, &currentP, firstM, &currentM);
+                    // for (i = 1; i <= 6; i++)
+                    ajouterCons(firstP, &currentP, firstM, &currentM, jours, heures, horaire);
                     break;
                 case 7:
                     // Clear the console
