@@ -40,35 +40,35 @@ int main()
 
     // Lecture Medecins
     lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
-    //
 
+    //Lecture consultations
     currentM = firstM;
-    // for (med = 0; med < cpM; med++)
-    // {
-    for (i = 1; i <= 2; i++)
+    for (med = 0; med < cpM; med++)
     {
-        for (j = 1; j <= 16; j++)
+        for (i = 0; i < 6; i++)
         {
-            fscanf(fdatC, "%2d", &heure);
-            // fscanf(fdatC, "%*2d");
-            fgets(currentM->cons[i][j].nomPat, 21, fdatC);
+            for (j = 0; j < 16; j++)
+            {
+                // fscanf(fdatC, "%2d", &heure);
+                fscanf(fdatC, "%*2d");
+                fgets(currentM->cons[i][j].nomPat, 21, fdatC);
+            }
         }
+        currentM = currentM->next;
     }
-    //     currentM = currentM->next;
-    // }
 
-    currentM = firstM;
+    // currentM = firstM;
     // for (currentM = firstM; currentM != NULL; currentM = currentM->next)
     // {
-    printf("%s %s\n", currentM->nom, currentM->prenom);
-    for (i = 1; i <= 2; i++)
-    {
-        for (j = 1; j <= 16; j++)
-        {
-            printf("%s %s\n", heuresHoraire[j - 1], currentM->cons[i][j].nomPat);
-        }
-        printf("\n");
-    }
+    //     printf("%s %s\n", currentM->nom, currentM->prenom);
+    //     for (i = 0; i < 6; i++)
+    //     {
+    //         for (j = 0; j < 16; j++)
+    //         {
+    //             printf("%s %s\n", heuresHoraire[j], currentM->cons[i][j].nomPat);
+    //         }
+    //         printf("\n");
+    //     }
     // }
 
     // printf("Nombre de médecins à l'initialisation : %d\n", cpM);

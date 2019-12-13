@@ -723,7 +723,7 @@ int menuPat()
 
 void sauvegarde(Medecin *firstM, Patient *firstP)
 {
-    int i, j, n = 1;
+    int i, j;
     Medecin *currentM;
     Patient *currentP;
     FILE *fMed, *fPat, *fCons;
@@ -737,16 +737,17 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
     {
         fprintf(fMed, "%-14s%-20s%-20s%-20s\n",
                 currentM->numInami, currentM->nom, currentM->prenom, currentM->specialite);
-        fprintf(fCons, "%d\n", n);
+
+        //Save consultations
         for (i = 1; i <= 6; i++)
         {
             for (j = 1; j <= 16; j++)
             {
                 fprintf(fCons, "%02d%20s\n", j, currentM->cons[i][j].nomPat);
             }
-            fprintf(fCons, "\n");
         }
-        n++;
+        fprintf(fCons, "\n");
+
         currentM = currentM->next;
     }
     fclose(fMed);
