@@ -16,27 +16,51 @@ int main()
     Medecin *firstM, *currentM, *nextM, *lastM, *interM;
     Patient *firstP, *currentP, *nextP, *lastP, *interP;
     Consultation *firstC, *currentC, *nextC, *lastC, *interC;
-    //
-    char jours[7][4], heures[13][12];
-    Consultation horaire[7][13];
 
-    int cpM = 0, cpP = 0, exitMenu = 0, i, j;
-    int n = 1;
+    int cpM = 0, cpP = 0, exitMenu = 0, i, j, med = 0;
+    int n = 1, jour, heure;
     char choixSave = 'n';
 
-    //
-    for (i = 1; i <= 6; i++)
-    {
-        fscanf(fdatC, "%3s", jours[i]);
-        for (j = 1; j <= 12; j++)
-        {
-            fscanf(fdatC, "%11s", heures[j]);
-            fscanf(fdatC, "%25s %25s", horaire[i][j].nomMed, horaire[i][j].nomPat);
-        }
-    }
+
+    char heuresHoraire[17][12] = {
+        "08H00-08H30",
+        "08H30-09H00",
+        "09H00-09H30",
+        "09H30-10H00",
+        "10H00-10H30",
+        "10H30-11H00",
+        "11H00-11H30",
+        "11H30-12H00",
+        "13H00-13H30",
+        "13H30-14H00",
+        "14H00-14H30",
+        "14H30-15H00",
+        "15H00-15H30",
+        "15H30-16H00",
+        "16H00-16H30",
+        "16H30-17H00"
+    };
 
     // Lecture Medecins
     lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
+    //
+    currentM = firstM;
+    for (med = 0; med < cpM; med++) 
+    {
+        for (i = 1; i <= 6; i++)
+        {
+
+            fscanf(fdatC, "%1d", jour);
+            for (j = 1; j <= 16; j++)
+            {
+                fscanf(fdatC, "%2d", heure);
+                // fscanf(fdatC, "%20s %20s", currentM->cons[jour][heure].nomMed, currentM->cons[jour][heure].nomPat);
+                fgets(currentM->cons[jour][heure].nomMed, 21, fdatC);
+                fgets(currentM->cons[jour][heure].nomPat, 21, fdatC);
+            }
+        }
+        currentM = currentM->next;
+    }
 
     // printf("Nombre de médecins à l'initialisation : %d\n", cpM);
 

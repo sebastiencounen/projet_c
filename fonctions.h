@@ -19,6 +19,12 @@ struct Adresse
     char cp[5], rue[41], ville[21];
 };
 
+struct Consultation
+{
+    char nomMed[21];
+    char nomPat[21];
+};
+
 struct Medecin
 {
     char numInami[15], nom[21], prenom[21], specialite[21];
@@ -34,11 +40,6 @@ struct Patient
     Patient *next;
 };
 
-struct Consultation
-{
-    char nomMed[21];
-    char nomPat[21];
-};
 
 // Prototype des fonctions
 
