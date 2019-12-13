@@ -22,6 +22,7 @@ struct Adresse
 struct Medecin
 {
     char numInami[15], nom[21], prenom[21], specialite[21];
+    Consultation cons[7][17];
     Medecin *next;
 };
 
@@ -33,14 +34,6 @@ struct Patient
     Patient *next;
 };
 
-// struct Consultation
-// {
-//     Medecin med;
-//     Patient pat;
-//     Date date;
-//     int heure, minute;
-//     Consultation *next;
-// };
 struct Consultation
 {
     char nomMed[21];
