@@ -21,7 +21,7 @@ struct Adresse
 
 struct Consultation
 {
-    char nomMed[21];
+    // char nomMed[21];
     char nomPat[21];
 };
 
@@ -39,7 +39,6 @@ struct Patient
     Adresse adresse;
     Patient *next;
 };
-
 
 // Prototype des fonctions
 
@@ -59,7 +58,7 @@ void afficherListePat(Patient *, int);
 void ajouterMed(Medecin **, Medecin **, Medecin **, int *);
 void ajouterPat(Patient **, Patient **, Patient **, int *);
 // void ajouterCons(Consultation **, Consultation **, Consultation **, Patient *, Patient **);
-void ajouterCons(Patient *, Patient **, Medecin *, Medecin **, char[][4], char[][12], Consultation[][13]);
+void ajouterCons(Patient *, Patient **, Medecin *, Medecin **);
 
 void supprimerMed(Medecin **, int *);
 void supprimerPat(Patient **, int *);

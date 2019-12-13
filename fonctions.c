@@ -193,85 +193,102 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
         *last = *current;
 }
 
-void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin **currentMed, char jours[][4], char heures[][12], Consultation horaire[][13])
+void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin **currentMed)
 {
-    FILE *fres;
+    // FILE *fres;
     // fdatC = fopen("consultations.dat", "r");
-    fres = fopen("consultations.dat", "w");
+    // fres = fopen("consultations.dat", "w");
 
     //
-    int i, j, jour, mois, annee, choix, choixPlage, reponse;
-    Patient *currentP;
-    Medecin *currentM;
+    // int i, j, jour, mois, annee, choix, choixPlage, reponse;
+    // char heuresHoraire[17][12] = {
+    //     "08H00-08H30",
+    //     "08H30-09H00",
+    //     "09H00-09H30",
+    //     "09H30-10H00",
+    //     "10H00-10H30",
+    //     "10H30-11H00",
+    //     "11H00-11H30",
+    //     "11H30-12H00",
+    //     "13H00-13H30",
+    //     "13H30-14H00",
+    //     "14H00-14H30",
+    //     "14H30-15H00",
+    //     "15H00-15H30",
+    //     "15H30-16H00",
+    //     "16H00-16H30",
+    //     "16H30-17H00"};
+    // Patient *currentP;
+    // Medecin *currentM;
 
-    currentP = *currentPat;
-    currentM = *currentMed;
+    // currentP = *currentPat;
+    // currentM = *currentMed;
 
-    rechercherPat(firstP, &currentP);
-    rechercherMed(firstM, &currentM);
+    // rechercherPat(firstP, &currentP);
+    // rechercherMed(firstM, &currentM);
 
-    if (currentP != NULL)
-    {
-        // printf("\n%s %s %x\n", currentP->nom, currentP->prenom, currentP);
-        for (i = 1; i <= 6; i++) //afficher de LUN à SAM
-        {
-            printf("%2d - %3s\n", i, jours[i]);
-        }
-        printf(" 7 - Annuler\n");
-        printf("\nQuel jour ? ");
-        scanf("%d", &choix);
-        printf(" %3s", jours[choix]);
+    // if (currentP != NULL)
+    // {
+    //     // printf("\n%s %s %x\n", currentP->nom, currentP->prenom, currentP);
+    //     for (i = 1; i <= 6; i++) //afficher de LUN à SAM
+    //     {
+    //         printf("%2d - %3s\n", i, jours[i]);
+    //     }
+    //     printf(" 7 - Annuler\n");
+    //     printf("\nQuel jour ? ");
+    //     scanf("%d", &choix);
+    //     printf(" %3s", jours[choix]);
 
-        printf("\n ID   HEURE         MEDECIN                   PATIENT\n\n");
-        for (j = 1; j <= 12; j++) //afficher le planning du jour choisi
-        {
-            printf(" %02d - %11s   ", j, heures[j]);
-            printf("%-25s %-25s\n", horaire[choix][j].nomMed, horaire[choix][j].nomPat);
-        }
-        printf(" 13 - Annuler\n");
-        printf("\nQuelle plage horaire (01-12) ? ");
-        scanf("%d", &choixPlage);
-        if (choixPlage != 13) //une case horaire a été choisie
-        {
-            // Afficher le patient choisi :
-            printf("\n -> %s %s\n", currentP->prenom, currentP->nom);
+    //     printf("\n ID   HEURE         MEDECIN                   PATIENT\n\n");
+    //     for (j = 1; j <= 12; j++) //afficher le planning du jour choisi
+    //     {
+    //         printf(" %02d - %11s   ", j, heures[j]);
+    //         printf("%-25s %-25s\n", horaire[choix][j].nomMed, horaire[choix][j].nomPat);
+    //     }
+    //     printf(" 13 - Annuler\n");
+    //     printf("\nQuelle plage horaire (01-12) ? ");
+    //     scanf("%d", &choixPlage);
+    //     if (choixPlage != 13) //une case horaire a été choisie
+    //     {
+    //         // Afficher le patient choisi :
+    //         printf("\n -> %s %s\n", currentP->prenom, currentP->nom);
 
-            // Gestion des rendez-vous :
-            if (strcmp(horaire[choix][choixPlage].nomMed, "-") != 0) //si case horaire déjà occupée
-            {
-                // Demande de remplacement :
-                printf("\nATTENTION : Un rendez-vous est deja prevu. Voulez-vous le remplacer par celui en cours ?\n");
-                printf(" 1 - Oui\n 2 - Non\nReponse : ");
-                scanf("%d", &reponse);
-                if (reponse == 1) //forcer le remplacement
-                {
-                    strcpy(horaire[choix][choixPlage].nomMed, currentM->nom);
-                    strcpy(horaire[choix][choixPlage].nomPat, currentP->nom);
-                    printf("\nLe rendez-vous a ete mis a jour. ");
-                }
-                else //ignorer le remplacement
-                {
-                    printf("\nOperation annulee. ");
-                }
-            }
-            else //si case horaire vide
-            {
-                // Fixer le rendez-vous :
-                strcpy(horaire[choix][choixPlage].nomMed, currentM->nom);
-                strcpy(horaire[choix][choixPlage].nomPat, currentP->nom);
-                for (i = 1; i <= 6; i++)
-                {
-                    fprintf(fres, "%3s\n", jours[i]);
-                    for (j = 1; j <= 12; j++)
-                    {
-                        fprintf(fres, "%11s ", heures[j]);
-                        fprintf(fres, "%s %s\n", horaire[i][j].nomMed, horaire[i][j].nomPat);
-                    }
-                }
-                printf("\nPlanning mis a jour. ");
-            }
-        }
-    }
+    //         // Gestion des rendez-vous :
+    //         if (strcmp(horaire[choix][choixPlage].nomMed, "-") != 0) //si case horaire déjà occupée
+    //         {
+    //             // Demande de remplacement :
+    //             printf("\nATTENTION : Un rendez-vous est deja prevu. Voulez-vous le remplacer par celui en cours ?\n");
+    //             printf(" 1 - Oui\n 2 - Non\nReponse : ");
+    //             scanf("%d", &reponse);
+    //             if (reponse == 1) //forcer le remplacement
+    //             {
+    //                 strcpy(horaire[choix][choixPlage].nomMed, currentM->nom);
+    //                 strcpy(horaire[choix][choixPlage].nomPat, currentP->nom);
+    //                 printf("\nLe rendez-vous a ete mis a jour. ");
+    //             }
+    //             else //ignorer le remplacement
+    //             {
+    //                 printf("\nOperation annulee. ");
+    //             }
+    //         }
+    //         else //si case horaire vide
+    //         {
+    //             // Fixer le rendez-vous :
+    //             strcpy(horaire[choix][choixPlage].nomMed, currentM->nom);
+    //             strcpy(horaire[choix][choixPlage].nomPat, currentP->nom);
+    //             for (i = 1; i <= 6; i++)
+    //             {
+    //                 // fprintf(fres, "%3s\n", jours[i]);
+    //                 // for (j = 1; j <= 12; j++)
+    //                 // {
+    //                 //     fprintf(fres, "%11s ", heures[j]);
+    //                 //     fprintf(fres, "%s %s\n", horaire[i][j].nomMed, horaire[i][j].nomPat);
+    //                 // }
+    //             }
+    //             printf("\nPlanning mis a jour. ");
+    //         }
+    //     }
+    // }
 }
 
 void supprimerMed(Medecin **first, int *nbTot)
@@ -706,11 +723,13 @@ int menuPat()
 
 void sauvegarde(Medecin *firstM, Patient *firstP)
 {
+    int i, j, n = 1;
     Medecin *currentM;
     Patient *currentP;
-    FILE *fMed, *fPat;
+    FILE *fMed, *fPat, *fCons;
     fMed = fopen("medecins.dat", "w");
     fPat = fopen("patients.dat", "w");
+    fCons = fopen("consultations.dat", "w");
 
     // Save médecins
     currentM = firstM;
@@ -718,6 +737,16 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
     {
         fprintf(fMed, "%-14s%-20s%-20s%-20s\n",
                 currentM->numInami, currentM->nom, currentM->prenom, currentM->specialite);
+        fprintf(fCons, "%d\n", n);
+        for (i = 1; i <= 6; i++)
+        {
+            for (j = 1; j <= 16; j++)
+            {
+                fprintf(fCons, "%02d%20s\n", j, currentM->cons[i][j].nomPat);
+            }
+            fprintf(fCons, "\n");
+        }
+        n++;
         currentM = currentM->next;
     }
     fclose(fMed);
@@ -733,6 +762,8 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
         currentP = currentP->next;
     }
     fclose(fPat);
+
+    //Save consultations
 
     printf("Sauvegarde effectuée\n");
 }
