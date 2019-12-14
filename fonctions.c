@@ -906,7 +906,7 @@ void reinitialisationRDV(Medecin *first)
     printf("Êtes-vous sûr de vouloir réinitialisation l'entièreté des consultation ?\n1 - Oui\n2 - Annuler\n: ");
     choix = lireInt(&choix, 1); 
 
-    if (choix)
+    if (choix == 1)
     {
         for (current = first; current != NULL; current = current->next)
         {
