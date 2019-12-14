@@ -279,7 +279,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
             if (choixPlage != 0) // une case horaire a été choisie
             {
                 // Gestion des rendez-vous :
-                if (strcmp(currentM->cons[choix][choixPlage].nomPat, "                    ") != 0) // si case horaire déjà occupée
+                if (strcmp(currentM->cons[choix][choixPlage].nomPat, "  /                 ") != 0) // si case horaire déjà occupée
                 {
                     // Demande de remplacement :
                     printf("\nATTENTION : Un rendez-vous est déjà prévu. Voulez-vous le supprimer ?\n");
