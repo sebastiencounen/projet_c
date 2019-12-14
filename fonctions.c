@@ -59,7 +59,7 @@ void afficherListePat(Patient *first, int cp)
 
 void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
 {
-    int n = 0;
+    int n = 0, i, j;
     Medecin *new;
 
     new = malloc(sizeof(Medecin));
@@ -90,6 +90,15 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
 
         printf("\n");
         *nb++;
+
+        // Initialisation à vide des consultations de ce médecin
+        for (i = 1; i <= 6; i++)
+        {
+            for (j = 1; j <= 16; j++)
+            {
+                strcpy(new->cons[i][j].nomPat, "  /                 ");
+            }
+        }
 
         // Tri
         for (*current = *first; *current != NULL; *current = (*current)->next)
