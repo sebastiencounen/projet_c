@@ -329,8 +329,6 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
 
 void afficherHoraire(Medecin *first, Medecin *currentM)
 {
-    // Medecin *currentM;
-    // currentM = *current;
     int i, j, n = 0, cp = 0;
     char nom[21], prenom[21], inami[15], tmpNom[21], tmpPren[21];
     char jours[7][9] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
@@ -461,7 +459,11 @@ void afficherHoraire(Medecin *first, Medecin *currentM)
             {
                 printf("%-20s %c  ", currentM->cons[i][j].nomPat, currentM->cons[i][j].lettrePrenPat);
             }
-            printf("\n");
+
+            if ( j != 16)
+                printf("\n\n");
+            else
+                printf("\n");
         }
         printf("************************************************************************************************************************************************************\n");
     }
