@@ -18,7 +18,7 @@ int main()
     // Consultation *firstC, *currentC, *nextC, *lastC, *interC;
 
     int cpM = 0, cpP = 0, exitMenu = 0, i, j, med = 0;
-    int n = 1, jour, heure;
+    int n = 1;
     char choixSave = 'n';
     char heuresHoraire[17][12] = {
         "08H00-08H30",
@@ -45,11 +45,10 @@ int main()
     currentM = firstM;
     for (med = 0; med < cpM; med++)
     {
-        for (i = 0; i < 6; i++)
+        for (i = 1; i <= 6; i++)
         {
-            for (j = 0; j < 16; j++)
+            for (j = 1; j <= 16; j++)
             {
-                // fscanf(fdatC, "%2d", &heure);
                 fscanf(fdatC, "%*2d");
                 fgets(currentM->cons[i][j].nomPat, 21, fdatC);
             }
@@ -61,11 +60,11 @@ int main()
     // for (currentM = firstM; currentM != NULL; currentM = currentM->next)
     // {
     //     printf("%s %s\n", currentM->nom, currentM->prenom);
-    //     for (i = 0; i < 6; i++)
+    //     for (i = 1; i <= 6; i++)
     //     {
-    //         for (j = 0; j < 16; j++)
+    //         for (j = 1; j <= 16; j++)
     //         {
-    //             printf("%s %s\n", heuresHoraire[j], currentM->cons[i][j].nomPat);
+    //             printf("%s %s\n", heuresHoraire[j-1], currentM->cons[i][j].nomPat);
     //         }
     //         printf("\n");
     //     }
@@ -142,8 +141,7 @@ int main()
                     // modifierPat(firstP);
                     break;
                 case 6:
-                    // for (i = 1; i <= 6; i++)
-                    // ajouterCons(firstP, &currentP, firstM, &currentM, jours, heures, horaire);
+                    ajouterCons(firstP, &currentP, firstM, &currentM);
                     break;
                 case 7:
                     // Clear the console

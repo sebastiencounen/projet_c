@@ -57,7 +57,6 @@ void afficherListePat(Patient *, int);
 
 void ajouterMed(Medecin **, Medecin **, Medecin **, int *);
 void ajouterPat(Patient **, Patient **, Patient **, int *);
-// void ajouterCons(Consultation **, Consultation **, Consultation **, Patient *, Patient **);
 void ajouterCons(Patient *, Patient **, Medecin *, Medecin **);
 
 void supprimerMed(Medecin **, int *);
