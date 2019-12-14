@@ -64,25 +64,10 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
 
     new = malloc(sizeof(Medecin));
 
-    printf("Numéro inami : ");
+    printf("Numéro inami (x/xxxxx/xx/xxx) : ");
     lire(new->numInami, 14);
 
-    printf("\nNom : ");
-    lire(new->nom, 20);
-    majuscule(&new->nom);
-
-    printf("\nPrénom : ");
-    lire(new->prenom, 20);
-    majuscule(&new->prenom);
-
-    printf("\nSpecialité : ");
-    lire(new->specialite, 20);
-    majuscule(&new->specialite);
-
-    printf("\n");
-    *nb++;
-
-    //Vérification numReg différent
+    //Vérification numInami différent
     for (*current = *first; *current != NULL; *current = (*current)->next)
     {
         if (strcmp((*current)->numInami, new->numInami) == 0)
@@ -91,6 +76,21 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
 
     if (n == 0)
     {
+        printf("\nNom : ");
+        lire(new->nom, 20);
+        majuscule(&new->nom);
+
+        printf("\nPrénom : ");
+        lire(new->prenom, 20);
+        majuscule(&new->prenom);
+
+        printf("\nSpecialité : ");
+        lire(new->specialite, 20);
+        majuscule(&new->specialite);
+
+        printf("\n");
+        *nb++;
+
         // Tri
         for (*current = *first; *current != NULL; *current = (*current)->next)
         {
@@ -120,12 +120,17 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
             *last = *current;
     }
     else
-        printf("Ce numéro INAMI appartient déjà à un médecin du cabinet !");
+    {
+        free(new);
+        printf("Ce numéro INAMI appartient déjà à un médecin du cabinet !\n");
+    }
 }
 
 void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
 {
+    int n = 0;
     Patient *new;
+
     new = malloc(sizeof(Patient));
 
     printf("Nom : ");
@@ -139,65 +144,80 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     printf("\nNuméro de registre national (xx.xx.xx-xxx.xx) : ");
     lire(new->regNat, 15);
 
-    printf("\nNuméro de téléphone : ");
-    lire(new->numTel, 13);
-
-    printf("\nDate de naissance :\n");
-    // lire(new->dateN, 8);
-    printf("\tJour : ");
-    new->dateN.jour = lireInt(&new->dateN.jour, 2);
-    printf("\tMois : ");
-    new->dateN.mois = lireInt(&new->dateN.mois, 2);
-    printf("\tAnnée (AAAA) : ");
-    new->dateN.annee = lireInt(&new->dateN.annee, 4);
-
-    printf("\nAdresse :\n");
-    printf("\tRue : ");
-    lire(new->adresse.rue, 40);
-    majuscule(&new->adresse.rue);
-
-    printf("\tNuméro : ");
-    new->adresse.num = lireInt(&new->adresse.num, 3);
-
-    printf("\tCode postal : ");
-    // new->adresse.cp = lireInt(&new->adresse.cp, 4);
-    lire(new->adresse.cp, 4);
-
-    printf("\tLocalité : ");
-    lire(new->adresse.ville, 20);
-    majuscule(&new->adresse.ville);
-
-    printf("\n");
-    *nb++;
-
-    // Tri
+    //Vérification regNat différent
     for (*current = *first; *current != NULL; *current = (*current)->next)
     {
-
-        if (strcmp(new->nom, (*first)->nom) < 0)
-        {
-            new->next = *current;
-            *first = new;
-            break;
-        }
-        else if (strcmp(new->nom, (*current)->nom) < 0)
-        {
-            (*last)->next = new;
-            new->next = *current;
-            break;
-        }
-        else if ((*current)->next == NULL && strcmp(new->nom, (*current)->nom) > 0)
-        {
-            new->next = (*current)->next;
-            (*current)->next = new;
-            break;
-        }
-        *last = *current;
+        if (strcmp((*current)->regNat, new->regNat) == 0)
+            n++;
     }
 
-    //Adresse du dernier
-    for (*current = *first; *current != NULL; *current = (*current)->next)
-        *last = *current;
+    if (n == 0)
+    {
+        printf("\nNuméro de téléphone : ");
+        lire(new->numTel, 13);
+
+        printf("\nDate de naissance :\n");
+        // lire(new->dateN, 8);
+        printf("\tJour : ");
+        new->dateN.jour = lireInt(&new->dateN.jour, 2);
+        printf("\tMois : ");
+        new->dateN.mois = lireInt(&new->dateN.mois, 2);
+        printf("\tAnnée (AAAA) : ");
+        new->dateN.annee = lireInt(&new->dateN.annee, 4);
+
+        printf("\nAdresse :\n");
+        printf("\tRue : ");
+        lire(new->adresse.rue, 40);
+        majuscule(&new->adresse.rue);
+
+        printf("\tNuméro : ");
+        new->adresse.num = lireInt(&new->adresse.num, 3);
+
+        printf("\tCode postal : ");
+        // new->adresse.cp = lireInt(&new->adresse.cp, 4);
+        lire(new->adresse.cp, 4);
+
+        printf("\tLocalité : ");
+        lire(new->adresse.ville, 20);
+        majuscule(&new->adresse.ville);
+
+        printf("\n");
+        *nb++;
+
+        // Tri
+        for (*current = *first; *current != NULL; *current = (*current)->next)
+        {
+
+            if (strcmp(new->nom, (*first)->nom) < 0)
+            {
+                new->next = *current;
+                *first = new;
+                break;
+            }
+            else if (strcmp(new->nom, (*current)->nom) < 0)
+            {
+                (*last)->next = new;
+                new->next = *current;
+                break;
+            }
+            else if ((*current)->next == NULL && strcmp(new->nom, (*current)->nom) > 0)
+            {
+                new->next = (*current)->next;
+                (*current)->next = new;
+                break;
+            }
+            *last = *current;
+        }
+
+        //Adresse du dernier
+        for (*current = *first; *current != NULL; *current = (*current)->next)
+            *last = *current;
+    }
+    else
+    {
+        free(new);
+        printf("Ce numéro de registre national appartient déjà à un patient du cabinet !\n");
+    }
 }
 
 void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin **currentMed)
