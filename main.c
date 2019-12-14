@@ -15,44 +15,57 @@ int main()
     // Variables
     Medecin *firstM, *currentM, *nextM, *lastM, *interM;
     Patient *firstP, *currentP, *nextP, *lastP, *interP;
-    // Consultation *firstC, *currentC, *nextC, *lastC, *interC;
+    Consultation *firstC, *currentC, *nextC, *lastC, *interC;
 
     int cpM = 0, cpP = 0, exitMenu = 0, i, j, med = 0;
-    int n = 1;
+    int n = 1, jour, heure;
     char choixSave = 'n';
+
+    char heuresHoraire[17][12] = {
+        "08H00-08H30",
+        "08H30-09H00",
+        "09H00-09H30",
+        "09H30-10H00",
+        "10H00-10H30",
+        "10H30-11H00",
+        "11H00-11H30",
+        "11H30-12H00",
+        "13H00-13H30",
+        "13H30-14H00",
+        "14H00-14H30",
+        "14H30-15H00",
+        "15H00-15H30",
+        "15H30-16H00",
+        "16H00-16H30",
+        "16H30-17H00"};
 
     // Lecture Medecins
     lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
 
-    //Lecture consultations
-    currentM = firstM;
-    for (med = 0; med < cpM; med++)
+    // Lecture des consultations
+    for (currentM = firstM; currentM != NULL; currentM = currentM->next)
     {
         for (i = 1; i <= 6; i++)
         {
             for (j = 1; j <= 16; j++)
             {
-                fscanf(fdatC, "%*2d");
+                fscanf(fdatC, "%2d", &heure);
                 fgets(currentM->cons[i][j].nomPat, 21, fdatC);
+                // printf("Test : %-20s\n", currentM->cons[i][j].nomPat);
             }
         }
-        currentM = currentM->next;
     }
-
-    // printf("Nombre de médecins à l'initialisation : %d\n", cpM);
 
     // Lecture patients
     lecturePatients(&firstP, &currentP, &interP, &lastP, &cpP);
-    //
-    // printf("Nombre de patients à l'initialisation : %d\n", cpP);
 
     // Menu interactif
+    printf("\e[1;1H\e[2J");
     while (1)
     {
         switch (menuPrincipal())
         {
         case 1:
-            printf("\e[1;1H\e[2J");
             exitMenu = 0;
             while (exitMenu != 1)
             {
@@ -71,12 +84,9 @@ int main()
                     rechercherMed(firstM, &currentM);
                     break;
                 case 5:
-                    printf("Option not working yet\n");
-                    // modifierMed(firstM);
+                    afficherHoraire(firstM, &currentM);
                     break;
                 case 6:
-                    // Clear the console
-                    printf("\e[1;1H\e[2J");
                     exitMenu = 1;
                     break;
                 default:
@@ -87,7 +97,6 @@ int main()
 
             break;
         case 2:
-            printf("\e[1;1H\e[2J");
             exitMenu = 0;
             while (exitMenu != 1)
             {
@@ -113,8 +122,6 @@ int main()
                     ajouterCons(firstP, &currentP, firstM, &currentM);
                     break;
                 case 7:
-                    // Clear the console
-                    printf("\e[1;1H\e[2J");
                     exitMenu = 1;
                     break;
                 default:
@@ -125,7 +132,6 @@ int main()
 
             break;
         case 3:
-            printf("\e[1;1H\e[2J");
             sauvegarde(firstM, firstP);
             break;
         case 4:
