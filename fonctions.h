@@ -53,7 +53,6 @@ int menuPat();
 
 void afficherListeMed(Medecin *, int);
 void afficherListePat(Patient *, int);
-// void afficherListeCons(Consultation *);
 
 void ajouterMed(Medecin **, Medecin **, Medecin **, int *);
 void ajouterPat(Patient **, Patient **, Patient **, int *);
@@ -66,8 +65,7 @@ void supprimerPat(Patient **, int *);
 void rechercherMed(Medecin *, Medecin **);
 void rechercherPat(Patient *, Patient **);
 
-void modifierMed(Medecin *);
-void modifierPat(Patient *);
+void afficherHoraire(Medecin *, Medecin **);
 
 void sauvegarde(Medecin *, Patient *);
 

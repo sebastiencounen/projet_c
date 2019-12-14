@@ -40,7 +40,7 @@ void afficherListePat(Patient *first, int cp)
 
     printf("\nRegistre national  Nom                   Prenom                N° Téléphone    Date naissance  "
            "Rue                                       N°   Code postal  Ville               \n"
-           "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+           "----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
     current = first;
     while (current != NULL)
@@ -54,12 +54,7 @@ void afficherListePat(Patient *first, int cp)
         current = current->next;
     }
 
-    printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-}
-
-void afficherListeCons(Consultation *first)
-{
-    //
+    printf("---------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 }
 
 void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
@@ -72,7 +67,6 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
     lire(new->numInami, 14);
 
     printf("\nNom : ");
-    // fgets(new->nom, 20, stdin);
     lire(new->nom, 20);
     majuscule(&new->nom);
 
@@ -111,7 +105,7 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
         *last = *current;
     }
 
-    //Adresse du dernier
+    // Adresse du dernier
     for (*current = *first; *current != NULL; *current = (*current)->next)
         *last = *current;
 }
@@ -234,7 +228,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
         printf(" 0 - Annuler\n : ");
         choix = lireInt(&choix, 1);
 
-        if (choix != 0) //un jour a été choisi
+        if (choix != 0) // un jour a été choisi
         {
             printf("\n%-8s\n********\n", jours[choix - 1]);
 
@@ -254,7 +248,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
                 if (strcmp(currentM->cons[choix][choixPlage].nomPat, "                    ") != 0) // si case horaire déjà occupée
                 {
                     // Demande de remplacement :
-                    printf("\nATTENTION : Un rendez-vous est déjà prévu. Voulez-vous le remplacer par celui en cours ?\n");
+                    printf("\nATTENTION : Un rendez-vous est déjà prévu. Voulez-vous le supprimer ?\n");
                     printf(" 1 - Oui\n 2 - Non\nReponse : ");
                     reponse = lireInt(&reponse, 1);
                     if (reponse == 1) // forcer le remplacement
@@ -275,6 +269,51 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
                 printf("\nPlanning mis a jour\n");
             }
         }
+    }
+}
+
+void afficherHoraire(Medecin *first, Medecin **current)
+{
+    Medecin *currentM;
+    currentM = *current;
+    int jour = 1, heure = 1;
+    char jours[7][9] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"},
+    heuresHoraire[17][12] = {
+        "08H00-08H30",
+        "08H30-09H00",
+        "09H00-09H30",
+        "09H30-10H00",
+        "10H00-10H30",
+        "10H30-11H00",
+        "11H00-11H30",
+        "11H30-12H00",
+        "13H00-13H30",
+        "13H30-14H00",
+        "14H00-14H30",
+        "14H30-15H00",
+        "15H00-15H30",
+        "15H30-16H00",
+        "16H00-16H30",
+        "16H30-17H00"
+    };
+    
+    rechercherMed(first, &currentM);
+
+    printf("\n%x %-s\n", currentM, currentM->nom);
+
+    for (jour = 1; jour <= 6; jour++);
+        printf("%-8s\t", jours[jour - 1]);
+
+    printf("\n");
+    for (heure = 1; heure <= 16; heure++)
+    {
+        printf("%-11s\t", heuresHoraire[heure - 1]);
+        for (jour = 1; jour <= 6; jour++)
+        {
+            printf("%-20s\t", currentM->cons[jour][heure].nomPat);
+        }
+
+        printf("\n");
     }
 }
 
@@ -542,7 +581,7 @@ void rechercherPat(Patient *first, Patient **current)
 
     printf("\nRegistre national  Nom                   Prenom                N° Téléphone    Date naissance  "
            "Rue                                       N°   Code postal  Ville               \n"
-           "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+           "----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
     for (*current = first; *current != NULL; *current = (*current)->next)
     {
         if (n == 0)
@@ -557,7 +596,7 @@ void rechercherPat(Patient *first, Patient **current)
                    (*current)->adresse.cp, (*current)->adresse.ville);
         }
     }
-    printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
     if (n > 1)
     {
@@ -571,7 +610,7 @@ void rechercherPat(Patient *first, Patient **current)
 
         printf("\nRegistre national  Nom                   Prenom                N° Téléphone    Date naissance  "
                "Rue                                       N°   Code postal  Ville               \n"
-               "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+               "---------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         for (*current = first; *current != NULL; *current = (*current)->next)
         {
             if (n == 0)
@@ -587,7 +626,7 @@ void rechercherPat(Patient *first, Patient **current)
                        (*current)->adresse.cp, (*current)->adresse.ville);
             }
         }
-        printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+        printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
         if (n > 1)
         {
@@ -600,7 +639,7 @@ void rechercherPat(Patient *first, Patient **current)
 
             printf("\nRegistre national  Nom                   Prenom                N° Téléphone    Date naissance  "
                    "Rue                                       N°   Code postal  Ville               \n"
-                   "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+                   "----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
             for (*current = first; *current != NULL; *current = (*current)->next)
             {
                 if (n == 0)
@@ -616,7 +655,7 @@ void rechercherPat(Patient *first, Patient **current)
                            (*current)->adresse.cp, (*current)->adresse.ville);
                 }
             }
-            printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+            printf("---------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         }
     }
 
@@ -630,16 +669,6 @@ void rechercherPat(Patient *first, Patient **current)
     {
         printf("Personne non trouvée\n");
     }
-}
-
-void modifierMed(Medecin *first)
-{
-    // TODO
-}
-
-void modifierPat(Patient *first)
-{
-    // TODO
 }
 
 int menuPrincipal()
@@ -669,7 +698,7 @@ int menuMed()
            "2. Ajouter\n"
            "3. Supprimer\n"
            "4. Rechercher\n"
-           "5. Modifier\n"
+           "5. Afficher horaire\n"
            "6. Retour au menu principal\n: ");
 
     choix = lireInt(&choix, 1);
