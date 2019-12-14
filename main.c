@@ -51,7 +51,7 @@ int main()
             {
                 fscanf(fdatC, "%2d", &heure);
                 fgets(currentM->cons[i][j].nomPat, 21, fdatC);
-                // printf("Test : %-20s\n", currentM->cons[i][j].nomPat);
+                currentM->cons[i][j].lettrePrenPat = fgetc(fdatC);
             }
         }
     }
@@ -136,7 +136,6 @@ int main()
             break;
         case 4:
             printf("Voulez-vous sauvergdez les changements effectués ? [o/n] : ");
-            scanf("%c", &choixSave);
             printf("\n");
 
             if (choixSave == 'o' || choixSave == 'O')

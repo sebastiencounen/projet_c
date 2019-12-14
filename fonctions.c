@@ -97,6 +97,7 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
             for (j = 1; j <= 16; j++)
             {
                 strcpy(new->cons[i][j].nomPat, "  /                 ");
+                new->cons[i][j].lettrePrenPat = ' ';
             }
         }
 
@@ -279,7 +280,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
             for (j = 1; j <= 16; j++) // afficher le planning du jour choisi
             {
                 printf(" %2d - %-11s   ", j, heuresHoraire[j - 1]);
-                printf("%-20s\n", currentM->cons[choix][j].nomPat);
+                printf("%-20s  %c\n", currentM->cons[choix][j].nomPat, currentM->cons[choix][j].lettrePrenPat);
             }
             printf(" 0 - Annuler\n");
             printf("\n: ");
@@ -297,6 +298,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
                     if (reponse == 1) // forcer le remplacement
                     {
                         strcpy(currentM->cons[choix][choixPlage].nomPat, currentP->nom);
+                        currentM->cons[choix][choixPlage].lettrePrenPat = currentP->prenom[0];
                         printf("\e[1;1H\e[2J");
                         printf("\nLe rendez-vous a été mis à jour\n");
                     }
@@ -310,6 +312,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
                 {
                     // Fixer le rendez-vous :
                     strcpy(currentM->cons[choix][choixPlage].nomPat, currentP->nom);
+                    currentM->cons[choix][choixPlage].lettrePrenPat = currentP->prenom[0];
                 }
                 printf("\e[1;1H\e[2J");
                 printf("\nPlanning mis à jour\n");
@@ -351,19 +354,19 @@ void afficherHoraire(Medecin *first, Medecin **current)
 
     printf("\n             ");
     for (i = 1; i <= 6; i++)
-        printf("%-8s              ", jours[i - 1]);
+        printf("%-8s                ", jours[i - 1]);
 
-    printf("\n***********************************************************************************************************************************************\n");
+    printf("\n***********************************************************************************************************************************************************\n");
     for (j = 1; j <= 16; j++)
     {
         printf("%-11s  ", heuresHoraire[j - 1]);
         for (i = 1; i <= 6; i++)
         {
-            printf("%-20s  ", currentM->cons[i][j].nomPat);
+            printf("%-20s %c  ", currentM->cons[i][j].nomPat, currentM->cons[i][j].lettrePrenPat);
         }
         printf("\n");
     }
-    printf("************************************************************************************************************************************************\n");
+    printf("************************************************************************************************************************************************************\n");
 }
 
 void supprimerMed(Medecin **first, int *nbTot)
@@ -803,10 +806,9 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
         {
             for (j = 1; j <= 16; j++)
             {
-                fprintf(fCons, "%02d%20s\n", j, currentM->cons[i][j].nomPat);
+                fprintf(fCons, "%02d%20s%c\n", j, currentM->cons[i][j].nomPat,currentM->cons[i][j].lettrePrenPat);
             }
         }
-        // fprintf(fCons, "\n");
 
         currentM = currentM->next;
     }

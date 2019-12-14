@@ -21,7 +21,7 @@ struct Adresse
 
 struct Consultation
 {
-    char nomPat[21];
+    char nomPat[21], lettrePrenPat;
 };
 
 struct Medecin
