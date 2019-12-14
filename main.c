@@ -20,23 +20,6 @@ int main()
     int cpM = 0, cpP = 0, exitMenu = 0, i, j, med = 0;
     int n = 1;
     char choixSave = 'n';
-    char heuresHoraire[17][12] = {
-        "08H00-08H30",
-        "08H30-09H00",
-        "09H00-09H30",
-        "09H30-10H00",
-        "10H00-10H30",
-        "10H30-11H00",
-        "11H00-11H30",
-        "11H30-12H00",
-        "13H00-13H30",
-        "13H30-14H00",
-        "14H00-14H30",
-        "14H30-15H00",
-        "15H00-15H30",
-        "15H30-16H00",
-        "16H00-16H30",
-        "16H30-17H00"};
 
     // Lecture Medecins
     lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
@@ -55,20 +38,6 @@ int main()
         }
         currentM = currentM->next;
     }
-
-    // currentM = firstM;
-    // for (currentM = firstM; currentM != NULL; currentM = currentM->next)
-    // {
-    //     printf("%s %s\n", currentM->nom, currentM->prenom);
-    //     for (i = 1; i <= 6; i++)
-    //     {
-    //         for (j = 1; j <= 16; j++)
-    //         {
-    //             printf("%s %s\n", heuresHoraire[j-1], currentM->cons[i][j].nomPat);
-    //         }
-    //         printf("\n");
-    //     }
-    // }
 
     // printf("Nombre de médecins à l'initialisation : %d\n", cpM);
 
