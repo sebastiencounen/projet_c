@@ -51,7 +51,9 @@ int main()
         {
             for (j = 1; j <= 16; j++)
             {
+                fscanf(fdatC, "%2d", &heure);
                 fgets(currentM->cons[i][j].nomPat, 21, fdatC);
+                // printf("Test : %-20s\n", currentM->cons[i][j].nomPat);
             }
         }
     }
@@ -87,8 +89,6 @@ int main()
                     afficherHoraire(firstM, &currentM);
                     break;
                 case 6:
-                    // Clear the console
-                    printf("\e[1;1H\e[2J");
                     exitMenu = 1;
                     break;
                 default:
@@ -99,7 +99,6 @@ int main()
 
             break;
         case 2:
-            printf("\e[1;1H\e[2J");
             exitMenu = 0;
             while (exitMenu != 1)
             {
@@ -125,8 +124,6 @@ int main()
                     ajouterCons(firstP, &currentP, firstM, &currentM);
                     break;
                 case 7:
-                    // Clear the console
-                    printf("\e[1;1H\e[2J");
                     exitMenu = 1;
                     break;
                 default:
@@ -137,7 +134,6 @@ int main()
 
             break;
         case 3:
-            printf("\e[1;1H\e[2J");
             sauvegarde(firstM, firstP);
             break;
         case 4:

@@ -245,7 +245,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
             if (choixPlage != 0) // une case horaire a été choisie
             {
                 // Gestion des rendez-vous :
-                if (strcmp(currentM->cons[choix][choixPlage].nomPat, "                    ") != 0) // si case horaire déjà occupée
+                if (strcmp(currentM->cons[choix][choixPlage].nomPat, "--------------------") != 0) // si case horaire déjà occupée
                 {
                     // Demande de remplacement :
                     printf("\nATTENTION : Un rendez-vous est déjà prévu. Voulez-vous le supprimer ?\n");
@@ -299,22 +299,23 @@ void afficherHoraire(Medecin *first, Medecin **current)
     
     rechercherMed(first, &currentM);
 
-    printf("\n%x %-s\n", currentM, currentM->nom);
+    // printf("\n%x %-s\n", currentM, currentM->nom);
 
+    printf("             ");
     for (i = 1; i <= 6; i++);
-        printf("%-8s\t", jours[i - 1]);
+        printf("%-8s              ", jours[i - 1]);
 
-    printf("\n");
+    printf("\n-------------------------------------------------------------------------------------------------------------------------------------\n");
     for (j = 1; j <= 16; j++)
     {
-        printf("%-11s\t", heuresHoraire[j - 1]);
+        printf("%-11s  ", heuresHoraire[j - 1]);
         for (i = 1; i <= 6; i++)
         {
-            printf("%-20s\t", currentM->cons[i][j].nomPat);
+            printf("%-20s  ", currentM->cons[i][j].nomPat);
         }
-
         printf("\n");
     }
+    printf("-------------------------------------------------------------------------------------------------------------------------------------\n");
 }
 
 void supprimerMed(Medecin **first, int *nbTot)
@@ -684,6 +685,7 @@ int menuPrincipal()
 
     choix = lireInt(&choix, 1);
     printf("\n");
+    printf("\e[1;1H\e[2J");
 
     return choix;
 }
@@ -703,6 +705,7 @@ int menuMed()
 
     choix = lireInt(&choix, 1);
     printf("\n");
+    printf("\e[1;1H\e[2J");
 
     return choix;
 }
@@ -723,19 +726,10 @@ int menuPat()
 
     choix = lireInt(&choix, 1);
     printf("\n");
+    printf("\e[1;1H\e[2J");
 
     return choix;
 }
-
-// int menuCons()
-// {
-//     int choix;
-
-//     printf("\nConsultation(s)\n"
-//            "***************\n"
-//            "1. Afficher consultation(s)\n"
-//            "2. Prendre un rendez-vous")
-// }
 
 void sauvegarde(Medecin *firstM, Patient *firstP)
 {
@@ -762,7 +756,7 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
                 fprintf(fCons, "%02d%20s\n", j, currentM->cons[i][j].nomPat);
             }
         }
-        fprintf(fCons, "\n");
+        // fprintf(fCons, "\n");
 
         currentM = currentM->next;
     }
