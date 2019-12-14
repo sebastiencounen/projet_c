@@ -66,6 +66,8 @@ void rechercherPat(Patient *, Patient **);
 
 void afficherHoraire(Medecin *, Medecin *);
 
+void reinitialisationRDV(Medecin *);
+
 void sauvegarde(Medecin *, Patient *);
 
 // Autres fonctions utilitaires

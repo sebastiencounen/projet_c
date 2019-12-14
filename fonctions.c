@@ -663,7 +663,7 @@ void supprimerCons(Medecin *first, Medecin **curentM)
                 printf(" %2d - %-11s   ", j, heuresHoraire[j - 1]);
                 printf("%-20s  %c\n", current->cons[choix][j].nomPat, current->cons[choix][j].lettrePrenPat);
             }
-            
+
             printf(" 0 - Annuler\n");
             printf("\n: ");
             choixPlage = lireInt(&choixPlage, 2);
@@ -897,6 +897,39 @@ void rechercherPat(Patient *first, Patient **current)
     }
 }
 
+void reinitialisationRDV(Medecin *first)
+{
+    int i, j;
+    int choix;
+    Medecin *current;
+
+    printf("Êtes-vous sûr de vouloir réinitialisation l'entièreté des consultation ?\n1 - Oui\n2 - Annuler\n: ");
+    choix = lireInt(&choix, 1); 
+
+    if (choix)
+    {
+        for (current = first; current != NULL; current = current->next)
+        {
+            for (i = 1; i <= 6; i++)
+            {
+                for (j = 1; j <= 16; j++)
+                {
+                    current->cons[i][j].lettrePrenPat = ' ';
+                    strcpy(current->cons[i][j].nomPat, "  /                 ");
+                }
+            }
+        }
+
+        printf("\e[1;1H\e[2J");
+        printf("Réinitialisation effectuée\n");
+    }
+    else
+    {
+        printf("\e[1;1H\e[2J");
+        printf("Opération annulée\n");
+    }
+}
+
 int menuPrincipal()
 {
     int choix;
@@ -905,8 +938,9 @@ int menuPrincipal()
            "**************\n"
            "1. Médecins\n"
            "2. Patients\n"
-           "3. Sauvegarder\n"
-           "4. Quitter\n: ");
+           "3. Réinitialisation consultations\n"
+           "4. Sauvegarder\n"
+           "5. Quitter\n: ");
 
     choix = lireInt(&choix, 1);
     printf("\n");

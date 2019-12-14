@@ -131,9 +131,12 @@ int main()
 
             break;
         case 3:
-            sauvegarde(firstM, firstP);
+            reinitialisationRDV(firstM);
             break;
         case 4:
+            sauvegarde(firstM, firstP);
+            break;
+        case 5:
             printf("Voulez-vous sauvergdez les changements effectués ? [o/n] : ");
             choixSave = getc(stdin);
             printf("\n");
@@ -142,6 +145,7 @@ int main()
                 sauvegarde(firstM, firstP);
 
             return 0;
+
         default:
             printf("Mauvais numéro sélectionné !\n");
             break;
