@@ -276,7 +276,7 @@ void afficherHoraire(Medecin *first, Medecin **current)
 {
     Medecin *currentM;
     currentM = *current;
-    int jour = 1, heure = 1;
+    int i, j;
     char jours[7][9] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"},
     heuresHoraire[17][12] = {
         "08H00-08H30",
@@ -301,16 +301,16 @@ void afficherHoraire(Medecin *first, Medecin **current)
 
     printf("\n%x %-s\n", currentM, currentM->nom);
 
-    for (jour = 1; jour <= 6; jour++);
-        printf("%-8s\t", jours[jour - 1]);
+    for (i = 1; i <= 6; i++);
+        printf("%-8s\t", jours[i - 1]);
 
     printf("\n");
-    for (heure = 1; heure <= 16; heure++)
+    for (j = 1; j <= 16; j++)
     {
-        printf("%-11s\t", heuresHoraire[heure - 1]);
-        for (jour = 1; jour <= 6; jour++)
+        printf("%-11s\t", heuresHoraire[j - 1]);
+        for (i = 1; i <= 6; i++)
         {
-            printf("%-20s\t", currentM->cons[jour][heure].nomPat);
+            printf("%-20s\t", currentM->cons[i][j].nomPat);
         }
 
         printf("\n");

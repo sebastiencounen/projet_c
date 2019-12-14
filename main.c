@@ -44,29 +44,20 @@ int main()
     // Lecture Medecins
     lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
 
-    
-    currentM = firstM;
-    for (med = 0; med < cpM; med++) 
+    // Lecture des consultations
+    for (currentM = firstM; currentM != NULL; currentM = currentM->next) 
     {
         for (i = 1; i <= 6; i++)
         {
-
-            fscanf(fdatC, "%1d", &jour);
             for (j = 1; j <= 16; j++)
             {
-                fscanf(fdatC, "%2d", &heure);
-                fgets(currentM->cons[jour][heure].nomPat, 21, fdatC);
+                fgets(currentM->cons[i][j].nomPat, 21, fdatC);
             }
         }
-        currentM = currentM->next;
     }
-
-    // printf("Nombre de médecins à l'initialisation : %d\n", cpM);
 
     // Lecture patients
     lecturePatients(&firstP, &currentP, &interP, &lastP, &cpP);
-    //
-    // printf("Nombre de patients à l'initialisation : %d\n", cpP);
 
     // Menu interactif
     while (1)
