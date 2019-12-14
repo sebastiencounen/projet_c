@@ -470,9 +470,10 @@ void afficherHoraire(Medecin *first, Medecin *currentM)
 void supprimerMed(Medecin **first, int *nbTot)
 {
     Medecin *current, *tmp;
-    int n = 0, i, found = 0;
+    int n = 0, i, found = 0, cp = 0;
     char nom[21], prenom[21];
     char tmpNom[21], tmpPren[21];
+    char inami[15];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du médecin : ");
@@ -484,20 +485,54 @@ void supprimerMed(Medecin **first, int *nbTot)
     majuscule(prenom);
 
     // On recherche dans la liste
-    current = *first;
-    while (current != NULL)
+    printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
+           "----------------------------------------------------------------------------------\n");
+    for (current = *first; current != NULL; current = current->next)
     {
-        n++;
+        if (cp == 0)
+            n++;
+
         strcpy(tmpNom, current->nom);
         strcpy(tmpPren, current->prenom);
 
         if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0)
         {
+            cp++;
             found = 1;
-            break;
+            printf("%-14s     %-20s  %-20s %-20s\n",
+                           current->numInami, current->nom, current->prenom, current->specialite);
         }
+    }
+    printf("----------------------------------------------------------------------------------\n");
 
-        current = current->next;
+    if (cp > 1)
+    {
+        found = 0;
+        n = 0;
+        cp = 0;
+
+        printf("\nNuméro inami du médecin : ");
+        lire(inami, 14);
+        printf("\n");
+
+        printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
+           "----------------------------------------------------------------------------------\n");
+        for (current = *first; current != NULL; current = current->next)
+        {
+            if (cp == 0)
+                n++;
+
+            strcpy(tmpNom, current->nom);
+            strcpy(tmpPren, current->prenom);
+            if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0 && strcmp(inami, current->numInami) == 0)
+            {
+                cp++;
+                found = 1;
+                printf("%-14s     %-20s  %-20s %-20s\n",
+                           current->numInami, current->nom, current->prenom, current->specialite);
+            }
+        }
+        printf("----------------------------------------------------------------------------------\n");
     }
 
     // Suppression
