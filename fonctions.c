@@ -230,6 +230,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
 
         if (choix != 0) // un jour a été choisi
         {
+            printf("\e[1;1H\e[2J");
             printf("\n%-8s\n********\n", jours[choix - 1]);
 
             printf("\n ID   HEURE         PATIENT\n\n");
@@ -254,10 +255,12 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
                     if (reponse == 1) // forcer le remplacement
                     {
                         strcpy(currentM->cons[choix][choixPlage].nomPat, currentP->nom);
+                        printf("\e[1;1H\e[2J");
                         printf("\nLe rendez-vous a été mis à jour\n");
                     }
                     else // ignorer le remplacement
                     {
+                        printf("\e[1;1H\e[2J");
                         printf("\nOperation annulée\n");
                     }
                 }
@@ -266,10 +269,12 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
                     // Fixer le rendez-vous :
                     strcpy(currentM->cons[choix][choixPlage].nomPat, currentP->nom);
                 }
-                printf("\nPlanning mis a jour\n");
+                printf("\e[1;1H\e[2J");
+                printf("\nPlanning mis à jour\n");
             }
             else
             {
+                printf("\e[1;1H\e[2J");
                 printf("Erreur dans la sélection de votre plage horaire\n");
             }
             
@@ -362,6 +367,7 @@ void supprimerMed(Medecin **first, int *nbTot)
         free(tmp);
         *nbTot--;
 
+        printf("\e[1;1H\e[2J");
         printf("\nSuppression effectuée avec succès\n");
     }
     else if (found)
@@ -388,6 +394,7 @@ void supprimerMed(Medecin **first, int *nbTot)
 
         *nbTot--;
 
+        printf("\e[1;1H\e[2J");
         printf("\nSuppression effectuée avec succès\n");
     }
     else
