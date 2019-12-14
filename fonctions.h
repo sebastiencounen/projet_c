@@ -59,7 +59,7 @@ void ajouterCons(Patient *, Patient **, Medecin *, Medecin **);
 
 void supprimerMed(Medecin **, int *);
 void supprimerPat(Patient **, int *);
-// void supprimerCons(Consultation **, int *);
+void supprimerCons(Medecin *, Medecin **);
 
 void rechercherMed(Medecin *, Medecin **);
 void rechercherPat(Patient *, Patient **);

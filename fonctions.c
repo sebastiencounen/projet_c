@@ -250,7 +250,8 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
              "15H00-15H30",
              "15H30-16H00",
              "16H00-16H30",
-             "16H30-17H00"};
+             "16H30-17H00"
+        };
 
     Patient *currentP;
     Medecin *currentM;
@@ -615,9 +616,83 @@ void supprimerPat(Patient **first, int *nbTot)
         printf("Personne non trouvée\n");
 }
 
-void supprimerCons(Consultation **first, int *nbTot)
+void supprimerCons(Medecin *first, Medecin **curentM)
 {
-    //
+    int i, j, choix, choixPlage;
+    char jours[7][9] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"},
+         heuresHoraire[17][12] = {
+             "08H00-08H30",
+             "08H30-09H00",
+             "09H00-09H30",
+             "09H30-10H00",
+             "10H00-10H30",
+             "10H30-11H00",
+             "11H00-11H30",
+             "11H30-12H00",
+             "13H00-13H30",
+             "13H30-14H00",
+             "14H00-14H30",
+             "14H30-15H00",
+             "15H00-15H30",
+             "15H30-16H00",
+             "16H00-16H30",
+             "16H30-17H00"
+        };
+
+    Medecin *current = *curentM;
+
+    rechercherMed(first, &current);
+    printf("\n");
+
+    if (current != NULL)
+    {
+        for (i = 1; i <= 6; i++)
+            printf("%2d - %-8s\n", i, jours[i - 1]);
+        
+        printf(" 0 - Annuler\n : ");
+        choix = lireInt(&choix, 1);
+
+        if (choix != 0)
+        {
+            printf("\e[1;1H\e[2J");
+            printf("\n%-8s\n********\n", jours[choix - 1]);
+
+            printf("\n ID   Heure         Patient\n\n");
+            for (j = 1; j <= 16; j++) 
+            {
+                printf(" %2d - %-11s   ", j, heuresHoraire[j - 1]);
+                printf("%-20s  %c\n", current->cons[choix][j].nomPat, current->cons[choix][j].lettrePrenPat);
+            }
+            
+            printf(" 0 - Annuler\n");
+            printf("\n: ");
+            choixPlage = lireInt(&choixPlage, 2);
+
+            if (choixPlage != 0)
+            {
+                if (strcmp(current->cons[choix][choixPlage].nomPat, "  /                 ") != 0)
+                {
+                    strcpy(current->cons[choix][choixPlage].nomPat, "  /                 ");
+                    current->cons[choix][choixPlage].lettrePrenPat = ' '; 
+                    printf("\e[1;1H\e[2J");
+                    printf("Annulation effectuée\n");
+                }
+                else
+                    printf("Aucun rendez-vous n'est prévu le %-8s - %-11s\n", jours[choix], heuresHoraire[choixPlage]);
+            }
+            else
+            {
+                printf("\e[1;1H\e[2J");
+                printf("Erreur dans la sélection de votre plage horaire\n");
+            }
+            
+        }
+        else
+        {
+            printf("\e[1;1H\e[2J");
+            printf("Erreur dans la sélection du jour\n");
+        }
+    }
 }
 
 void rechercherMed(Medecin *first, Medecin **current)
@@ -870,8 +945,8 @@ int menuPat()
            "2. Ajouter\n"
            "3. Supprimer\n"
            "4. Rechercher\n"
-           "5. Modifier\n"
-           "6. Prendre un rendez-vous\n"
+           "5. Prendre un rendez-vous\n"
+           "6. Annuler un rendez-vous\n"
            "7. Retour au menu principal\n: ");
 
     choix = lireInt(&choix, 1);

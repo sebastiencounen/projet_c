@@ -115,11 +115,10 @@ int main()
                     rechercherPat(firstP, &currentP);
                     break;
                 case 5:
-                    printf("Option not working yet\n");
-                    // modifierPat(firstP);
+                    ajouterCons(firstP, &currentP, firstM, &currentM);
                     break;
                 case 6:
-                    ajouterCons(firstP, &currentP, firstM, &currentM);
+                    supprimerCons(firstM, &currentM);
                     break;
                 case 7:
                     exitMenu = 1;
