@@ -249,6 +249,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
     currentM = *currentMed;
 
     rechercherPat(firstP, &currentP);
+    printf("\n");
     rechercherMed(firstM, &currentM);
 
     if (currentP != NULL)
@@ -265,7 +266,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
             printf("\e[1;1H\e[2J");
             printf("\n%-8s\n********\n", jours[choix - 1]);
 
-            printf("\n ID   HEURE         PATIENT\n\n");
+            printf("\n ID   Heure         Patient\n\n");
             for (j = 1; j <= 16; j++) // afficher le planning du jour choisi
             {
                 printf(" %2d - %-11s   ", j, heuresHoraire[j - 1]);
