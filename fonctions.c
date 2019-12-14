@@ -221,10 +221,10 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
 
     if (currentP != NULL)
     {
-        for (i = 1; i <= 6; i++) // Affichage du lundi au samedi
-        {
+        // Affichage du lundi au samedi
+        for (i = 1; i <= 6; i++) 
             printf("%2d - %-8s\n", i, jours[i - 1]);
-        }
+
         printf(" 0 - Annuler\n : ");
         choix = lireInt(&choix, 1);
 
@@ -240,7 +240,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
             }
             printf(" 0 - Annuler\n");
             printf("\n: ");
-            choixPlage = lireInt(&choixPlage, 1);
+            choixPlage = lireInt(&choixPlage, 2);
 
             if (choixPlage != 0) // une case horaire a été choisie
             {
@@ -268,6 +268,11 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
                 }
                 printf("\nPlanning mis a jour\n");
             }
+            else
+            {
+                printf("Erreur dans la sélection de votre plage horaire\n");
+            }
+            
         }
     }
 }

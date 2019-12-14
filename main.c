@@ -62,12 +62,12 @@ int main()
     lecturePatients(&firstP, &currentP, &interP, &lastP, &cpP);
 
     // Menu interactif
+    printf("\e[1;1H\e[2J");
     while (1)
     {
         switch (menuPrincipal())
         {
         case 1:
-            printf("\e[1;1H\e[2J");
             exitMenu = 0;
             while (exitMenu != 1)
             {
