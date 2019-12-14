@@ -511,7 +511,7 @@ void supprimerMed(Medecin **first, int *nbTot)
         n = 0;
         cp = 0;
 
-        printf("\nNuméro inami du médecin : ");
+        printf("\nNuméro inami du médecin (x/xxxxx/xx/xxx) : ");
         lire(inami, 14);
         printf("\n");
 
@@ -543,7 +543,6 @@ void supprimerMed(Medecin **first, int *nbTot)
         free(tmp);
         *nbTot--;
 
-        printf("\e[1;1H\e[2J");
         printf("\nSuppression effectuée avec succès\n");
     }
     else if (found)
@@ -570,7 +569,6 @@ void supprimerMed(Medecin **first, int *nbTot)
 
         *nbTot--;
 
-        printf("\e[1;1H\e[2J");
         printf("\nSuppression effectuée avec succès\n");
     }
     else
@@ -580,9 +578,10 @@ void supprimerMed(Medecin **first, int *nbTot)
 void supprimerPat(Patient **first, int *nbTot)
 {
     Patient *current, *tmp;
-    int n = 0, i, found = 0;
+    int n = 0, i, found = 0, cp = 0;
     char nom[21], prenom[21];
     char tmpNom[21], tmpPren[21];
+    char regNat[16];
 
     // On demande le nom et le prénom du médecin recherché
     printf("Entrez le nom du patient : ");
@@ -595,20 +594,59 @@ void supprimerPat(Patient **first, int *nbTot)
     majuscule(prenom);
 
     // On recherche dans la liste
-    current = *first;
-    while (current != NULL)
+    printf("\nRegistre national  Nom                   Prenom                N° Téléphone    Date naissance  "
+           "Rue                                       N°   CP    Ville               \n"
+           "------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    for (current = *first; current != NULL; current = current->next)
     {
-        n++;
+        if (cp == 0)
+            n++;
+
         strcpy(tmpNom, current->nom);
         strcpy(tmpPren, current->prenom);
-
         if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0)
         {
+            cp++;
             found = 1;
-            break;
+            printf("%-15s    %-20s  %-20s  %-14s  %02d/%02d/%4d      %-40s  %3d  %-4s  %-20s\n",
+                    current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
+                    current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
+                    current->adresse.cp, current->adresse.ville);
         }
+    }
+    printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
-        current = current->next;
+    if (cp > 1)
+    {
+        found = 0;
+        n = 0;
+        cp = 0;
+
+        printf("\nNuméro de registre national du patient (xx.xx.xx-xxx.xx) : ");
+        lire(regNat, 15);
+        printf("\n");
+
+        printf("\nRegistre national  Nom                   Prenom                N° Téléphone    Date naissance  "
+           "Rue                                       N°   CP    Ville               \n"
+           "------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+        for (current = *first; current != NULL; current = current->next)
+        {
+            if (cp == 0)
+                n++;
+            
+            strcpy(tmpNom, current->nom);
+            strcpy(tmpPren, current->prenom);
+            if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0 && strcmp(regNat, current->regNat) == 0)
+            {
+                cp++;
+                found = 1;
+                printf("%-15s    %-20s  %-20s  %-14s  %02d/%02d/%4d      %-40s  %3d  %-4s  %-20s\n",
+                    current->regNat, current->nom, current->prenom, current->numTel, current->dateN.jour,
+                    current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
+                    current->adresse.cp, current->adresse.ville);
+            }
+        }
+        printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     // Suppression
