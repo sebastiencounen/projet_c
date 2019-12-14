@@ -245,7 +245,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
             if (choixPlage != 0) // une case horaire a été choisie
             {
                 // Gestion des rendez-vous :
-                if (strcmp(currentM->cons[choix][choixPlage].nomPat, "--------------------") != 0) // si case horaire déjà occupée
+                if (strcmp(currentM->cons[choix][choixPlage].nomPat, "                    ") != 0) // si case horaire déjà occupée
                 {
                     // Demande de remplacement :
                     printf("\nATTENTION : Un rendez-vous est déjà prévu. Voulez-vous le supprimer ?\n");
@@ -282,8 +282,8 @@ void afficherHoraire(Medecin *first, Medecin **current)
     Medecin *currentM;
     currentM = *current;
     int i, j;
-    char jours[7][9] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"},
-    heuresHoraire[17][12] = {
+    char jours[7][9] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
+    char heuresHoraire[17][12] = {
         "08H00-08H30",
         "08H30-09H00",
         "09H00-09H30",
@@ -304,13 +304,11 @@ void afficherHoraire(Medecin *first, Medecin **current)
     
     rechercherMed(first, &currentM);
 
-    // printf("\n%x %-s\n", currentM, currentM->nom);
-
-    printf("             ");
-    for (i = 1; i <= 6; i++);
+    printf("\n             ");
+    for (i = 1; i <= 6; i++)
         printf("%-8s              ", jours[i - 1]);
 
-    printf("\n-------------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("\n***********************************************************************************************************************************************\n");
     for (j = 1; j <= 16; j++)
     {
         printf("%-11s  ", heuresHoraire[j - 1]);
@@ -320,7 +318,7 @@ void afficherHoraire(Medecin *first, Medecin **current)
         }
         printf("\n");
     }
-    printf("-------------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("************************************************************************************************************************************************\n");
 }
 
 void supprimerMed(Medecin **first, int *nbTot)
