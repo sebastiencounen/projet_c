@@ -64,7 +64,7 @@ void supprimerPat(Patient **, int *);
 void rechercherMed(Medecin *, Medecin **);
 void rechercherPat(Patient *, Patient **);
 
-void afficherHoraire(Medecin *, Medecin **);
+void afficherHoraire(Medecin *, Medecin *);
 
 void sauvegarde(Medecin *, Patient *);
 

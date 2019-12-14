@@ -136,6 +136,7 @@ int main()
             break;
         case 4:
             printf("Voulez-vous sauvergdez les changements effectués ? [o/n] : ");
+            choixSave = getc(stdin);
             printf("\n");
 
             if (choixSave == 'o' || choixSave == 'O')

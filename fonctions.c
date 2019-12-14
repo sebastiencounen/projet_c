@@ -326,11 +326,12 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
     }
 }
 
-void afficherHoraire(Medecin *first, Medecin **current)
+void afficherHoraire(Medecin *first, Medecin *currentM)
 {
-    Medecin *currentM;
-    currentM = *current;
-    int i, j;
+    // Medecin *currentM;
+    // currentM = *current;
+    int i, j, n = 0, cp = 0;
+    char nom[21], prenom[21], inami[15], tmpNom[21], tmpPren[21];
     char jours[7][9] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
     char heuresHoraire[17][12] = {
         "08H00-08H30",
@@ -350,23 +351,119 @@ void afficherHoraire(Medecin *first, Medecin **current)
         "16H00-16H30",
         "16H30-17H00"};
 
-    rechercherMed(first, &currentM);
+    // Recherche du médecin via son nom, si doublon --> prénom et en cas extrême numéro inami étant unique
+    printf("Nom du médecin : ");
+    lire(nom, 20);
+    majuscule(&nom);
+    printf("\n");
 
-    printf("\n             ");
-    for (i = 1; i <= 6; i++)
-        printf("%-8s                ", jours[i - 1]);
-
-    printf("\n***********************************************************************************************************************************************************\n");
-    for (j = 1; j <= 16; j++)
+    printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
+        "----------------------------------------------------------------------------------\n");
+    for (currentM = first; currentM != NULL; currentM = currentM->next)
     {
-        printf("%-11s  ", heuresHoraire[j - 1]);
-        for (i = 1; i <= 6; i++)
+        if (n == 0)
+            cp++;
+
+        strcpy(tmpNom, currentM->nom);
+        if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0)
         {
-            printf("%-20s %c  ", currentM->cons[i][j].nomPat, currentM->cons[i][j].lettrePrenPat);
+            n++;
+            printf("%-14s     %-20s  %-20s %-20s\n",
+                   currentM->numInami, currentM->nom, currentM->prenom, currentM->specialite);
         }
-        printf("\n");
     }
-    printf("************************************************************************************************************************************************************\n");
+    printf("----------------------------------------------------------------------------------\n");
+
+    if (n > 1)
+    {
+        cp = 0;
+        n = 0;
+
+        printf("\nPrénom du médecin : ");
+        lire(prenom, 20);
+        majuscule(&prenom);
+        printf("\n");
+    
+        printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
+            "----------------------------------------------------------------------------------\n");
+        for (currentM = first; currentM != NULL; currentM = currentM->next)
+        {
+            if (n == 0)
+                cp++;
+
+            strcpy(tmpNom, currentM->nom);
+            strcpy(tmpPren, currentM->prenom);
+            if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0)
+            {
+                n++;
+                printf("%-14s     %-20s  %-20s %-20s\n",
+                   currentM->numInami, currentM->nom, currentM->prenom, currentM->specialite);
+            }
+        }
+        printf("----------------------------------------------------------------------------------\n");
+
+        if (n > 1)
+        {
+            cp = 0;
+            n = 0;
+
+            printf("\nEntrez le numéro inami du médecin (x/xxxxx/xx/xxx) : ");
+            lire(inami, 14);
+            printf("\n");
+
+            printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
+                   "----------------------------------------------------------------------------------\n");
+
+            for (currentM = first; currentM != NULL; currentM = currentM->next)
+            {
+                if (n == 0)
+                    cp++;
+
+                strcpy(tmpNom, currentM->nom);
+                strcpy(tmpPren, currentM->prenom);
+                if (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0 && formatAndCompare(prenom, tmpPren, strlen(tmpPren)) == 0 && strcmp(inami, currentM->numInami) == 0)
+                {
+                    n++;
+                    printf("%-14s     %-20s  %-20s %-20s\n",
+                           currentM->numInami, currentM->nom, currentM->prenom, currentM->specialite);
+                }
+            }
+            printf("----------------------------------------------------------------------------------\n");
+        }
+    }
+
+    if (n != 0)
+    {
+        currentM = first;
+        for (i = 1; i < cp; i++)
+            currentM = currentM->next;
+    }
+    else
+    {
+        printf("Personne non trouvée\n");
+        currentM = NULL;
+    }
+    
+    // Affichage du calendrier
+
+    if (currentM != NULL)
+    {    
+        printf("\n             ");
+        for (i = 1; i <= 6; i++)
+            printf("%-8s                ", jours[i - 1]);
+
+        printf("\n***********************************************************************************************************************************************************\n");
+        for (j = 1; j <= 16; j++)
+        {
+            printf("%-11s  ", heuresHoraire[j - 1]);
+            for (i = 1; i <= 6; i++)
+            {
+                printf("%-20s %c  ", currentM->cons[i][j].nomPat, currentM->cons[i][j].lettrePrenPat);
+            }
+            printf("\n");
+        }
+        printf("************************************************************************************************************************************************************\n");
+    }
 }
 
 void supprimerMed(Medecin **first, int *nbTot)
