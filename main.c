@@ -7,8 +7,9 @@
 int main()
 {
     // Fichiers
-    FILE *fdatC;
+    FILE *fdatC, *fdatSpe;
     fdatC = fopen("consultations.dat", "r");
+    fdatSpe = fopen("speicalites.dat", "r");
 
     // Variables
     Medecin *firstM, *currentM, *nextM, *lastM, *interM;
@@ -16,7 +17,8 @@ int main()
 
     int cpM = 0, cpP = 0, exitMenu = 0, i, j, med = 0;
     int n = 1, heure;
-
+    int cpSpe = 0, c;
+    char **tabSpe, **tabNomemclature;
     char choixSave = 'n';
     char heuresHoraire[17][12] = {
         "08H00-08H30",
@@ -35,6 +37,50 @@ int main()
         "15H30-16H00",
         "16H00-16H30",
         "16H30-17H00"};
+
+    // On compte les spécialités
+    if (fdatSpe != NULL)
+    {
+        while ((c = fgetc(fdatSpe)) != EOF)
+        {
+            if (c == '\n')
+                cpSpe++;
+        }
+
+        // On revient au début du fichier
+        rewind(fdatSpe);
+
+        printf("Position dans le fichier : %d \n", ftell(fdatSpe));
+        printf("Nombre de spécialités : %d\n", cpSpe);
+
+        // Initialisation dynamique de la taille du tableau
+        tabSpe = (char **)malloc(cpSpe * sizeof(char *));
+        tabNomemclature = (char **)malloc(cpSpe * sizeof(char *));
+        for (i = 0; i < cpSpe; i++)
+        {
+            tabSpe[i] = (char *)malloc(21 * sizeof(char));
+            tabNomemclature[i] = (char *)malloc(7 * sizeof(char));
+        }
+
+        for (i = 0; i < cpSpe; i++)
+        {
+            fscanf(fdatSpe, "%20s%6s", tabSpe[i], tabNomemclature[i]);
+        }
+
+        // Test affichage
+        for (i = 0; i < cpSpe; i++)
+            printf("%-20s  %-6s\n", tabSpe[i], tabNomemclature[i]);
+
+        fclose(fdatSpe);
+    }
+    else
+    {
+        printf("Erreur lecture des spécialités\n");
+        system("echo \"Le programme va s'arrêter...\" && read a");
+        return 0;
+    }
+    
+
 
     // Lecture Medecins
     lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
@@ -57,7 +103,7 @@ int main()
     lecturePatients(&firstP, &currentP, &interP, &lastP, &cpP);
 
     // Menu interactif
-    printf("\e[1;1H\e[2J");
+    // printf("\e[1;1H\e[2J");
     while (1)
     {
         switch (menuPrincipal())
@@ -74,7 +120,7 @@ int main()
                     printf("\e[1;1H\e[2J");
                     break;
                 case 2:
-                    ajouterMed(&currentM, &firstM, &lastM, &cpM);
+                    ajouterMed(&currentM, &firstM, &lastM, &cpM, tabSpe, tabNomemclature, cpSpe);
                     break;
                 case 3:
                     supprimerMed(&firstM, &cpM);

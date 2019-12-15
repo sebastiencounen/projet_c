@@ -26,7 +26,7 @@ struct Consultation
 
 struct Medecin
 {
-    char numInami[15], nom[21], prenom[21], specialite[21];
+    char numInami[15], nom[21], prenom[21], specialite[21], nomenclature[7];
     Consultation cons[7][17];
     Medecin *next;
 };
@@ -53,7 +53,8 @@ int menuPat();
 void afficherListeMed(Medecin *, int);
 void afficherListePat(Patient *, int);
 
-void ajouterMed(Medecin **, Medecin **, Medecin **, int *);
+// void ajouterMed(Medecin **, Medecin **, Medecin **, int *, char[][21], char[][7], int);
+void ajouterMed(Medecin **, Medecin **, Medecin **, int *, char **, char **, int);
 void ajouterPat(Patient **, Patient **, Patient **, int *);
 void ajouterCons(Patient *, Patient **, Medecin *, Medecin **);
 
@@ -69,6 +70,8 @@ void afficherHoraire(Medecin *, Medecin *);
 void reinitialisationRDV(Medecin *);
 
 void sauvegarde(Medecin *, Patient *);
+
+void ajouterSpecialite(FILE *, int *, int *);
 
 // Autres fonctions utilitaires
 void majuscule(char *);

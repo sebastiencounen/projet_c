@@ -57,9 +57,9 @@ void afficherListePat(Patient *first, int cp)
     printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 }
 
-void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
+void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb, char **specs, char **nomenclature, int nbSpec)
 {
-    int n = 0, i, j;
+    int n = 0, i, j, specChoix;
     Medecin *new;
 
     if (*nb > 0)
@@ -95,9 +95,26 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb)
         lire(new->prenom, 20);
         majuscule(&new->prenom);
 
-        printf("\nSpecialité : ");
-        lire(new->specialite, 20);
-        majuscule(&new->specialite);
+        printf("\nSpecialité : \n");
+        for (i = 0; i < nbSpec; i++)
+            printf("%02d - %-20s\n", i + 1, specs[i]);
+        printf("0 - Annuler\n");
+
+        specChoix = lireInt(&specChoix, 2);
+
+        if (specChoix != 0)
+        {
+            strcpy(new->specialite, specs[specChoix - 1]);
+            strcpy(new->nomenclature, nomenclature[specChoix - 1]);
+        } 
+        else
+        {
+            return;
+        }
+        
+        // lire(new->specialite, 20);
+        // majuscule(&new->specialite);
+
 
         printf("\n");
         *nb++;
@@ -1030,6 +1047,11 @@ void reinitialisationRDV(Medecin *first)
     }
 }
 
+void ajouterSpecialite(FILE *file, int *totAct, int *bool)
+{
+    // 
+}
+
 int menuPrincipal()
 {
     int choix;
@@ -1104,8 +1126,8 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
     currentM = firstM;
     while (currentM != NULL)
     {
-        fprintf(fMed, "%-14s%-20s%-20s%-20s\n",
-                currentM->numInami, currentM->nom, currentM->prenom, currentM->specialite);
+        fprintf(fMed, "%-14s%-20s%-20s%-20s%-6s\n",
+                currentM->numInami, currentM->nom, currentM->prenom, currentM->specialite, currentM->nomenclature);
 
         //Save consultations
         for (i = 1; i <= 6; i++)
