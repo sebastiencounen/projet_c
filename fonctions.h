@@ -33,7 +33,7 @@ struct Medecin
 
 struct Patient
 {
-    char regNat[16], nom[21], prenom[21], numTel[14];
+    char regNat[16], nom[21], prenom[21], numTel[14], sexe;
     Date dateN;
     Adresse adresse;
     Patient *next;
@@ -74,6 +74,7 @@ void sauvegarde(Medecin *, Patient *);
 void majuscule(char *);
 void clearBuffer();
 int lire(char *, int);
+void lireChar(char*);
 int lireInt(char *, int);
 long lireLong(char *, int);
 int formatAndCompare(char *, char *, int);
