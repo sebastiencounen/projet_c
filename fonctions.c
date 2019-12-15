@@ -1094,6 +1094,7 @@ void sauvegarde(Medecin *firstM, Patient *firstP)
         currentM = currentM->next;
     }
     fclose(fMed);
+    fclose(fCons);
 
     // Save patients
     currentP = firstP;
@@ -1271,6 +1272,8 @@ void lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Med
     //Adresse du dernier
     for (*currentM = *firstM; *currentM != NULL; *currentM = (*currentM)->next)
         *lastM = *currentM;
+
+    fclose(fdatMed);
 }
 
 void lecturePatients(Patient **firstP, Patient **currentP, Patient **interP, Patient **lastP, int *cpP)
@@ -1355,4 +1358,6 @@ void lecturePatients(Patient **firstP, Patient **currentP, Patient **interP, Pat
     //Adresse du dernier
     for (*currentP = *firstP; *currentP != NULL; *currentP = (*currentP)->next)
         *lastP = *currentP;
+
+    fclose(fdatPat);
 }

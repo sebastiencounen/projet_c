@@ -7,20 +7,17 @@
 int main()
 {
     // Fichiers
-    FILE *fdatMed, *fdatPat, *fdatC;
-    fdatMed = fopen("medecins.dat", "r");
-    fdatPat = fopen("patients.dat", "r");
+    FILE *fdatC;
     fdatC = fopen("consultations.dat", "r");
 
     // Variables
     Medecin *firstM, *currentM, *nextM, *lastM, *interM;
     Patient *firstP, *currentP, *nextP, *lastP, *interP;
-    Consultation *firstC, *currentC, *nextC, *lastC, *interC;
 
     int cpM = 0, cpP = 0, exitMenu = 0, i, j, med = 0;
-    int n = 1, jour, heure;
-    char choixSave = 'n';
+    int n = 1, heure;
 
+    char choixSave = 'n';
     char heuresHoraire[17][12] = {
         "08H00-08H30",
         "08H30-09H00",
@@ -73,6 +70,8 @@ int main()
                 {
                 case 1:
                     afficherListeMed(firstM, cpM);
+                    system("echo \"Appuyer sur une touche pour continuer...\" && read a");
+                    printf("\e[1;1H\e[2J");
                     break;
                 case 2:
                     ajouterMed(&currentM, &firstM, &lastM, &cpM);
@@ -82,9 +81,13 @@ int main()
                     break;
                 case 4:
                     rechercherMed(firstM, &currentM);
+                    system("echo \"Appuyer sur une touche pour continuer...\" && read a");
+                    printf("\e[1;1H\e[2J");
                     break;
                 case 5:
                     afficherHoraire(firstM, currentM);
+                    system("echo \"Appuyer sur une touche pour continuer...\" && read a");
+                    printf("\e[1;1H\e[2J");
                     break;
                 case 6:
                     exitMenu = 1;
@@ -104,6 +107,8 @@ int main()
                 {
                 case 1:
                     afficherListePat(firstP, cpP);
+                    system("echo \"Appuyer sur une touche pour continuer...\" && read a");
+                    printf("\e[1;1H\e[2J");
                     break;
                 case 2:
                     ajouterPat(&currentP, &firstP, &lastP, &cpP);
@@ -113,6 +118,8 @@ int main()
                     break;
                 case 4:
                     rechercherPat(firstP, &currentP);
+                    system("echo \"Appuyer sur une touche pour continuer...\" && read a");
+                    printf("\e[1;1H\e[2J");
                     break;
                 case 5:
                     ajouterCons(firstP, &currentP, firstM, &currentM);
