@@ -38,14 +38,14 @@ void afficherListePat(Patient *first, int cp)
            "************************\n",
            cp);
 
-    printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naissance  "
+    printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naiss.  "
            "Rue                                       Num  CP    Ville               \n"
            "------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
     current = first;
     while (current != NULL)
     {
-        printf("%-15s    %-20s  %-20s  %c    %-14s  %02d/%02d/%4d      %-40s  %3d  %-4s  %-20s\n",
+        printf("%-15s    %-20s  %-20s  %c    %-14s   %02d/%02d/%4d   %-40s  %3d  %-4s  %-20s\n",
                current->regNat, current->nom, current->prenom, current->sexe, current->numTel, current->dateN.jour,
                current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
                current->adresse.cp, current->adresse.ville);
@@ -621,7 +621,7 @@ void supprimerPat(Patient **first, int *nbTot)
     majuscule(prenom);
 
     // On recherche dans la liste
-    printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naissance  "
+    printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naiss.  "
            "Rue                                       Num  CP    Ville               \n"
            "------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
     for (current = *first; current != NULL; current = current->next)
@@ -635,7 +635,7 @@ void supprimerPat(Patient **first, int *nbTot)
         {
             cp++;
             found = 1;
-            printf("%-15s    %-20s  %-20s  %c    %-14s  %02d/%02d/%4d      %-40s  %3d  %-4s  %-20s\n",
+            printf("%-15s    %-20s  %-20s  %c    %-14s   %02d/%02d/%4d   %-40s  %3d  %-4s  %-20s\n",
                current->regNat, current->nom, current->prenom, current->sexe, current->numTel, current->dateN.jour,
                current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
                current->adresse.cp, current->adresse.ville);
@@ -653,7 +653,7 @@ void supprimerPat(Patient **first, int *nbTot)
         lire(regNat, 15);
         printf("\n");
 
-        printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naissance  "
+        printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naiss.  "
            "Rue                                       Num  CP    Ville               \n"
            "------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         for (current = *first; current != NULL; current = current->next)
@@ -667,10 +667,10 @@ void supprimerPat(Patient **first, int *nbTot)
             {
                 cp++;
                 found = 1;
-                printf("%-15s    %-20s  %-20s  %c    %-14s  %02d/%02d/%4d      %-40s  %3d  %-4s  %-20s\n",
-                        current->regNat, current->nom, current->prenom, current->sexe, current->numTel, current->dateN.jour,
-                        current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
-                        current->adresse.cp, current->adresse.ville);
+                printf("%-15s    %-20s  %-20s  %c    %-14s   %02d/%02d/%4d   %-40s  %3d  %-4s  %-20s\n",
+                    current->regNat, current->nom, current->prenom, current->sexe, current->numTel, current->dateN.jour,
+                    current->dateN.mois, current->dateN.annee, current->adresse.rue, current->adresse.num,
+                    current->adresse.cp, current->adresse.ville);
             }
         }
         printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
@@ -905,7 +905,7 @@ void rechercherPat(Patient *first, Patient **current)
     dateNaiss.annee = lireInt(&dateNaiss.annee, 4);
     printf("\n");
 
-    printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naissance  "
+    printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naiss.  "
            "Rue                                       Num  CP    Ville               \n"
            "------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
     for (*current = first; *current != NULL; *current = (*current)->next)
@@ -916,7 +916,7 @@ void rechercherPat(Patient *first, Patient **current)
         if ((*current)->dateN.jour == dateNaiss.jour && (*current)->dateN.mois == dateNaiss.mois && (*current)->dateN.annee == dateNaiss.annee)
         {
             n++;
-            printf("%-15s    %-20s  %-20s  %c    %-14s  %02d/%02d/%4d      %-40s  %3d  %-4s  %-20s\n",
+            printf("%-15s    %-20s  %-20s  %c    %-14s   %02d/%02d/%4d   %-40s  %3d  %-4s  %-20s\n",
                (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->sexe, (*current)->numTel, (*current)->dateN.jour,
                (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
                (*current)->adresse.cp, (*current)->adresse.ville);
@@ -934,7 +934,7 @@ void rechercherPat(Patient *first, Patient **current)
         majuscule(&nom);
         printf("\n");
 
-        printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naissance  "
+        printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naiss.  "
            "Rue                                       Num  CP    Ville               \n"
            "------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         for (*current = first; *current != NULL; *current = (*current)->next)
@@ -946,7 +946,7 @@ void rechercherPat(Patient *first, Patient **current)
             if ((formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0) && ((*current)->dateN.jour == dateNaiss.jour && (*current)->dateN.mois == dateNaiss.mois && (*current)->dateN.annee == dateNaiss.annee))
             {
                 n++;
-                printf("%-15s    %-20s  %-20s  %c    %-14s  %02d/%02d/%4d      %-40s  %3d  %-4s  %-20s\n",
+                printf("%-15s    %-20s  %-20s  %c    %-14s   %02d/%02d/%4d   %-40s  %3d  %-4s  %-20s\n",
                     (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->sexe, (*current)->numTel, (*current)->dateN.jour,
                     (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
                     (*current)->adresse.cp, (*current)->adresse.ville);
@@ -963,7 +963,7 @@ void rechercherPat(Patient *first, Patient **current)
             lire(regNat, 15);
             printf("\n");
 
-           printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naissance  "
+           printf("\nRegistre national  Nom                   Prenom                Sexe  Num Tel.        Date naiss.  "
            "Rue                                       Num  CP    Ville               \n"
            "------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
             for (*current = first; *current != NULL; *current = (*current)->next)
@@ -975,7 +975,7 @@ void rechercherPat(Patient *first, Patient **current)
                 if (strcmp(regNat, (*current)->regNat) == 0 && (formatAndCompare(nom, tmpNom, strlen(tmpNom)) == 0) && ((*current)->dateN.jour == dateNaiss.jour && (*current)->dateN.mois == dateNaiss.mois && (*current)->dateN.annee == dateNaiss.annee))
                 {
                     n++;
-                    printf("%-15s    %-20s  %-20s  %c    %-14s  %02d/%02d/%4d      %-40s  %3d  %-4s  %-20s\n",
+                    printf("%-15s    %-20s  %-20s  %c    %-14s   %02d/%02d/%4d   %-40s  %3d  %-4s  %-20s\n",
                         (*current)->regNat, (*current)->nom, (*current)->prenom, (*current)->sexe, (*current)->numTel, (*current)->dateN.jour,
                         (*current)->dateN.mois, (*current)->dateN.annee, (*current)->adresse.rue, (*current)->adresse.num,
                         (*current)->adresse.cp, (*current)->adresse.ville);
