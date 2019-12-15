@@ -272,7 +272,7 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     }
 }
 
-void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin **currentMed)
+void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin **currentMed, int nbSpec, char **specs)
 {
     int i, j, jour, mois, annee, choix, choixPlage, reponse;
     char jours[7][9] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"},
@@ -303,7 +303,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
 
     rechercherPat(firstP, &currentP);
     printf("\n");
-    rechercherMed(firstM, &currentM);
+    rechercherMed(firstM, &currentM, nbSpec, specs);
 
     if (currentP != NULL)
     {
@@ -733,7 +733,7 @@ void supprimerPat(Patient **first, int *nbTot)
         printf("Personne non trouvée\n");
 }
 
-void supprimerCons(Medecin *first, Medecin **curentM)
+void supprimerCons(Medecin *first, Medecin **curentM, int nbSpec, char **specs)
 {
     int i, j, choix, choixPlage;
     char jours[7][9] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"},
@@ -758,7 +758,7 @@ void supprimerCons(Medecin *first, Medecin **curentM)
 
     Medecin *current = *curentM;
 
-    rechercherMed(first, &current);
+    rechercherMed(first, &current, nbSpec, specs);
     printf("\n");
 
     if (current != NULL)
@@ -812,15 +812,17 @@ void supprimerCons(Medecin *first, Medecin **curentM)
     }
 }
 
-void rechercherMed(Medecin *first, Medecin **current)
+void rechercherMed(Medecin *first, Medecin **current, int nbSpec, char **specs)
 {
-    int n = 0, cp = 0, i;
+    int n = 0, cp = 0, i, choixSpec;
     char nom[21], tmpNom[21], spec[21], tmpSpec[21], inam[15];
 
-    printf("Entrez la spécialité du médecin : ");
-    lire(spec, 20);
-    majuscule(&spec);
-    printf("\n");
+    printf("Entrez la spécialité du médecin : \n");
+    for (i = 0; i < nbSpec; i++)
+        printf("%02d - %-20s\n", i + 1, specs[i]);
+
+    choixSpec = lireInt(&choixSpec, 2);
+    strcpy(spec, specs[choixSpec - 1]);
 
     printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
            "----------------------------------------------------------------------------------\n");
@@ -1254,164 +1256,181 @@ int formatAndCompare(char *chaine1, char *chaine2, int longueurChaineListe)
     }
 }
 
-void lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Medecin **lastM, int *cpM)
+int lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Medecin **lastM, int *cpM)
 {
     //Fichier
     FILE *fdatMed;
     fdatMed = fopen("medecins.dat", "r");
-    // Premier client
-    *firstM = malloc(sizeof(Medecin));
 
-    *currentM = *firstM;
-
-    // Lecture des clients présents dans le fichier
-    fscanf(fdatMed, "%14s", (*currentM)->numInami);
-    fgets((*currentM)->nom, 21, fdatMed);
-    fgets((*currentM)->prenom, 21, fdatMed);
-    fscanf(fdatMed, "%20s", (*currentM)->specialite);
-    while (!feof(fdatMed))
+    if (fdatMed != NULL)
     {
-        *interM = malloc(sizeof(Medecin));
+        // Premier client
+        *firstM = malloc(sizeof(Medecin));
 
-        fscanf(fdatMed, "%14s", (*interM)->numInami);
-        fgets((*interM)->nom, 21, fdatMed);
-        fgets((*interM)->prenom, 21, fdatMed);
-        fscanf(fdatMed, "%20s", (*interM)->specialite);
+        *currentM = *firstM;
 
-        for (*currentM = *firstM; *currentM != NULL; *currentM = (*currentM)->next)
+        // Lecture des clients présents dans le fichier
+        fscanf(fdatMed, "%14s", (*currentM)->numInami);
+        fgets((*currentM)->nom, 21, fdatMed);
+        fgets((*currentM)->prenom, 21, fdatMed);
+        fscanf(fdatMed, "%20s", (*currentM)->specialite);
+        while (!feof(fdatMed))
         {
-            if (strcmp((*interM)->nom, (*firstM)->nom) <= 0)
+            *interM = malloc(sizeof(Medecin));
+
+            fscanf(fdatMed, "%14s", (*interM)->numInami);
+            fgets((*interM)->nom, 21, fdatMed);
+            fgets((*interM)->prenom, 21, fdatMed);
+            fscanf(fdatMed, "%20s", (*interM)->specialite);
+
+            for (*currentM = *firstM; *currentM != NULL; *currentM = (*currentM)->next)
             {
-                if (strcmp((*interM)->nom, (*currentM)->nom) == 0 && strcmp((*interM)->prenom, (*firstM)->prenom) > 0)
+                if (strcmp((*interM)->nom, (*firstM)->nom) <= 0)
+                {
+                    if (strcmp((*interM)->nom, (*currentM)->nom) == 0 && strcmp((*interM)->prenom, (*firstM)->prenom) > 0)
+                    {
+                        (*interM)->next = (*currentM)->next;
+                        (*currentM)->next = *interM;
+                    }
+                    else
+                    {
+                        (*interM)->next = *currentM;
+                        *firstM = *interM;
+                    }
+                    break;
+                }
+                else if (strcmp((*interM)->nom, (*currentM)->nom) <= 0)
+                {
+                    if (strcmp((*interM)->nom, (*currentM)->nom) == 0 && strcmp((*interM)->prenom, (*currentM)->prenom) > 0)
+                    {
+                        (*interM)->next = (*currentM)->next;
+                        (*currentM)->next = *interM;
+                    }
+                    else
+                    {
+                        (*lastM)->next = *interM;
+                        (*interM)->next = *currentM;
+                    }
+                    break;
+                }
+                else if ((*currentM)->next == NULL && strcmp((*interM)->nom, (*currentM)->nom) > 0)
                 {
                     (*interM)->next = (*currentM)->next;
                     (*currentM)->next = *interM;
+                    break;
                 }
-                else
-                {
-                    (*interM)->next = *currentM;
-                    *firstM = *interM;
-                }
-                break;
+                *lastM = *currentM;
             }
-            else if (strcmp((*interM)->nom, (*currentM)->nom) <= 0)
-            {
-                if (strcmp((*interM)->nom, (*currentM)->nom) == 0 && strcmp((*interM)->prenom, (*currentM)->prenom) > 0)
-                {
-                    (*interM)->next = (*currentM)->next;
-                    (*currentM)->next = *interM;
-                }
-                else
-                {
-                    (*lastM)->next = *interM;
-                    (*interM)->next = *currentM;
-                }
-                break;
-            }
-            else if ((*currentM)->next == NULL && strcmp((*interM)->nom, (*currentM)->nom) > 0)
-            {
-                (*interM)->next = (*currentM)->next;
-                (*currentM)->next = *interM;
-                break;
-            }
-            *lastM = *currentM;
+            (*cpM)++;
         }
-        (*cpM)++;
+        *currentM = (*firstM)->next;
+        free(*firstM);
+        *firstM = *currentM;
+
+        //Adresse du dernier
+        for (*currentM = *firstM; *currentM != NULL; *currentM = (*currentM)->next)
+            *lastM = *currentM;
+
+        fclose(fdatMed);
+
+        return 0;
     }
-    *currentM = (*firstM)->next;
-    free(*firstM);
-    *firstM = *currentM;
-
-    //Adresse du dernier
-    for (*currentM = *firstM; *currentM != NULL; *currentM = (*currentM)->next)
-        *lastM = *currentM;
-
-    fclose(fdatMed);
+    else
+        return 1;
+    
 }
 
-void lecturePatients(Patient **firstP, Patient **currentP, Patient **interP, Patient **lastP, int *cpP)
+int lecturePatients(Patient **firstP, Patient **currentP, Patient **interP, Patient **lastP, int *cpP)
 {
     int a = 0;
     //Fichier
     FILE *fdatPat;
     fdatPat = fopen("patients.dat", "r");
-    // Premier client
-    *firstP = malloc(sizeof(Patient));
 
-    *currentP = *firstP;
-
-    // Lecture des clients présents dans le fichier
-    fscanf(fdatPat, "%15s", (*currentP)->regNat);
-    fgets((*currentP)->nom, 21, fdatPat);
-    fgets((*currentP)->prenom, 21, fdatPat);
-    (*currentP)->sexe = fgetc(fdatPat);
-    fscanf(fdatPat, "%13s", (*currentP)->numTel);
-    fscanf(fdatPat, "%2d%*c%2d%*c%4d", &(*currentP)->dateN.jour, &(*currentP)->dateN.mois, &(*currentP)->dateN.annee);
-    fgets((*currentP)->adresse.rue, 41, fdatPat);
-    fscanf(fdatPat, "%3d %4s", &(*currentP)->adresse.num, &(*currentP)->adresse.cp);
-    fgets((*currentP)->adresse.ville, 21, fdatPat);
-
-    while (!feof(fdatPat))
+    if (fdatPat != NULL)
     {
-        *interP = malloc(sizeof(Patient));
+        // Premier client
+        *firstP = malloc(sizeof(Patient));
 
-        fscanf(fdatPat, "%15s", (*interP)->regNat);
-        fgets((*interP)->nom, 21, fdatPat);
-        fgets((*interP)->prenom, 21, fdatPat);
-        (*interP)->sexe = fgetc(fdatPat);
-        fscanf(fdatPat, "%13s", (*interP)->numTel);
-        fscanf(fdatPat, "%2d%*c%2d%*c%4d", &(*interP)->dateN.jour, &(*interP)->dateN.mois, &(*interP)->dateN.annee);
-        fgets((*interP)->adresse.rue, 41, fdatPat);
-        fscanf(fdatPat, "%3d %4s", &(*interP)->adresse.num, &(*interP)->adresse.cp);
-        fgets((*interP)->adresse.ville, 21, fdatPat);
+        *currentP = *firstP;
 
-        for (*currentP = *firstP; *currentP != NULL; *currentP = (*currentP)->next)
+        // Lecture des clients présents dans le fichier
+        fscanf(fdatPat, "%15s", (*currentP)->regNat);
+        fgets((*currentP)->nom, 21, fdatPat);
+        fgets((*currentP)->prenom, 21, fdatPat);
+        (*currentP)->sexe = fgetc(fdatPat);
+        fscanf(fdatPat, "%13s", (*currentP)->numTel);
+        fscanf(fdatPat, "%2d%*c%2d%*c%4d", &(*currentP)->dateN.jour, &(*currentP)->dateN.mois, &(*currentP)->dateN.annee);
+        fgets((*currentP)->adresse.rue, 41, fdatPat);
+        fscanf(fdatPat, "%3d %4s", &(*currentP)->adresse.num, &(*currentP)->adresse.cp);
+        fgets((*currentP)->adresse.ville, 21, fdatPat);
+
+        while (!feof(fdatPat))
         {
-            if (strcmp((*interP)->nom, (*firstP)->nom) <= 0)
+            *interP = malloc(sizeof(Patient));
+
+            fscanf(fdatPat, "%15s", (*interP)->regNat);
+            fgets((*interP)->nom, 21, fdatPat);
+            fgets((*interP)->prenom, 21, fdatPat);
+            (*interP)->sexe = fgetc(fdatPat);
+            fscanf(fdatPat, "%13s", (*interP)->numTel);
+            fscanf(fdatPat, "%2d%*c%2d%*c%4d", &(*interP)->dateN.jour, &(*interP)->dateN.mois, &(*interP)->dateN.annee);
+            fgets((*interP)->adresse.rue, 41, fdatPat);
+            fscanf(fdatPat, "%3d %4s", &(*interP)->adresse.num, &(*interP)->adresse.cp);
+            fgets((*interP)->adresse.ville, 21, fdatPat);
+
+            for (*currentP = *firstP; *currentP != NULL; *currentP = (*currentP)->next)
             {
-                if (strcmp((*interP)->nom, (*currentP)->nom) == 0 && strcmp((*interP)->prenom, (*firstP)->prenom) > 0)
+                if (strcmp((*interP)->nom, (*firstP)->nom) <= 0)
+                {
+                    if (strcmp((*interP)->nom, (*currentP)->nom) == 0 && strcmp((*interP)->prenom, (*firstP)->prenom) > 0)
+                    {
+                        (*interP)->next = (*currentP)->next;
+                        (*currentP)->next = *interP;
+                    }
+                    else
+                    {
+                        (*interP)->next = *currentP;
+                        *firstP = *interP;
+                    }
+                    break;
+                }
+                else if (strcmp((*interP)->nom, (*currentP)->nom) <= 0)
+                {
+                    if (strcmp((*interP)->nom, (*currentP)->nom) == 0 && strcmp((*interP)->prenom, (*currentP)->prenom) > 0)
+                    {
+                        (*interP)->next = (*currentP)->next;
+                        (*currentP)->next = *interP;
+                    }
+                    else
+                    {
+                        (*lastP)->next = *interP;
+                        (*interP)->next = *currentP;
+                    }
+                    break;
+                }
+                else if ((*currentP)->next == NULL && strcmp((*interP)->nom, (*currentP)->nom) > 0)
                 {
                     (*interP)->next = (*currentP)->next;
                     (*currentP)->next = *interP;
+                    break;
                 }
-                else
-                {
-                    (*interP)->next = *currentP;
-                    *firstP = *interP;
-                }
-                break;
+                *lastP = *currentP;
             }
-            else if (strcmp((*interP)->nom, (*currentP)->nom) <= 0)
-            {
-                if (strcmp((*interP)->nom, (*currentP)->nom) == 0 && strcmp((*interP)->prenom, (*currentP)->prenom) > 0)
-                {
-                    (*interP)->next = (*currentP)->next;
-                    (*currentP)->next = *interP;
-                }
-                else
-                {
-                    (*lastP)->next = *interP;
-                    (*interP)->next = *currentP;
-                }
-                break;
-            }
-            else if ((*currentP)->next == NULL && strcmp((*interP)->nom, (*currentP)->nom) > 0)
-            {
-                (*interP)->next = (*currentP)->next;
-                (*currentP)->next = *interP;
-                break;
-            }
-            *lastP = *currentP;
+            (*cpP)++;
         }
-        (*cpP)++;
+        *currentP = (*firstP)->next;
+        free(*firstP);
+        *firstP = *currentP;
+
+        //Adresse du dernier
+        for (*currentP = *firstP; *currentP != NULL; *currentP = (*currentP)->next)
+            *lastP = *currentP;
+
+        fclose(fdatPat);
+
+        return 0;
     }
-    *currentP = (*firstP)->next;
-    free(*firstP);
-    *firstP = *currentP;
-
-    //Adresse du dernier
-    for (*currentP = *firstP; *currentP != NULL; *currentP = (*currentP)->next)
-        *lastP = *currentP;
-
-    fclose(fdatPat);
+    else
+        return 1;
 }

@@ -9,7 +9,7 @@ int main()
     // Fichiers
     FILE *fdatC, *fdatSpe;
     fdatC = fopen("consultations.dat", "r");
-    fdatSpe = fopen("speicalites.dat", "r");
+    fdatSpe = fopen("specialites.dat", "r");
 
     // Variables
     Medecin *firstM, *currentM, *nextM, *lastM, *interM;
@@ -50,26 +50,21 @@ int main()
         // On revient au début du fichier
         rewind(fdatSpe);
 
-        printf("Position dans le fichier : %d \n", ftell(fdatSpe));
-        printf("Nombre de spécialités : %d\n", cpSpe);
-
         // Initialisation dynamique de la taille du tableau
         tabSpe = (char **)malloc(cpSpe * sizeof(char *));
         tabNomemclature = (char **)malloc(cpSpe * sizeof(char *));
+        // Initialisation de la taille des chaînes contenues dans les tableaux
         for (i = 0; i < cpSpe; i++)
         {
             tabSpe[i] = (char *)malloc(21 * sizeof(char));
             tabNomemclature[i] = (char *)malloc(7 * sizeof(char));
         }
 
+        // Lecture
         for (i = 0; i < cpSpe; i++)
         {
             fscanf(fdatSpe, "%20s%6s", tabSpe[i], tabNomemclature[i]);
         }
-
-        // Test affichage
-        for (i = 0; i < cpSpe; i++)
-            printf("%-20s  %-6s\n", tabSpe[i], tabNomemclature[i]);
 
         fclose(fdatSpe);
     }
@@ -83,8 +78,12 @@ int main()
 
 
     // Lecture Medecins
-    lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM);
-
+    if (lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM))
+    {
+        printf("Erreur lecture des médecins\n");
+        system("echo \"Le programme va s'arrêter...\" && read a");
+        return 0;
+    }
     // Lecture des consultations
     for (currentM = firstM; currentM != NULL; currentM = currentM->next)
     {
@@ -100,7 +99,12 @@ int main()
     }
 
     // Lecture patients
-    lecturePatients(&firstP, &currentP, &interP, &lastP, &cpP);
+    if (lecturePatients(&firstP, &currentP, &interP, &lastP, &cpP))
+    {
+        printf("Erreur lecture des patients\n");
+        system("echo \"Le programme va s'arrêter...\" && read a");
+        return 0;
+    }
 
     // Menu interactif
     // printf("\e[1;1H\e[2J");
@@ -126,7 +130,7 @@ int main()
                     supprimerMed(&firstM, &cpM);
                     break;
                 case 4:
-                    rechercherMed(firstM, &currentM);
+                    rechercherMed(firstM, &currentM, cpSpe, tabSpe);
                     system("echo \"Appuyer sur une touche pour continuer...\" && read a");
                     printf("\e[1;1H\e[2J");
                     break;
@@ -168,10 +172,10 @@ int main()
                     printf("\e[1;1H\e[2J");
                     break;
                 case 5:
-                    ajouterCons(firstP, &currentP, firstM, &currentM);
+                    ajouterCons(firstP, &currentP, firstM, &currentM, cpSpe, tabSpe);
                     break;
                 case 6:
-                    supprimerCons(firstM, &currentM);
+                    supprimerCons(firstM, &currentM, cpSpe, tabSpe);
                     break;
                 case 7:
                     exitMenu = 1;

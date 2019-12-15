@@ -42,8 +42,8 @@ struct Patient
 // Prototype des fonctions
 
 //Lectures fichiers
-void lectureMedecins(Medecin **, Medecin **, Medecin **, Medecin **, int *);
-void lecturePatients(Patient **, Patient **, Patient **, Patient **, int *);
+int lectureMedecins(Medecin **, Medecin **, Medecin **, Medecin **, int *);
+int lecturePatients(Patient **, Patient **, Patient **, Patient **, int *);
 
 // Fonctions Menu
 int menuPrincipal();
@@ -53,16 +53,15 @@ int menuPat();
 void afficherListeMed(Medecin *, int);
 void afficherListePat(Patient *, int);
 
-// void ajouterMed(Medecin **, Medecin **, Medecin **, int *, char[][21], char[][7], int);
 void ajouterMed(Medecin **, Medecin **, Medecin **, int *, char **, char **, int);
 void ajouterPat(Patient **, Patient **, Patient **, int *);
-void ajouterCons(Patient *, Patient **, Medecin *, Medecin **);
+void ajouterCons(Patient *, Patient **, Medecin *, Medecin **, int, char **);
 
 void supprimerMed(Medecin **, int *);
 void supprimerPat(Patient **, int *);
-void supprimerCons(Medecin *, Medecin **);
+void supprimerCons(Medecin *, Medecin **, int, char **);
 
-void rechercherMed(Medecin *, Medecin **);
+void rechercherMed(Medecin *, Medecin **, int, char **);
 void rechercherPat(Patient *, Patient **);
 
 void afficherHoraire(Medecin *, Medecin *);
