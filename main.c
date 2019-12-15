@@ -17,8 +17,8 @@ int main()
 
     int cpM = 0, cpP = 0, exitMenu = 0, i, j, med = 0;
     int n = 1, heure;
-    int cpSpe = 0, c;
-    char **tabSpe, **tabNomemclature;
+    int cpSpe = 0, c, redemarre = 1;
+    char **tabSpe = NULL, **tabNomemclature = NULL;
     char choixSave = 'n';
     char heuresHoraire[17][12] = {
         "08H00-08H30",
@@ -70,6 +70,7 @@ int main()
     }
     else
     {
+        fclose(fdatSpe);
         printf("Erreur lecture des spécialités\n");
         system("echo \"Le programme va s'arrêter...\" && read a");
         return 0;
@@ -107,7 +108,7 @@ int main()
     }
 
     // Menu interactif
-    // printf("\e[1;1H\e[2J");
+    printf("\e[1;1H\e[2J");
     while (1)
     {
         switch (menuPrincipal())
@@ -140,6 +141,16 @@ int main()
                     printf("\e[1;1H\e[2J");
                     break;
                 case 6:
+                    if (redemarre)
+                        ajouterSpecialite(cpSpe, &redemarre, tabSpe, tabNomemclature);
+                    else
+                    {
+                        printf("\e[1;1H\e[2J");
+                        printf("Un redémarrange est nécessaire pour l'utilisation de cette fonctionnalité\n");
+                    }
+
+                    break;
+                case 7:
                     exitMenu = 1;
                     break;
                 default:

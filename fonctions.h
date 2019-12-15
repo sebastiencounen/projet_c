@@ -70,7 +70,7 @@ void reinitialisationRDV(Medecin *);
 
 void sauvegarde(Medecin *, Patient *);
 
-void ajouterSpecialite(FILE *, int *, int *);
+void ajouterSpecialite(int, int *, char **, char **);
 
 // Autres fonctions utilitaires
 void majuscule(char *);

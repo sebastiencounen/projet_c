@@ -14,19 +14,19 @@ void afficherListeMed(Medecin *first, int cp)
            "************************\n",
            cp);
     printf("\nNuméro inami       Nom                   Prénom               Spécialité          \n"
-           "----------------------------------------------------------------------------------\n");
+           "----------------------------------------------------------------------------------------\n");
 
     current = first;
     while (current != NULL)
     {
-        printf("%-14s     %-20s  %-20s %-20s\n",
-               current->numInami, current->nom, current->prenom, current->specialite);
+        printf("%-14s     %-20s  %-20s %-20s%-6s\n",
+               current->numInami, current->nom, current->prenom, current->specialite, current->nomenclature);
 
         n++;
         current = current->next;
     }
 
-    printf("----------------------------------------------------------------------------------\n");
+    printf("----------------------------------------------------------------------------------------\n");
 }
 
 void afficherListePat(Patient *first, int cp)
@@ -111,13 +111,9 @@ void ajouterMed(Medecin **current, Medecin **first, Medecin **last, int *nb, cha
         {
             return;
         }
-        
-        // lire(new->specialite, 20);
-        // majuscule(&new->specialite);
-
 
         printf("\n");
-        *nb++;
+        *nb += 1;
 
         // Initialisation à vide des consultations de ce médecin
         for (i = 1; i <= 6; i++)
@@ -234,7 +230,7 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
         majuscule(&new->adresse.ville);
 
         printf("\n");
-        *nb++;
+        *nb += 1;
 
         // Tri
         for (*current = *first; *current != NULL; *current = (*current)->next)
@@ -1049,9 +1045,55 @@ void reinitialisationRDV(Medecin *first)
     }
 }
 
-void ajouterSpecialite(FILE *file, int *totAct, int *bool)
+void ajouterSpecialite(int totAct, int *boolean, char **specs, char **nomenclature)
 {
-    // 
+    int i = 0, n = 0;
+    char newSpec[21], newCode[7], tmpSpec[21]; 
+    
+    FILE *file;
+    file = fopen("specialites.dat", "a");
+    if (file != NULL)
+    {
+        printf("Nom de la spécialité : ");
+        lire(newSpec, 20);
+        majuscule(&newSpec);
+        printf("\nCode nomenclature : ");
+        lire(newCode, 6);
+        printf("\n");
+
+        // Vérification doublons
+        for (i = 0; i < totAct; i++)
+        {
+            strcpy(tmpSpec, specs[i]);
+            if (formatAndCompare(newSpec, tmpSpec, strlen(tmpSpec)) == 0 || strcmp(newCode, nomenclature[i]) == 0)
+                n++;
+        }
+
+        if (n == 0)
+        {   
+            // Et la nouvelle
+            fprintf(file, "%-20s%-6s\n", newSpec, newCode);
+
+            // Indique qu'une relecture est nécessaire
+            *boolean = 0;
+        }
+        else
+        {
+            printf("Spécialité déjà présente (doublon sur le code ou le nom");
+            *boolean = 1;
+        }
+
+        fclose(file);
+        
+    }
+    else
+    {
+        *boolean = 1;
+        fclose(file);
+        system("echo -e \"Ajout impossible de la spécialité\\n Appuyer sur une touche pour continuer...\" && read a");
+        return;
+    }
+    
 }
 
 int menuPrincipal()
@@ -1084,7 +1126,8 @@ int menuMed()
            "3. Supprimer\n"
            "4. Rechercher\n"
            "5. Afficher horaire\n"
-           "6. Retour au menu principal\n: ");
+           "6. Ajouter une spécialité\n"
+           "7. Retour au menu principal\n: ");
 
     choix = lireInt(&choix, 1);
     printf("\n");
@@ -1273,7 +1316,7 @@ int lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Mede
         fscanf(fdatMed, "%14s", (*currentM)->numInami);
         fgets((*currentM)->nom, 21, fdatMed);
         fgets((*currentM)->prenom, 21, fdatMed);
-        fscanf(fdatMed, "%20s", (*currentM)->specialite);
+        fscanf(fdatMed, "%20s%6s", (*currentM)->specialite, (*currentM)->nomenclature);
         while (!feof(fdatMed))
         {
             *interM = malloc(sizeof(Medecin));
@@ -1281,7 +1324,7 @@ int lectureMedecins(Medecin **firstM, Medecin **currentM, Medecin **interM, Mede
             fscanf(fdatMed, "%14s", (*interM)->numInami);
             fgets((*interM)->nom, 21, fdatMed);
             fgets((*interM)->prenom, 21, fdatMed);
-            fscanf(fdatMed, "%20s", (*interM)->specialite);
+            fscanf(fdatMed, "%20s%6s", (*interM)->specialite, (*interM)->nomenclature);
 
             for (*currentM = *firstM; *currentM != NULL; *currentM = (*currentM)->next)
             {
