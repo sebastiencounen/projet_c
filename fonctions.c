@@ -581,7 +581,7 @@ void supprimerMed(Medecin **first, int *nbTot)
         tmp = *first;
         *first = (*first)->next;
         free(tmp);
-        *nbTot--;
+        *nbTot -= 1;
 
         printf("\nSuppression effectuée avec succès\n");
     }
@@ -607,7 +607,7 @@ void supprimerMed(Medecin **first, int *nbTot)
             free(tmp);
         }
 
-        *nbTot--;
+        *nbTot -= 1;
 
         printf("\nSuppression effectuée avec succès\n");
     }
@@ -695,7 +695,7 @@ void supprimerPat(Patient **first, int *nbTot)
         tmp = *first;
         *first = (*first)->next;
         free(tmp);
-        *nbTot--;
+        *nbTot -= 1;
 
         printf("\nSuppression effectuée avec succès\n");
     }
@@ -721,7 +721,7 @@ void supprimerPat(Patient **first, int *nbTot)
             free(tmp);
         }
 
-        *nbTot--;
+        *nbTot -= 1;
 
         printf("\nSuppression effectuée avec succès\n");
     }
