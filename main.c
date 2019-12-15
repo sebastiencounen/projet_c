@@ -84,7 +84,7 @@ int main()
                     rechercherMed(firstM, &currentM);
                     break;
                 case 5:
-                    afficherHoraire(firstM, &currentM);
+                    afficherHoraire(firstM, currentM);
                     break;
                 case 6:
                     exitMenu = 1;
